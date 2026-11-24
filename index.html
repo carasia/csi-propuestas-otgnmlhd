@@ -1,0 +1,680 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style></head><body>
+<title>Propuestas de diseño · CSI Industries Energy Group</title>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=IBM+Plex+Mono:wght@400;500&family=Public+Sans:wght@400;500;600;700&display=swap">
+<style>
+/* Client presentation of the homepage directions, in CSI's own brand (fixed look in either host theme).
+   Layout: midnight header; a cover with the brief and a card per direction; a viewer that runs each live
+   mockup in a frame with prev/next, desktop/phone width and a feedback panel; a summary of everyone's feedback. */
+:root{
+  --navy:#032955; --midnight:#021B3A; --steel:#0F3D78; --orange:#EC620F; --orange-dk:#C94F07;
+  --mist:#F3F5F9; --fog:#E7EBF0; --line:#DCE2EA; --ink:#0E1B2C; --muted:#5B6878; --paper:#FFFFFF; --ok:#17804A; --no:#B03022;
+  --f-ui:"Public Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-wide:"Archivo","Public Sans",system-ui,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+  --gl:max(16px,env(safe-area-inset-left,0px)); --gr:max(16px,env(safe-area-inset-right,0px));
+  --hd:60px;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{background:var(--mist);color:var(--ink);font:15px/1.6 var(--f-ui);margin:0}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--midnight)}
+img{max-width:100%;display:block}
+a{color:inherit}
+button,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+h1,h2,h3{text-wrap:balance;margin:0}
+.in{max-width:1240px;margin:0 auto;padding-left:var(--gl);padding-right:var(--gr)}
+.mono{font:500 12px/1.2 var(--f-mono);letter-spacing:.1em;text-transform:uppercase}
+
+/* header */
+.hd{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:var(--midnight);color:#fff}
+.hd .in{display:flex;align-items:center;gap:18px;height:var(--hd);max-width:none}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;min-width:0}
+.brand img{height:26px;width:auto}
+.brand span{font:600 14px/1.2 var(--f-ui);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.brand span i{font-style:normal;color:#8FA3BF;font-weight:500}
+.tabs{display:flex;gap:4px;margin-left:auto}
+.tabs a{text-decoration:none;font-weight:600;font-size:14px;padding:8px 12px;border-radius:6px;color:#C9D4E3}
+.tabs a:hover{background:#0B2A52;color:#fff}
+.tabs a[aria-current="page"]{color:#fff;box-shadow:inset 0 -2px 0 var(--orange)}
+.lang{display:flex;font:500 12px/1 var(--f-mono);border:1px solid #2A4870;border-radius:6px;overflow:hidden;flex:none}
+.lang button{border:0;background:none;padding:8px 10px;cursor:pointer;color:#C9D4E3}
+.lang button[aria-pressed="true"]{background:var(--orange);color:#fff}
+
+.savepdf{display:inline-flex;align-items:center;gap:8px;flex:none;border:0;border-radius:6px;background:var(--orange);color:#fff;font-weight:700;font-size:13.5px;padding:9px 14px;cursor:pointer;white-space:nowrap}
+.savepdf:hover{background:var(--orange-dk)}
+.savepdf .short{display:none}
+.savepdf-m{display:none}
+@media (max-width:760px){.hd .savepdf{display:none!important}.tabs{display:none}.hd .lang{margin-left:auto}body[data-screen="inicio"] .savepdf-m{display:flex;width:100%;justify-content:center;padding:13px;font-size:15px;margin:4px 0 8px}}
+@media (max-width:700px){.savebar .sb-acts{flex-wrap:nowrap}.savebar .in{padding-block:8px;gap:6px}.savebar #revCount{font-size:13px}}
+
+/* cover */
+.cover{background:var(--navy);color:#fff;position:relative;overflow:hidden}
+.cover::after{content:"";position:absolute;top:0;bottom:0;right:-4%;width:30%;background:var(--midnight);clip-path:polygon(30% 0,100% 0,100% 100%,0 100%)}
+.cover::before{content:"";position:absolute;top:0;bottom:0;right:calc(26% + 4px);width:12px;background:var(--orange);transform:skewX(-17deg);z-index:1}
+.cover .in{position:relative;z-index:2;padding-block:52px 56px;display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:40px;align-items:end}
+.cover .mono{color:#FFB283}
+.cover h1{font:800 clamp(34px,5vw,60px)/1.02 var(--f-wide);letter-spacing:-.035em;margin:12px 0 16px}
+.cover p{margin:0;color:#D6DFEA;max-width:58ch;font-size:16.5px}
+.brief{background:rgba(2,27,58,.72);border:1px solid #23446E;border-radius:6px;padding:18px 20px;font-size:14px;backdrop-filter:blur(4px)}
+.brief b{display:block;font:600 12px/1 var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:#FFB283;margin-bottom:10px}
+.brief ul{margin:0;padding:0;list-style:none;display:grid;gap:7px}
+.brief li{display:flex;gap:10px;color:#E3EAF3}
+.brief li::before{content:"";flex:none;width:7px;height:7px;margin-top:8px;background:var(--orange);transform:skewX(-17deg)}
+.how{padding-block:28px 6px;display:flex;flex-wrap:wrap;gap:10px 28px;color:var(--muted);font-size:14px}
+.how span{display:flex;gap:8px;align-items:baseline}
+.how b{font:600 12px/1 var(--f-mono);color:var(--orange-dk)}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;padding-block:20px 64px}
+.card{display:flex;flex-direction:column;background:var(--paper);border:1px solid var(--line);border-radius:6px;overflow:hidden;text-decoration:none;transition:border-color .15s,transform .15s}
+.card:hover{border-color:var(--navy);transform:translateY(-2px)}
+.card .th{aspect-ratio:16/10;max-width:100%;background:var(--fog) center top/cover no-repeat;position:relative}
+.card .th .num{position:absolute;left:0;top:0;background:var(--midnight);color:#fff;font:700 15px/1 var(--f-wide);padding:10px 14px 10px 12px;clip-path:polygon(0 0,100% 0,calc(100% - 8px) 100%,0 100%)}
+.card .th .mine{position:absolute;right:10px;top:10px;display:flex;gap:6px}
+.chip{font:600 11px/1 var(--f-mono);letter-spacing:.04em;padding:6px 8px;border-radius:3px;background:var(--paper);color:var(--navy);box-shadow:0 2px 8px rgba(2,27,58,.2)}
+.chip.fav{background:var(--orange);color:#fff}
+.chip.yes{color:var(--ok)}.chip.maybe{color:var(--orange-dk)}.chip.no{color:var(--no)}
+.card .tx{padding:16px 18px 18px;display:flex;flex-direction:column;gap:6px;flex:1}
+.card h2{font:700 19px/1.2 var(--f-wide);letter-spacing:-.015em;color:var(--midnight)}
+.card p{margin:0;color:var(--muted);font-size:14px;flex:1}
+.card .go{margin-top:8px;font-weight:700;font-size:14px;color:var(--orange-dk)}
+
+/* viewer */
+.viewer{display:flex;flex-direction:column;height:calc(100dvh - var(--hd) - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px))}
+.vbar{background:var(--paper);border-bottom:1px solid var(--line)}
+.vbar .in{max-width:none;display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;padding-block:10px}
+.vt{min-width:0;flex:1 1 280px}
+.vt h2{font:700 18px/1.2 var(--f-wide);color:var(--midnight);letter-spacing:-.01em}
+.vt h2 small{font:600 12px/1 var(--f-mono);color:var(--orange-dk);letter-spacing:.06em;margin-right:8px}
+.vt p{margin:2px 0 0;color:var(--muted);font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ctl{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.btn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--paper);border-radius:5px;padding:8px 12px;cursor:pointer;font-weight:600;font-size:13.5px;color:var(--navy);text-decoration:none;white-space:nowrap}
+.btn:hover{border-color:var(--navy)}
+.btn[aria-pressed="true"]{background:var(--navy);border-color:var(--navy);color:#fff}
+.btn.pri{background:var(--orange);border-color:var(--orange);color:#fff}
+.btn.pri:hover{background:var(--orange-dk)}
+.btn[disabled]{opacity:.4;cursor:default}
+.seg{display:flex;border:1px solid var(--line);border-radius:5px;overflow:hidden}
+.seg .btn{border:0;border-radius:0}
+.stage{flex:1;display:flex;min-height:0}
+.frame{flex:1;display:flex;justify-content:center;min-width:0;background:#D9DFE8;overflow:auto}
+.frame iframe{border:0;width:100%;height:100%;background:#fff;display:block}
+.frame.phone{padding:18px 0}
+.frame.phone iframe{width:390px;max-width:100%;height:calc(100% - 4px);border-radius:22px;box-shadow:0 0 0 10px var(--midnight),0 20px 50px rgba(2,27,58,.35)}
+
+/* feedback panel */
+.fb{width:340px;flex:none;background:var(--paper);border-left:1px solid var(--line);display:flex;flex-direction:column;overflow:auto}
+.fb .in{padding-block:18px;max-width:none;display:flex;flex-direction:column;gap:16px}
+.fb h3{font:600 12px/1 var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.react{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.react button{border:1px solid var(--line);background:var(--paper);border-radius:5px;padding:10px 4px;cursor:pointer;font-weight:600;font-size:13px;color:var(--navy)}
+.react button[aria-pressed="true"][data-r="yes"]{background:var(--ok);border-color:var(--ok);color:#fff}
+.react button[aria-pressed="true"][data-r="maybe"]{background:var(--orange);border-color:var(--orange);color:#fff}
+.react button[aria-pressed="true"][data-r="no"]{background:var(--no);border-color:var(--no);color:#fff}
+.favb{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;border:1px dashed #B7C3D3;background:var(--mist);border-radius:5px;padding:11px;cursor:pointer;font-weight:700;color:var(--navy)}
+.favb[aria-pressed="true"]{border:1px solid var(--orange);background:#FFF1E7;color:var(--orange-dk)}
+.favb svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8}
+.favb[aria-pressed="true"] svg{fill:currentColor}
+textarea{width:100%;min-height:140px;resize:vertical;border:1px solid #C5CEDA;border-radius:5px;padding:10px 12px;font-size:14.5px;background:var(--paper)}
+textarea:focus{outline:2px solid var(--orange);outline-offset:0;border-color:var(--orange)}
+.saved{font-size:12.5px;color:var(--muted);min-height:1.2em}
+.where{font-size:12.5px;color:var(--muted);background:var(--mist);border-radius:5px;padding:10px 12px}
+.others{display:grid;gap:10px}
+.others .o{border-top:1px solid var(--fog);padding-top:10px;font-size:13.5px}
+.others .o b{color:var(--navy)}
+.others .o p{margin:4px 0 0;color:#3A4A5E;white-space:pre-wrap;overflow-wrap:anywhere}
+.fbtoggle{display:none}
+
+.notice{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-left:4px solid var(--orange);margin-top:22px}
+.notice > div{background:var(--paper);padding:18px 22px;display:flex;gap:14px;align-items:flex-start}
+.notice svg{flex:none;width:26px;height:26px;fill:none;stroke:var(--orange-dk);stroke-width:1.7;margin-top:2px}
+.notice h2{font:700 16px/1.3 var(--f-wide);color:var(--midnight);margin-bottom:4px}
+.notice p{margin:0;color:var(--muted);font-size:14px;max-width:60ch}
+.draft{font-size:12.5px;color:var(--muted);border-top:1px solid var(--fog);padding-top:12px}
+.draft b{color:var(--orange-dk);font-weight:600}
+@media (max-width:1000px){.notice{grid-template-columns:minmax(0,1fr)}}
+
+.frame{position:relative}
+.frame.max{position:fixed;inset:0;z-index:80;padding:0!important;background:#fff}
+.frame.max iframe{width:100%!important;height:100%!important;border-radius:0!important;box-shadow:none!important}
+.exitfs{display:none;position:absolute;bottom:calc(18px + env(safe-area-inset-bottom,0px));left:calc(18px + env(safe-area-inset-left,0px));z-index:2;border:0;border-radius:999px;background:rgba(2,27,58,.88);color:#fff;font-weight:600;font-size:13px;padding:9px 16px;cursor:pointer;box-shadow:0 6px 20px rgba(2,27,58,.3)}
+.frame.max .exitfs{display:block}
+.review{display:grid;gap:16px;padding-bottom:20px}
+.rv{display:grid;grid-template-columns:220px minmax(0,1fr);background:var(--paper);border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.rv-th{display:block;background:var(--fog) center top/cover no-repeat;min-height:150px;position:relative;text-decoration:none}
+.rv-th .num{position:absolute;left:0;top:0;background:var(--midnight);color:#fff;font:700 15px/1 var(--f-wide);padding:10px 14px 10px 12px;clip-path:polygon(0 0,100% 0,calc(100% - 8px) 100%,0 100%)}
+.rv-b{padding:18px 20px;display:grid;gap:12px;min-width:0}
+.rv-h{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:6px 16px}
+.rv-h h2{font:700 19px/1.2 var(--f-wide);color:var(--midnight)}
+.rv-h a{font-weight:700;font-size:14px;color:var(--orange-dk);text-decoration:none}
+.rv-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center}
+.rv .react{max-width:420px}
+.rv .favb{width:auto;padding:10px 14px}
+.rv textarea{min-height:84px}
+.rv label{font:600 12px/1 var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.savebar{position:sticky;bottom:0;z-index:20;background:var(--paper);border-top:1px solid var(--line);box-shadow:0 -10px 30px rgba(2,27,58,.08);padding-bottom:env(safe-area-inset-bottom,0px)}
+.savebar .in{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 16px;padding-block:12px}
+.savebar #revCount{color:var(--muted);font-size:14px}
+.sb-acts{display:flex;flex-wrap:wrap;gap:8px}
+.btn.big{padding:11px 18px;font-size:15px}
+@media (max-width:700px){.rv{grid-template-columns:minmax(0,1fr)}.rv-th{min-height:160px}.rv-row{grid-template-columns:minmax(0,1fr)}.sb-acts{width:100%}.sb-acts .btn{flex:1;justify-content:center}}
+
+body:not([data-screen="inicio"]) #savepdf{display:none}
+.submitfb{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;border:0;border-radius:5px;background:var(--ok);color:#fff;font-weight:700;font-size:15px;padding:12px;cursor:pointer}
+.submitfb:hover{background:#106338}
+.submitfb svg{width:18px;height:18px;fill:none;stroke:#fff;stroke-width:2.4}
+.subhint{margin:-6px 0 0;font-size:12.5px;color:var(--muted)}
+.subdone{font-size:13px;font-weight:600;color:var(--ok);min-height:1.2em;margin:-8px 0 0}
+@media (max-width:700px){.savebar .sb-acts .btn{padding:10px 10px;font-size:14px}.savebar .sb-acts{gap:6px}}
+
+.autonote{margin:6px 0 0;font-size:12.5px;color:var(--muted)}
+.rv .autonote{margin-top:-6px}
+.sendbox{background:var(--paper);border:1px solid var(--line);border-top:4px solid var(--orange);border-radius:6px;padding:22px 24px;margin:8px 0 24px}
+.sendbox h2{font:700 22px/1.2 var(--f-wide);color:var(--midnight);margin-bottom:12px}
+.sendsteps{margin:0 0 18px;padding-left:22px;display:grid;gap:8px;color:#3A4A5E;max-width:70ch}
+.sendsteps b{color:var(--midnight)}
+.sendbtns{display:flex;flex-wrap:wrap;gap:10px}
+.btn.mail{background:var(--navy);border-color:var(--navy);color:#fff}
+.btn.mail:hover{background:var(--midnight)}
+.btn.wa{background:#1FA855;border-color:#1FA855;color:#fff}
+.btn.wa:hover{background:#178A45}
+.btn.sm{padding:4px 10px;font-size:12.5px}
+.mailalt{margin:14px 0 0;font-size:13.5px;color:var(--muted);display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px}
+.mailalt b{color:var(--navy);user-select:all}
+@media (max-width:700px){.sendbox{padding:18px 16px}.sendbtns .btn{flex:1 1 100%;justify-content:center}}
+
+.extra{background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:18px 20px;margin:0 0 8px;display:grid;gap:8px}
+.extra label{font:700 19px/1.2 var(--f-wide);color:var(--midnight);text-transform:none;letter-spacing:0}
+.extra p{margin:0;color:var(--muted);font-size:14px}
+.extra textarea{min-height:120px}
+.attachnote{margin:12px 0 0;padding:10px 12px;border-radius:5px;background:#FFF1E7;color:var(--orange-dk);font-weight:600;font-size:14px}
+.pdfopt{margin:12px 0 0;font-size:13.5px;color:var(--muted)}
+@media (max-width:700px){.savebar #copy,.savebar #dopdf{display:none}}
+@media (max-width:900px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.grid{grid-template-columns:minmax(0,1fr)}}
+/* summary */
+.sum{padding-block:40px 64px}
+.sum h1{font:800 clamp(28px,4vw,44px)/1.05 var(--f-wide);letter-spacing:-.03em;color:var(--midnight);margin-bottom:8px}
+.sum .lead{margin:0 0 24px;color:var(--muted);max-width:62ch}
+.tbl{overflow-x:auto;border:1px solid var(--line);background:var(--paper)}
+table{border-collapse:collapse;width:100%;min-width:640px;font-variant-numeric:tabular-nums}
+th{background:var(--navy);color:#fff;text-align:left;font:600 12px/1.2 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;padding:12px 14px}
+td{padding:12px 14px;border-top:1px solid var(--line);vertical-align:top;font-size:14px}
+td.n{font-weight:700;color:var(--navy)}
+td .cm{display:block;margin-top:6px;color:#3A4A5E;white-space:pre-wrap;overflow-wrap:anywhere}
+td .cm b{color:var(--navy)}
+.bar{display:flex;align-items:center;gap:8px}
+.bar i{display:block;height:8px;border-radius:2px;background:var(--orange)}
+.copyrow{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-top:20px}
+.copyrow p{margin:0;color:var(--muted);font-size:13.5px;flex:1 1 260px}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--midnight);color:#fff;padding:11px 16px;border-radius:6px;font-size:14px;z-index:70;max-width:calc(100% - 32px)}
+
+@media (max-width:900px){
+  .cover .in{grid-template-columns:minmax(0,1fr)}
+  .fb{position:fixed;left:0;right:0;bottom:0;width:auto;max-height:72dvh;border-left:0;border-top:1px solid var(--line);box-shadow:0 -12px 40px rgba(2,27,58,.25);z-index:55;padding-bottom:env(safe-area-inset-bottom,0px);transform:translateY(105%);transition:transform .25s}
+  .fb.open{transform:none}
+  .fbtoggle{display:inline-flex}
+  .device{display:none}
+  .vt p{display:none}
+}
+@media (max-width:640px){
+  .brand span i{display:none}
+  .tabs a{padding:8px 8px;font-size:13px}
+  .cover::after{width:26%;right:-10%}
+  .cover::before{right:calc(14% + 4px)}
+  .open-new{display:none}
+  .vbar .in{flex-wrap:nowrap;gap:8px;padding-block:8px}
+  .vbar .in > .btn span{display:none}
+  .vt{flex:1 1 0}
+  .vt h2{font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .vt h2 small{display:block;margin:0 0 2px}
+  #pos{display:none}
+  .ctl{flex-wrap:nowrap;gap:6px}
+  .ctl .btn{padding:8px 10px}
+}
+@media (max-width:430px){.brand > span{display:none}.hd .in{gap:10px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="i-wa" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.9" d="M4 20l1.4-4A8 8 0 1 1 8.5 19z"/><path fill="currentColor" d="M9 9.2c.3-.6.7-.7 1-.6l.7 1.6-.6.8c.5 1.1 1.4 2 2.5 2.5l.8-.6 1.6.7c.1.4 0 .8-.6 1.1-1.9.9-6.2-3.3-5.4-5.5z"/></symbol></svg>
+<header class="hd"><div class="in">
+  <a class="brand" href="#inicio"><img src="img/logo-mark-white.png" alt="CSI" width="300" height="130"><span><span data-t="title">Página de inicio</span> <i data-t="sub">· propuestas</i></span></a>
+  <nav class="tabs" aria-label="Sections"><a href="#inicio" data-nav="inicio" data-t="nCover">Propuestas</a></nav>
+  <button class="savepdf" type="button" id="savepdf"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg><span data-t="savePdf">Guardar comentarios en PDF</span><span class="short" data-t="savePdfS">Enviar comentarios</span></button>
+  <div class="lang" role="group" aria-label="Idioma / Language"><button type="button" data-lang="es" aria-pressed="true">ES</button><button type="button" data-lang="en" aria-pressed="false">EN</button></div>
+</div></header>
+
+<main>
+<section data-view="inicio">
+  <div class="cover"><div class="in">
+    <div>
+      <span class="mono">CSI Industries Energy Group · csiindustrieseg.com</span>
+      <h1 data-t="h1">Propuestas de diseño del sitio web</h1>
+      <p data-t="lead">Cada propuesta es una página interactiva. Abra cada una para verla. Todas las maquetas se adaptan al celular y a cualquier tamaño de ventana; sin embargo, recomendamos verlas en una ventana completa del navegador para apreciar la página como fue diseñada.</p>
+    </div>
+    <div class="brief"><b data-t="briefH">Incluido según lo solicitado</b><ul>
+      <li data-t="k1"></li>
+      <li data-t="k3"></li>
+      <li data-t="k4"></li>
+      <li data-t="k6"></li>
+      <li data-t="k7"></li>
+      <li data-t="k8"></li>
+      <li data-t="k9"></li>
+    </ul></div>
+  </div></div>
+  <div class="in">
+    <div class="notice" role="note">
+      <div><svg viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13.5 6.5l4 4"/></svg><div><h2 data-t="nTxtH">Los textos son borradores</h2><p data-t="nTxtP">La redacción de estas maquetas no es final. Los títulos, descripciones y botones se ajustarán con CSI antes de publicar el sitio.</p></div></div>
+      <div><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="M3 16l5-5 4 4 3-3 6 6"/><circle cx="16" cy="9" r="1.6"/></svg><div><h2 data-t="nImgH">Imágenes y videos provisionales</h2><p data-t="nImgP">Todas las fotos y todos los videos son temporales, tomados de bancos de imágenes libres. Si CSI lo prefiere, se reemplazan por fotos y videos propios de sus productos, fábricas y envíos.</p></div></div>
+      <div><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="13" rx="1.5"/><path d="M8 21h8M12 17v4"/><path d="M7 8V7h2M17 8V7h-2M7 13v1h2M17 13v1h-2"/></svg><div><h2 data-t="nWinH">Véalas en pantalla completa</h2><p data-t="nWinP">Las maquetas se adaptan al tamaño de la ventana, igual que el sitio real. Para verlas como fueron diseñadas en una computadora, abra el navegador en pantalla completa o use el botón "Pantalla completa".</p></div></div>
+    </div>
+    <div class="how"><span><b>1</b><span data-t="h1s">Abra una propuesta</span></span><span><b>2</b><span data-t="h2s">Recórrala en escritorio o celular</span></span><span><b>3</b><span data-t="h3s"></span></span></div>
+    <button class="savepdf savepdf-m" type="button" id="savepdf2"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg><span data-t="savePdf">Revisar y enviar comentarios</span></button>
+    <div class="grid" id="cards"></div>
+  </div>
+</section>
+
+<section data-view="ver" hidden>
+  <div class="viewer">
+    <div class="vbar"><div class="in">
+      <a class="btn" href="#inicio">← <span data-t="all">Todas</span></a>
+      <div class="vt"><h2><small id="v-num"></small><span id="v-name"></span></h2></div>
+      <div class="ctl">
+        <div class="seg device" role="group" aria-label="Ancho"><button class="btn" type="button" data-dev="desk" aria-pressed="true" data-t="desk">Escritorio</button><button class="btn" type="button" data-dev="phone" aria-pressed="false" data-t="phone">Celular</button></div>
+        <button class="btn" type="button" id="prev" aria-label="Anterior">←</button>
+        <span class="mono" id="pos" style="color:var(--muted)"></span>
+        <button class="btn" type="button" id="next" aria-label="Siguiente">→</button>
+        <button class="btn open-new" type="button" id="open"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg><span data-t="openNew">Pantalla completa</span></button>
+        <button class="btn pri fbtoggle" type="button" id="fbt" aria-expanded="false" aria-controls="fb" data-t="opine">Opinar</button>
+      </div>
+    </div></div>
+    <div class="stage">
+      <div class="frame" id="frame"><iframe id="ifr" title="Propuesta" src="about:blank"></iframe><button class="exitfs" type="button" id="exitfs" data-t="exitFs">Salir de pantalla completa</button></div>
+      <aside class="fb" id="fb" aria-label="Comentarios"><div class="in">
+        <div><h3 data-t="react">Su impresión</h3></div>
+        <div class="react" role="group"><button type="button" data-r="yes" aria-pressed="false" data-t="yes">Me gusta</button><button type="button" data-r="maybe" aria-pressed="false" data-t="maybe">Tal vez</button><button type="button" data-r="no" aria-pressed="false" data-t="no">No</button></div>
+        <button class="favb" type="button" id="fav" aria-pressed="false"><svg viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/></svg><span id="favt"></span></button>
+        <div><h3 style="margin-bottom:8px"><label for="note" data-t="note">Comentario</label></h3>
+          <textarea id="note" data-tp="ph"></textarea>
+          <p class="autonote" data-t="autoNote">Sus comentarios se guardan automáticamente en este navegador, a menos que los borre.</p>
+          <div class="saved" id="saved" role="status"></div></div>
+        <button class="submitfb" type="button" id="submitfb"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></svg><span data-t="submit">Enviar comentarios</span></button>
+        <p class="subhint" data-t="subHint">Se guardan para su revisión final en la página principal.</p>
+        <p class="subdone" id="subdone" role="status"></p>
+        <p class="draft"><b data-t="draftB">Borrador:</b> <span data-t="draftP">textos, fotos y videos son provisionales y se pueden cambiar.</span></p>
+        <div class="others" id="others"></div>
+        <button class="btn fbtoggle" type="button" id="fbclose" data-t="close">Cerrar</button>
+      </div></aside>
+    </div>
+  </div>
+</section>
+
+<section data-view="resumen" hidden>
+  <div class="in sum">
+    <span class="mono" style="color:var(--orange-dk)" data-t="revEy">Paso final</span>
+    <h1 data-t="revH">Revise sus comentarios</h1>
+    <p class="lead" data-t="revLead">Aquí están sus marcas y comentarios. Puede cambiar cualquier cosa. Cuando esté listo, envíelos con el botón al final de la página. ¡Gracias por sus comentarios!</p>
+    <div class="review" id="review"></div>
+    <div class="extra">
+      <label for="extra" data-t="extraH">Comentarios adicionales</label>
+      <p data-t="extraP">¿Algo más que quiera decirnos? Ideas generales, cosas que faltan o preferencias que aplican a todas las propuestas.</p>
+      <textarea id="extra"></textarea>
+      <p class="autonote" data-t="autoNote">Sus comentarios se guardan automáticamente en este navegador, a menos que los borre.</p>
+    </div>
+    <div class="sendbox" id="send">
+      <h2 data-t="sendH">Cómo enviarnos sus comentarios</h2>
+      <ol class="sendsteps">
+        <li><b data-t="s1b">Revise sus comentarios.</b> <span data-t="s1">Todo lo que marcó y escribió está arriba. Puede cambiarlo.</span></li>
+        <li><b data-t="s2b">Elija correo o WhatsApp.</b> <span data-t="s2">Se abre un mensaje dirigido a nosotros con todos sus comentarios ya escritos.</span></li>
+        <li><b data-t="s3b">Presione Enviar.</b> <span data-t="s3">No necesita adjuntar nada.</span></li>
+      </ol>
+      <div class="sendbtns">
+        <a class="btn big mail" id="sendmail" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg><span data-t="sendMail">Enviar por correo</span></a>
+        <a class="btn big wa" id="sendwa" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="17" height="17"><use href="#i-wa"/></svg><span data-t="sendWa">Enviar por WhatsApp</span></a>
+        <button class="btn big" type="button" id="dopdf2"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg><span data-t="doPdf">Guardar copia en PDF</span></button>
+      </div>
+      <p class="pdfopt" data-t="pdfOpt">¿Quiere también un documento? "Guardar copia en PDF" guarda sus comentarios en su dispositivo. Es opcional.</p>
+      <p class="mailalt"><span data-t="mailAlt">Si no se abre su correo, copie sus comentarios y péguelos en un correo a</span> <b id="mailaddr">ksalem.arts@gmail.com</b> <button class="btn sm" type="button" id="copymail" data-t="copyMail">Copiar dirección</button> <button class="btn sm" type="button" id="copy2" data-t="copyFb">Copiar comentarios</button></p>
+    </div>
+  </div>
+  <div class="savebar"><div class="in">
+    <span id="revCount"></span>
+    <div class="sb-acts"><a class="btn pri big" href="#send" id="tosend"><span data-t="sendNow">Enviar por correo o WhatsApp ↓</span></a><button class="btn" type="button" id="copy" data-t="copyTxt">Copiar como texto</button><button class="btn" type="button" id="dopdf"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg><span data-t="doPdf">Guardar copia en PDF</span></button></div>
+  </div></div>
+</section>
+</main>
+<div class="toast" id="toast" role="status" hidden></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+(function(){
+const DIRS=[{"id": "o15", "num": "1", "show": true, "src": "p-15.html", "en": {"name": "Factory in Motion", "d": "The same film with fewer clips and a lighter collage, for a quieter first impression."}, "es": {"name": "Fábrica en movimiento", "d": "La misma película con menos clips y un collage más ligero, para una primera impresión más tranquila."}, "internal": "Factory Film, calm", "orig": "1.5"}, {"id": "o2", "num": "2", "show": true, "src": "p-opt.html#option-2", "en": {"name": "Technical Catalog", "d": "A solid brand block over video, catalog downloads up front, and a product explorer with spec tables."}, "es": {"name": "Catálogo técnico", "d": "Un bloque de marca sobre video, catálogos a la vista y un explorador de productos con tablas técnicas."}, "internal": "Spec Sheet", "orig": "2"}, {"id": "o3", "num": "3", "show": true, "src": "p-opt.html#option-3", "en": {"name": "Slant Monolith", "d": "A bold navy opening cut by the orange slant, with a dense flat-lay of parts."}, "es": {"name": "Monolito diagonal", "d": "Una apertura azul marino cortada por la diagonal naranja, con un mosaico denso de piezas."}, "internal": "Slant Monolith", "orig": "3"}, {"id": "o4", "num": "4", "show": true, "src": "p-opt.html#option-4", "en": {"name": "Clean Editorial", "d": "A magazine-style layout built for Spanish and English from the start."}, "es": {"name": "Editorial limpio", "d": "Un diseño de estilo revista, pensado en español e inglés desde el inicio."}, "internal": "Bilingual Editorial", "orig": "4"}, {"id": "o6", "num": "5", "show": true, "src": "p-opt.html#option-6", "en": {"name": "Brand Arc", "d": "A large brand arc, calm gradients and generous white space."}, "es": {"name": "Arco de marca", "d": "Un gran arco de marca, degradados suaves y amplio espacio en blanco."}, "internal": "Arc", "orig": "6"}, {"id": "o7", "num": "6", "show": true, "src": "p-opt.html#option-7", "en": {"name": "Cinematic", "d": "A mission-led opening, a standards strip and a clean step-by-step of how an order reaches the plant."}, "es": {"name": "Cinemático", "d": "Una apertura centrada en la misión, una franja de normas y un paso a paso claro de cómo llega un pedido a la planta."}, "internal": "Mission", "orig": "7"}];
+const T={
+ copyFb:['Copiar comentarios','Copy feedback'],
+ extraH:['Comentarios adicionales','Additional comments'],
+ extraP:['¿Algo más que quiera decirnos? Ideas generales, cosas que faltan o preferencias que aplican a todas las propuestas.','Anything else you would like to tell us? General ideas, things that are missing, or preferences that apply to all the proposals.'],
+ attachNote:['Importante: el correo y WhatsApp no adjuntan el PDF solos. Antes de enviar, adjunte el archivo que guardó (búsquelo en Descargas).','Important: email and WhatsApp do not attach the PDF for you. Before sending, attach the file you saved (look in your Downloads folder).'],
+ sendH:['Cómo enviarnos sus comentarios','How to send us your feedback'],
+ s1b:['Revise sus comentarios.','Review your feedback.'],s1:['Todo lo que marcó y escribió está arriba. Puede cambiarlo.','Everything you marked and wrote is above. You can change it.'],
+ s2b:['Elija correo o WhatsApp.','Choose email or WhatsApp.'],s2:['Se abre un mensaje dirigido a nosotros con todos sus comentarios ya escritos.','A message to us opens with all your feedback already written in.'],
+ s3b:['Presione Enviar.','Press Send.'],s3:['No necesita adjuntar nada.','You do not need to attach anything.'],
+ sendMail:['Enviar por correo','Send by email'],sendWa:['Enviar por WhatsApp','Send by WhatsApp'],
+ mailAlt:['Si no se abre su correo, copie sus comentarios y péguelos en un correo a','If your email does not open, copy your feedback and paste it into an email to'],copyMail:['Copiar dirección','Copy address'],mailCopied:['Dirección copiada.','Address copied.'],
+ mailSubj:['CSI · Comentarios sobre las propuestas del sitio web','CSI · Feedback on the website proposals'],
+ mailBody:['Hola,\n\nAdjunto el PDF con mis comentarios sobre las propuestas del sitio web de CSI.\n\nGracias.','Hello,\n\nAttached is the PDF with my feedback on the CSI website proposals.\n\nThank you.'],
+ waMsg:['Hola, les envío el PDF con mis comentarios sobre las propuestas del sitio web de CSI (adjunto el archivo).','Hello, here is the PDF with my feedback on the CSI website proposals (file attached).'],
+ autoNote:['Sus comentarios se guardan automáticamente en este navegador, a menos que los borre.','Your comments save automatically in this browser unless you delete them.'],
+ submit:['Enviar comentarios','Submit feedback'],
+ subHint:['Se guardan para su revisión final en la página principal.','It is kept for your final review on the main page.'],
+ subDone:['Enviado para su revisión','Submitted for your review'],
+ subEmpty:['Marque o comente esta propuesta antes de enviar.','Mark or comment on this proposal before submitting.'],
+ subToast:['Comentarios guardados. Al terminar, revíselos y envíelos desde la página principal con "Revisar y enviar comentarios".','Feedback saved. When you finish, review and send it from the main page with "Review & send feedback".'],
+ savePdfS:['Revisar y enviar','Review & send'],
+ revEy:['Paso final','Last step'],sendNow:['Enviar por correo o WhatsApp ↓','Send by email or WhatsApp ↓'],sendEmpty:['Marque o comente al menos una propuesta antes de enviar.','Mark or comment on at least one proposal before sending.'],msgIntro:['Hola, estos son mis comentarios sobre las propuestas del sitio web de CSI:','Hello, here is my feedback on the CSI website proposals:'],longMsg:['Su mensaje es largo. Si se ve cortado en su correo, guarde también la copia en PDF y adjúntela.','Your message is long. If it looks cut off in your email, also save the PDF copy and attach it.'],pdfOpt:['¿Quiere también un documento? "Guardar copia en PDF" guarda sus comentarios en su dispositivo. Es opcional.','Want a document too? "Save PDF copy" saves your feedback to your device. It is optional.'],revH:['Revise sus comentarios','Review your feedback'],
+ revLead:['Aquí están sus marcas y comentarios. Puede cambiar cualquier cosa. Cuando esté listo, envíelos con el botón al final de la página. ¡Gracias por sus comentarios!','Here are your marks and comments. You can change anything. When you are ready, send them with the button at the bottom of the page. Thank you for your feedback!'],
+ revOpen:['Ver propuesta →','View proposal →'],doPdf:['Guardar copia en PDF','Save PDF copy'],copyTxt:['Copiar como texto','Copy as text'],
+ revCount:['{n} de {m} propuestas con comentarios','{n} of {m} proposals with feedback'],
+ savePdf:['Revisar y enviar comentarios','Review & send feedback'],
+ pdfTitle:['Comentarios sobre las propuestas de diseño del sitio web','Feedback on the website design proposals'],
+ pdfDate:['Fecha','Date'],pdfReact:['Impresión','Impression'],pdfComment:['Comentario','Comment'],pdfFav:['Favorita','Favorite'],
+ pdfNone:['Sin comentarios','No feedback'],pdfEmpty:['Marque o comente al menos una propuesta antes de guardar el PDF.','Mark or comment on at least one proposal before saving the PDF.'],
+ pdfSaved:['PDF guardado en su dispositivo.','PDF saved to your device.'],
+ pdfDeclined:['No se guardó el PDF.','The PDF was not saved.'],
+ pdfNo:['Esta vista no puede guardar archivos. Sus comentarios se copiaron; péguelos en un correo.','This view cannot save files. Your feedback was copied instead; paste it into an email.'],
+ briefH:['Incluido según lo solicitado','Included per your request'],
+ k1:['Un mensaje principal y una sola acción: "Solicitar cotización", siempre visible','One bold message and a single main action: "Request a quote," always visible'],
+ k3:['Enlace al catálogo en PDF de cada línea de producto','A PDF catalog link for each product line'],
+ k4:['Español e inglés (ES | EN), con español como idioma predeterminado','Spanish and English (ES | EN), with Spanish as the default'],
+ k6:['Enlace a la tienda en Made-in-China.com, también en el pie','A link to the Made-in-China.com store, also in the footer'],
+ k7:['Las seis líneas de producto y las cuatro industrias','The six product lines and the four industries'],
+ k8:['Colores de CSI y la diagonal del logo','CSI colors and the slant from the logo'],
+ k9:['Diseño adaptado al celular','Designed to work on phones'],
+ nWinH:['Véalas en pantalla completa','View them full screen'],
+ nWinP:['Las maquetas se adaptan al tamaño de la ventana, igual que el sitio real. Para verlas como fueron diseñadas en una computadora, abra el navegador en pantalla completa o use el botón "Pantalla completa".','The mockups adjust to the size of the window, just like the real site. To see them as designed on a computer, open your browser full screen or use the "Full screen" button.'],
+ nTxtH:['Los textos son borradores','The wording is a draft'],
+ nTxtP:['La redacción de estas maquetas no es final. Los títulos, descripciones y botones se ajustarán con CSI antes de publicar el sitio.','The wording in these mockups is not final. Headlines, descriptions and buttons will be revised with CSI before the site goes live.'],
+ nImgH:['Imágenes y videos provisionales','Images and videos are placeholders'],
+ nImgP:['Todas las fotos y todos los videos son temporales, tomados de bancos de imágenes libres. Si CSI lo prefiere, se reemplazan por fotos y videos propios de sus productos, fábricas y envíos.','All photos and videos are temporary, taken from free image libraries. If CSI prefers, they can be replaced with its own photos and videos of its products, factories and shipments.'],
+ draftB:['Borrador:','Draft:'],draftP:['textos, fotos y videos son provisionales y se pueden cambiar.','wording, photos and videos are temporary and can be changed.'],
+ title:['Página de inicio','Homepage'],sub:['· propuestas','· proposals'],nCover:['Propuestas','Proposals'],nSum:['Comentarios','Feedback'],
+ h1:['Propuestas de diseño del sitio web','Proposals for website design'],
+ lead:['Cada propuesta es una página interactiva. Abra cada una para verla. Todas las maquetas se adaptan al celular y a cualquier tamaño de ventana; sin embargo, recomendamos verlas en una ventana completa del navegador para apreciar la página como fue diseñada.','Each proposal is an interactive page. Open each to preview. Every mock-up is mobile friendly and scales to any browser window; however, we recommend previewing them in a full browser window to see the page as intended.'],
+ h1s:['Abra una propuesta','Open a proposal'],h2s:['Recórrala en escritorio o celular','Scroll it on desktop or phone'],h3s:['Marque y comente cada propuesta y presione "Enviar comentarios". Al final, en esta página principal, haga clic en "Revisar y enviar comentarios" para revisar todo y enviárnoslo por correo o WhatsApp.','Mark and comment on each proposal and press "Submit feedback". When you finish, click "Review & send feedback" on this main page to check everything and send it to us by email or WhatsApp.'],
+ all:['Todas','All'],desk:['Escritorio','Desktop'],phone:['Celular','Phone'],openNew:['Pantalla completa','Full screen'],exitFs:['Salir de pantalla completa','Exit full screen'],opine:['Opinar','Give feedback'],close:['Cerrar','Close'],
+ react:['Su impresión','Your impression'],yes:['Me gusta','Like'],maybe:['Tal vez','Maybe'],no:['No','No'],note:['Comentario','Comment'],
+ ph:['¿Qué le gusta? ¿Qué cambiaría?','What do you like? What would you change?'],
+ favOn:['Su favorita','Your favorite'],favOff:['Marcar como favorita','Mark as favorite'],
+ open:['Ver propuesta →','View proposal →'],opt:['Opción','Option'],
+ savedS:['Guardado','Saved'],savedL:['Guardado','Saved'],saving:['Guardando…','Saving…'],
+ whereS:['Sus comentarios se guardan con su nombre y los ve el equipo de diseño.','Your feedback is saved with your name and the design team sees it.'],
+ whereL:['Sus comentarios se guardan solo en este navegador. Al terminar, use "Copiar mis comentarios" en Comentarios y envíelos por correo.','Your feedback is saved only in this browser. When you finish, use "Copy my feedback" under Feedback and send it by email.'],
+ sumH:['Lo que opinan hasta ahora','What people think so far'],
+ sumS:['Opiniones de todas las personas que revisaron las propuestas.','Feedback from everyone who has reviewed the proposals.'],
+ sumL:['Aquí solo aparecen sus propias opiniones, guardadas en este navegador.','Only your own feedback appears here, saved in this browser.'],
+ cDir:['Propuesta','Proposal'],cFav:['Favorita','Favorite'],cNotes:['Comentarios','Comments'],
+ copy:['Copiar mis comentarios','Copy my feedback'],copyP:['Copia sus comentarios como texto, para pegarlos en un correo o mensaje.','Copies your feedback as text, to paste into an email or message.'],
+ copied:['Comentarios copiados.','Feedback copied.'],copyFail:['No se pudo copiar. Seleccione el texto de la tabla.','Could not copy. Select the text in the table instead.'],
+ you:['Usted','You'],someone:['Alguien','Someone'],none:['Aún no hay comentarios.','No feedback yet.'],
+ others:['Otras opiniones','Other feedback'],prev:['Anterior','Previous'],next:['Siguiente','Next'],
+ errSave:['No se pudo guardar. Revise su conexión e intente de nuevo.','Could not save. Check your connection and try again.']
+};
+let lang='es';
+try{const s=localStorage.getItem('csi-lang');if(s==='en'||s==='es')lang=s}catch(e){}
+window.CSI_CURRENT_LANG=lang;
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const t=k=>(T[k]||[k,k])[lang==='es'?0:1];
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let tt;function toast(m){const e=$('#toast');e.textContent=m;e.hidden=false;clearTimeout(tt);tt=setTimeout(()=>e.hidden=true,3200)}
+
+/* feedback state: mine = {r:{id:'yes'|'maybe'|'no'}, c:{id:text}, fav:id} ; all = {uid: same} */
+let mine={r:{},c:{},fav:'',x:''}, all={}, uid=null, db=null, userCap=null, names={}, shared=false;
+try{const s=JSON.parse(localStorage.getItem('csi-fb')||'null');if(s&&s.r)mine=s}catch(e){}
+function saveLocal(){try{localStorage.setItem('csi-fb',JSON.stringify(mine))}catch(e){}}
+let wt=null, writing=false, again=false;
+function save(){
+  saveLocal();
+  if(!shared){$('#saved').textContent=t('savedL');return}
+  $('#saved').textContent=t('saving');
+  clearTimeout(wt);wt=setTimeout(flush,700);
+}
+async function flush(){
+  if(writing){again=true;return}
+  writing=true;
+  try{await db.doc('feedback/'+uid).set({r:mine.r,c:mine.c,fav:mine.fav||'',x:mine.x||'',t:Date.now()});$('#saved').textContent=t('savedS')}
+  catch(e){$('#saved').textContent=t('errSave')}
+  writing=false;if(again){again=false;flush()}
+}
+
+/* language */
+function renderLang(){
+  document.documentElement.lang=lang;
+  $$('[data-t]').forEach(e=>e.textContent=t(e.dataset.t));
+  $('#note').placeholder=t('ph');
+  $$('.lang button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.lang===lang));
+  $('#prev').setAttribute('aria-label',t('prev'));$('#next').setAttribute('aria-label',t('next'));
+  renderCards();renderViewer(false);renderSummary();
+}
+function setLang(l,fromChild){
+  if(l===lang)return;lang=l;window.CSI_CURRENT_LANG=l;try{localStorage.setItem('csi-lang',l)}catch(e){}
+  renderLang();
+  if(!fromChild){try{const w=$('#ifr').contentWindow;w&&w.CSI_LANG&&w.CSI_LANG(l)}catch(e){}}
+}
+window.CSI_ON_LANG=l=>setLang(l,true);
+$$('.lang button').forEach(b=>b.addEventListener('click',()=>setLang(b.dataset.lang)));
+
+/* cover */
+function chips(id){
+  let h='';if(mine.fav===id)h+='<span class="chip fav">★ '+esc(t('favOn'))+'</span>';
+  const r=mine.r[id];if(r)h+='<span class="chip '+r+'">'+esc(t(r))+'</span>';return h;
+}
+function renderCards(){
+  $('#cards').innerHTML=DIRS.map(d=>'<a class="card" href="#'+d.id+'"><div class="th" style="background-image:url(thumbs/'+d.id+'.jpg)"><span class="num">'+esc(d.num)+'</span><span class="mine">'+chips(d.id)+'</span></div><div class="tx"><h2>'+esc(d[lang].name)+'</h2><span class="go">'+esc(t('open'))+'</span></div></a>').join('');
+}
+
+/* viewer */
+let cur=null, dev='desk';
+function frameSrc(d){return d.src.indexOf('#')>-1?d.src.replace('#','?lang='+lang+'#'):d.src+'?lang='+lang}
+function renderViewer(load){
+  if(!cur)return;const d=DIRS.find(x=>x.id===cur);if(!d)return;const i=DIRS.indexOf(d);
+  $('#v-num').textContent=t('opt')+' '+d.num;$('#v-name').textContent=d[lang].name;
+  $('#pos').textContent=(i+1)+' / '+DIRS.length;$('#prev').disabled=i===0;$('#next').disabled=i===DIRS.length-1;
+  if(load){
+    const ifr=$('#ifr'), base=d.src.split('#')[0], curBase=(ifr.dataset.base||'');
+    if(curBase===base&&ifr.contentWindow&&ifr.contentWindow.location){try{ifr.contentWindow.location.hash=d.src.split('#')[1]||'';ifr.contentWindow.scrollTo(0,0)}catch(e){ifr.src=frameSrc(d)}}
+    else{ifr.src=frameSrc(d);ifr.dataset.base=base}
+    ifr.title=d[lang].name;
+  }
+  $$('#fb .react button').forEach(b=>b.setAttribute('aria-pressed',mine.r[cur]===b.dataset.r));
+  $('#fav').setAttribute('aria-pressed',mine.fav===cur);$('#favt').textContent=mine.fav===cur?t('favOn'):t('favOff');
+  if(document.activeElement!==$('#note'))$('#note').value=mine.c[cur]||'';
+  if(load)$('#subdone').textContent='';
+  renderOthers();
+}
+async function renderOthers(){
+  const box=$('#others');
+  const rows=Object.entries(all).filter(([id,v])=>id!==uid&&v&&((v.c&&v.c[cur])||(v.r&&v.r[cur])||v.fav===cur));
+  if(!rows.length){box.innerHTML='';return}
+  await resolveNames(rows.map(r=>r[0]));
+  box.innerHTML='<h3>'+esc(t('others'))+'</h3>'+rows.map(([id,v])=>'<div class="o"><b>'+esc(names[id]||t('someone'))+'</b>'+(v.r&&v.r[cur]?' · '+esc(t(v.r[cur])):'')+(v.fav===cur?' · ★':'')+(v.c&&v.c[cur]?'<p>'+esc(v.c[cur])+'</p>':'')+'</div>').join('');
+}
+async function resolveNames(ids){
+  if(!userCap)return;const need=ids.filter(i=>!(i in names));if(!need.length)return;
+  try{const ps=await userCap.profiles(need);need.forEach(i=>names[i]=(ps[i]&&ps[i].name)||'')}catch(e){}
+}
+$('#prev').addEventListener('click',()=>{const i=DIRS.findIndex(d=>d.id===cur);if(i>0)location.hash=DIRS[i-1].id});
+$('#next').addEventListener('click',()=>{const i=DIRS.findIndex(d=>d.id===cur);if(i<DIRS.length-1)location.hash=DIRS[i+1].id});
+$$('[data-dev]').forEach(b=>b.addEventListener('click',()=>{dev=b.dataset.dev;$$('[data-dev]').forEach(x=>x.setAttribute('aria-pressed',x===b));$('#frame').classList.toggle('phone',dev==='phone')}));
+$$('#fb .react button').forEach(b=>b.addEventListener('click',()=>{const r=b.dataset.r;if(mine.r[cur]===r)delete mine.r[cur];else mine.r[cur]=r;renderViewer(false);save()}));
+$('#fav').addEventListener('click',()=>{mine.fav=mine.fav===cur?'':cur;renderViewer(false);save()});
+$('#note').addEventListener('input',e=>{const v=e.target.value;if(v.trim())mine.c[cur]=v;else delete mine.c[cur];save()});
+$('#fbt').addEventListener('click',()=>{const o=$('#fb').classList.toggle('open');$('#fbt').setAttribute('aria-expanded',o)});
+$('#fbclose').addEventListener('click',()=>{$('#fb').classList.remove('open');$('#fbt').setAttribute('aria-expanded','false')});
+$('#ifr').addEventListener('load',()=>{try{const w=$('#ifr').contentWindow;if(w.CSI_LANG)w.CSI_LANG(lang)}catch(e){}});
+
+
+/* full screen: the mockup fills the screen on this page */
+function enterFs(){const f=$('#frame');f.classList.add('max');try{const r=f.requestFullscreen&&f.requestFullscreen();if(r&&r.catch)r.catch(()=>{})}catch(e){}}
+function exitFs(){const f=$('#frame');f.classList.remove('max');try{if(document.fullscreenElement)document.exitFullscreen()}catch(e){}}
+$('#open').addEventListener('click',enterFs);
+$('#exitfs').addEventListener('click',exitFs);
+document.addEventListener('fullscreenchange',()=>{if(!document.fullscreenElement)$('#frame').classList.remove('max')});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&$('#frame').classList.contains('max'))exitFs()});
+window.addEventListener('hashchange',()=>{if(!DIRS.some(x=>'#'+x.id===location.hash))exitFs()});
+/* summary */
+
+/* save feedback as PDF */
+function feedbackPdf(){
+  const J=window.jspdf&&window.jspdf.jsPDF;if(!J)return null;
+  const doc=new J({unit:'pt',format:'letter'}),W=doc.internal.pageSize.getWidth(),H=doc.internal.pageSize.getHeight(),M=54;
+  doc.setFillColor(3,41,85);doc.rect(0,0,W,96,'F');doc.setFillColor(236,98,15);doc.rect(W-150,0,10,96,'F');
+  doc.setTextColor(255,255,255);doc.setFont('helvetica','bold');doc.setFontSize(10);doc.text('CSI INDUSTRIES ENERGY GROUP',M,38);
+  doc.setFontSize(18);doc.text(t('pdfTitle'),M,64);
+  doc.setTextColor(91,104,120);doc.setFont('helvetica','normal');doc.setFontSize(10);
+  doc.text(t('pdfDate')+': '+new Date().toLocaleDateString(lang==='es'?'es':'en',{year:'numeric',month:'long',day:'numeric'}),M,122);
+  let y=150;
+  DIRS.forEach(d=>{
+    const r=mine.r[d.id],c=(mine.c[d.id]||'').trim(),fav=mine.fav===d.id;
+    const lines=c?doc.splitTextToSize(c,W-2*M-14):[];
+    const need=46+lines.length*14;
+    if(y+need>H-50){doc.addPage();y=60}
+    doc.setDrawColor(220,226,234);doc.line(M,y,W-M,y);y+=20;
+    doc.setTextColor(2,27,58);doc.setFont('helvetica','bold');doc.setFontSize(13);
+    doc.text(t('opt')+' '+d.num+' · '+d[lang].name+(fav?'   ('+t('pdfFav')+')':''),M,y);y+=17;
+    doc.setFont('helvetica','normal');doc.setFontSize(11);
+    if(!r&&!c&&!fav){doc.setTextColor(140,150,165);doc.text(t('pdfNone'),M,y);y+=12;return}
+    doc.setTextColor(58,74,94);
+    if(r){doc.text(t('pdfReact')+': '+t(r),M,y);y+=15}
+    if(lines.length){doc.text(t('pdfComment')+':',M,y);y+=14;doc.setTextColor(14,27,44);doc.text(lines,M+14,y);y+=lines.length*14}
+    y+=4;
+  });
+  const xt=(mine.x||'').trim();
+  if(xt){const xl=doc.splitTextToSize(xt,W-2*M);if(y+40+xl.length*14>H-50){doc.addPage();y=60}
+    doc.setDrawColor(220,226,234);doc.line(M,y,W-M,y);y+=20;doc.setTextColor(2,27,58);doc.setFont('helvetica','bold');doc.setFontSize(13);doc.text(t('extraH'),M,y);y+=17;
+    doc.setFont('helvetica','normal');doc.setFontSize(11);doc.setTextColor(14,27,44);doc.text(xl,M,y);y+=xl.length*14}
+  return doc.output('blob');
+}
+function feedbackText(){
+  const out=[t('pdfTitle'),''];
+  DIRS.forEach(d=>{const r=mine.r[d.id],n=mine.c[d.id];if(!r&&!n&&mine.fav!==d.id)return;
+    out.push(t('opt')+' '+d.num+' · '+d[lang].name+(mine.fav===d.id?' ('+t('pdfFav')+')':'')+(r?' · '+t(r):''));if(n)out.push(n);out.push('')});
+  if((mine.x||'').trim()){out.push(t('extraH')+':');out.push(mine.x.trim())}
+  return out.join('\n');
+}
+$('#savepdf').addEventListener('click',()=>{if(location.hash==='#resumen')window.scrollTo(0,0);else location.hash='resumen'});
+$('#savepdf2').addEventListener('click',()=>{location.hash='resumen'});
+$('#dopdf').addEventListener('click',async()=>{
+  const any=Object.keys(mine.r).length||Object.keys(mine.c).length||mine.fav||(mine.x||'').trim();
+  if(!any){toast(t('pdfEmpty'));return}
+  /* standalone site : a normal browser download */
+  if(!window.__host){const b=feedbackPdf();if(b){const u=URL.createObjectURL(b),l=document.createElement('a');l.href=u;l.download=(lang==='es'?'CSI-comentarios-':'CSI-feedback-')+new Date().toISOString().slice(0,10)+'.pdf';document.body.appendChild(l);l.click();l.remove();setTimeout(()=>URL.revokeObjectURL(u),4000);toast(t('pdfSaved'));return}}
+  let dl=null;try{dl=window.__host&&window.__host.use?await window.__host.use('downloads'):null}catch(e){}
+  const blob=feedbackPdf();
+  if(!dl||!blob){let ok=false;try{await navigator.clipboard.writeText(feedbackText());ok=true}catch(e){}toast(ok?t('pdfNo'):t('copyFail'));if(!ok)location.hash='resumen';return}
+  const stamp=new Date().toISOString().slice(0,10);
+  try{await dl.save({filename:(lang==='es'?'CSI-comentarios-':'CSI-feedback-')+stamp+'.pdf',data:blob});toast(t('pdfSaved'))}
+  catch(e){toast(e&&e.code==='declined'?t('pdfDeclined'):t('pdfNo'))}
+});
+
+/* Submit: confirms this proposal's feedback is kept for the final review on the main page */
+$('#submitfb').addEventListener('click',()=>{
+  const has=mine.r[cur]||(mine.c[cur]||'').trim()||mine.fav===cur;
+  if(!has){toast(t('subEmpty'));return}
+  save();if(shared&&wt){clearTimeout(wt);wt=null;flush()}
+  $('#subdone').textContent='✓ '+t('subDone');
+  toast(t('subToast'));
+  $('#fb').classList.remove('open');$('#fbt').setAttribute('aria-expanded','false');
+});
+
+/* send: email or WhatsApp, with the saved PDF attached by the viewer */
+const SEND_EMAIL='ksalem.arts@gmail.com', SEND_WA='14405026701';
+function sendBody(){return t('msgIntro')+'\n\n'+feedbackText()}
+function sendLinks(){
+  const body=sendBody();
+  $('#sendmail').href='mailto:'+SEND_EMAIL+'?subject='+encodeURIComponent(t('mailSubj'))+'&body='+encodeURIComponent(body);
+  $('#sendwa').href='https://wa.me/'+SEND_WA+'?text='+encodeURIComponent(body);
+}
+function hasFeedback(){return Object.keys(mine.r).length||Object.keys(mine.c).length||mine.fav||(mine.x||'').trim()}
+['#sendmail','#sendwa'].forEach(id=>$(id).addEventListener('click',e=>{
+  if(!hasFeedback()){e.preventDefault();toast(t('sendEmpty'));return}
+  sendLinks();
+  if(sendBody().length>1800)toast(t('longMsg'));
+}));
+$('#tosend').addEventListener('click',e=>{e.preventDefault();$('#send').scrollIntoView({behavior:'smooth',block:'center'})});
+$('#dopdf2').addEventListener('click',()=>$('#dopdf').click());
+$('#copy2').addEventListener('click',()=>$('#copy').click());
+$('#copymail').addEventListener('click',()=>{try{navigator.clipboard.writeText(SEND_EMAIL).then(()=>toast(t('mailCopied')),()=>toast(t('copyFail')))}catch(e){toast(t('copyFail'))}});
+
+/* additional comments */
+$('#extra').addEventListener('input',e=>{mine.x=e.target.value;save()});
+function syncExtra(){const x=$('#extra');if(x&&document.activeElement!==x)x.value=mine.x||''}
+async function renderSummary(){
+  sendLinks();syncExtra();
+  const box=$('#review');if(!box)return;
+  if(box.contains(document.activeElement)&&document.activeElement.tagName==='TEXTAREA'){updCount();return}
+  box.innerHTML=DIRS.map(d=>'<article class="rv" data-id="'+d.id+'"><a class="rv-th" href="#'+d.id+'" style="background-image:url(thumbs/'+d.id+'.jpg)" aria-label="'+esc(d[lang].name)+'"><span class="num">'+esc(d.num)+'</span></a><div class="rv-b">'
+    +'<div class="rv-h"><h2>'+esc(t('opt')+' '+d.num+' · '+d[lang].name)+'</h2><a href="#'+d.id+'">'+esc(t('revOpen'))+'</a></div>'
+    +'<div class="rv-row"><div class="react" role="group">'+['yes','maybe','no'].map(r=>'<button type="button" data-rr="'+r+'" data-r="'+r+'" aria-pressed="'+(mine.r[d.id]===r)+'">'+esc(t(r))+'</button>').join('')+'</div>'
+    +'<button class="favb" type="button" data-rf aria-pressed="'+(mine.fav===d.id)+'"><svg viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/></svg><span>'+esc(mine.fav===d.id?t('favOn'):t('favOff'))+'</span></button></div>'
+    +'<label for="rc-'+d.id+'">'+esc(t('note'))+'</label><textarea id="rc-'+d.id+'" data-rc placeholder="'+esc(t('ph'))+'">'+esc(mine.c[d.id]||'')+'</textarea><p class="autonote">'+esc(t('autoNote'))+'</p>'
+    +'</div></article>').join('');
+  updCount();
+}
+function updCount(){
+  const n=DIRS.filter(d=>mine.r[d.id]||mine.c[d.id]||mine.fav===d.id).length;
+  $('#revCount').textContent=t('revCount').replace('{n}',n).replace('{m}',DIRS.length);
+}
+$('#review').addEventListener('click',e=>{
+  const card=e.target.closest('.rv');if(!card)return;const id=card.dataset.id;
+  const rb=e.target.closest('[data-rr]');
+  if(rb){const r=rb.dataset.rr;if(mine.r[id]===r)delete mine.r[id];else mine.r[id]=r;
+    card.querySelectorAll('[data-rr]').forEach(b=>b.setAttribute('aria-pressed',mine.r[id]===b.dataset.rr));save();updCount();return}
+  if(e.target.closest('[data-rf]')){mine.fav=mine.fav===id?'':id;
+    $$('.rv').forEach(c=>{const on=mine.fav===c.dataset.id,b=c.querySelector('[data-rf]');b.setAttribute('aria-pressed',on);b.querySelector('span').textContent=on?t('favOn'):t('favOff')});save();updCount()}
+});
+$('#review').addEventListener('input',e=>{
+  const ta=e.target.closest('[data-rc]');if(!ta)return;const id=ta.closest('.rv').dataset.id;
+  if(ta.value.trim())mine.c[id]=ta.value;else delete mine.c[id];save();updCount();
+});
+$('#copy').addEventListener('click',()=>{const txt=feedbackText();try{navigator.clipboard.writeText(txt).then(()=>toast(t('copied')),()=>toast(t('copyFail')))}catch(e){toast(t('copyFail'))}});
+
+/* routing */
+function show(){
+  const h=location.hash.slice(1)||'inicio';
+  const d=DIRS.find(x=>x.id===h);
+  const view=d?'ver':(h==='resumen'?'resumen':'inicio');
+  $$('[data-view]').forEach(s=>s.hidden=s.dataset.view!==view);
+  document.body.dataset.screen=view;
+  $$('[data-nav]').forEach(a=>a.setAttribute('aria-current',(view==='inicio'&&a.dataset.nav==='inicio')||(view==='resumen'&&a.dataset.nav==='resumen')?'page':'false'));
+  document.body.style.overflow=view==='ver'?'hidden':'';
+  if(d){cur=d.id;renderViewer(true)}else{cur=null;window.scrollTo(0,0)}
+  if(view==='resumen')renderSummary();
+  if(view==='inicio')renderCards();
+}
+window.addEventListener('hashchange',show);
+renderLang();show();
+
+/* shared feedback when the viewer is signed in */
+(async()=>{
+  try{
+    const cl=window.__host;if(!cl||!cl.use)return;
+    const [d,u]=await Promise.all([cl.use('db'),cl.use('user')]);
+    if(!d||!u)return;
+    const id=await u.id();if(!id)return;
+    db=d;userCap=u;uid=id;shared=true;
+    let timer=setTimeout(()=>{},10000);
+    db.collection('feedback').onSnapshot(snap=>{
+      clearTimeout(timer);all={};snap.docs.forEach(x=>{all[x.id]=x.data()||{}});
+      if(all[uid]&&all[uid].r){const s=all[uid];if(!writing&&!wt)mine={r:s.r||{},c:s.c||{},fav:s.fav||'',x:s.x||''}}
+      else if(Object.keys(mine.r).length||Object.keys(mine.c).length||mine.fav)flush();
+      renderCards();renderViewer(false);renderSummary();
+    },()=>{clearTimeout(timer)});
+    renderViewer(false);
+  }catch(e){}
+})();
+})();
+</script>
+
+</body></html>
