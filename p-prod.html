@@ -1,0 +1,765 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style></head><body>
+<style>
+/* client copy: no review bar; the design is chosen by the presentation */
+.rv{display:none!important}
+.d3 .strip{top:0!important}.d4 .cart{top:16px!important}
+</style>
+<title>Propuestas de diseño · CSI Industries Energy Group</title>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Barlow+Condensed:ital,wght@0,700;0,800;1,800&family=IBM+Plex+Mono:wght@400;500&family=Public+Sans:wght@400;500;600;700&display=swap">
+<style>
+/* Four product-page designs built on the brief's page-6 template, in CSI's fixed brand look.
+   Every design keeps: header with ES|EN + Request a quote, breadcrumb, product-lines navigation, title + description,
+   type/size/standards table, quote + catalog buttons, product photo, related lines, "Can't find the size" band, footer, WhatsApp. */
+:root{
+  --navy:#032955; --midnight:#021B3A; --steel:#0F3D78; --orange:#EC620F; --orange-dk:#C94F07; --orange-lt:#FF9A5C;
+  --mist:#F3F5F9; --fog:#E7EBF0; --line:#DCE2EA; --ink:#0E1B2C; --muted:#5B6878; --paper:#FFFFFF; --shell:#E9EDF2; --wa:#1FA855; --ok:#17804A;
+  --f-ui:"Public Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-wide:"Archivo","Public Sans",system-ui,sans-serif;
+  --f-disp:"Barlow Condensed","Arial Narrow",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+  --gl:max(16px,env(safe-area-inset-left,0px)); --gr:max(16px,env(safe-area-inset-right,0px));
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{background:var(--shell);color:var(--ink);font:15px/1.6 var(--f-ui);margin:0}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:90;background:var(--midnight)}
+img{max-width:100%;display:block}
+a{color:inherit}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+h1,h2,h3{text-wrap:balance;margin:0}
+.in{max-width:1200px;margin:0 auto;padding-left:var(--gl);padding-right:var(--gr)}
+.mono{font:500 12px/1.3 var(--f-mono);letter-spacing:.1em;text-transform:uppercase}
+
+/* ---------- review bar (not part of the site) ---------- */
+.rv{position:sticky;top:env(safe-area-inset-top,0px);z-index:80;background:var(--midnight);color:#fff}
+.rv .in{max-width:none;display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;padding-block:8px}
+.rv b{font:600 14px/1.2 var(--f-ui);margin-right:4px}
+.rv nav{display:flex;flex-wrap:wrap;gap:4px}
+.rv nav a{text-decoration:none;color:#C9D4E3;font-size:13px;font-weight:600;padding:6px 10px;border-radius:5px;border:1px solid #23446E}
+.rv nav a span{font-family:var(--f-mono);color:var(--orange-lt);margin-right:6px}
+.rv nav a[aria-current="page"]{background:var(--orange);border-color:var(--orange);color:#fff}
+.rv nav a[aria-current="page"] span{color:#fff}
+.rv .note{color:#8FA3BF;font-size:12.5px;flex:1 1 240px}
+.rv .lang{display:flex;border:1px solid #2A4870;border-radius:5px;overflow:hidden;font:500 12px/1 var(--f-mono)}
+.rv .lang button{border:0;background:none;color:#C9D4E3;padding:7px 9px;cursor:pointer}
+.rv .lang button[aria-pressed="true"]{background:var(--orange);color:#fff}
+
+/* ---------- shared site pieces ---------- */
+.site{background:var(--paper);max-width:1440px;margin:0 auto;box-shadow:0 0 0 1px var(--line)}
+.hd{background:var(--paper);border-bottom:1px solid var(--line)}
+.hd .in{display:flex;align-items:center;gap:20px;height:70px}
+.hd .logo img{height:32px;width:auto}
+.hd nav{display:flex;gap:2px;margin-left:auto}
+.hd nav a{text-decoration:none;font-weight:600;font-size:14px;color:var(--navy);padding:8px 10px;border-radius:5px}
+.hd nav a.on{color:var(--orange-dk);box-shadow:inset 0 -2px 0 var(--orange)}
+.hd .sw{font:600 13px/1 var(--f-ui);color:var(--muted);white-space:nowrap}
+.hd .sw button{border:0;background:none;cursor:pointer;color:var(--muted);font-weight:600;padding:4px 2px}
+.hd .sw button[aria-pressed="true"]{color:var(--navy);font-weight:800}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:5px;padding:12px 20px;font-weight:700;font-size:14.5px;cursor:pointer;text-decoration:none;white-space:nowrap}
+.btn.or{background:var(--orange);color:#fff}.btn.or:hover{background:var(--orange-dk)}
+.btn.nv{background:var(--navy);color:#fff}.btn.nv:hover{background:var(--midnight)}
+.btn.gh{background:transparent;color:var(--navy);box-shadow:inset 0 0 0 2px var(--navy)}
+.btn.wh{background:#fff;color:var(--midnight)}
+.btn svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:2}
+.hd .q .s{display:none}
+.hd.dark{background:var(--midnight);border-bottom-color:#13335C}
+.hd.dark nav a{color:#C9D5E6}.hd.dark nav a.on{color:#fff}
+.hd.dark .sw,.hd.dark .sw button{color:#7F93AE}.hd.dark .sw button[aria-pressed="true"]{color:#fff}
+.crumb{display:flex;flex-wrap:wrap;gap:8px;font-size:13px;color:var(--muted)}
+.crumb a{text-decoration:none}.crumb b{color:var(--navy)}
+.tbl{overflow-x:auto;border:1px solid var(--line)}
+table{border-collapse:collapse;width:100%;min-width:560px;font-variant-numeric:tabular-nums;font-size:14px}
+th{background:var(--navy);color:#fff;text-align:left;font:600 12px/1.2 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;padding:11px 14px}
+td{padding:12px 14px;border-top:1px solid var(--line)}
+tr:nth-child(even) td{background:#FAFBFD}
+td:first-child{font-weight:700;color:var(--navy)}
+.sample{font-size:12.5px;color:var(--muted);font-style:italic;margin:8px 0 0}
+.tag{position:absolute;left:10px;bottom:10px;background:rgba(2,27,58,.8);color:#fff;font:500 10.5px/1 var(--f-mono);letter-spacing:.05em;padding:6px 8px;border-radius:3px}
+.ask{background:var(--midnight);color:#fff}
+.ask .in{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px 24px;padding-block:34px}
+.ask h3{font:700 clamp(22px,2.4vw,30px)/1.15 var(--f-wide);letter-spacing:-.02em;margin-bottom:6px}
+.ask p{margin:0;color:#C9D5E6}
+.ft{background:#011429;color:#AFC0D6;font-size:13.5px}
+.ft .in{display:grid;grid-template-columns:1.3fr repeat(3,minmax(0,1fr));gap:24px;padding-block:40px 22px}
+.ft img{height:46px;width:auto;margin-bottom:10px}
+.ft h4{margin:0 0 10px;font:600 11px/1 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:#fff}
+.ft ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.ft .base{grid-column:1/-1;border-top:1px solid #1D3A5F;padding-top:14px;font-size:12px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px}
+.wa{position:fixed;right:calc(18px + env(safe-area-inset-right,0px));bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:70;display:flex;align-items:center;gap:8px;background:var(--wa);color:#fff;border:0;border-radius:999px;padding:12px 16px;font-weight:700;font-size:14px;cursor:pointer;box-shadow:0 8px 24px rgba(2,27,58,.25)}
+.wa svg{width:20px;height:20px;fill:none;stroke:#fff;stroke-width:1.8}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--midnight);color:#fff;padding:11px 16px;border-radius:6px;font-size:14px;z-index:100;max-width:calc(100% - 32px)}
+
+/* quote drawer (shared) */
+.qd{position:fixed;inset:0;z-index:95;display:flex;justify-content:flex-end;background:rgba(2,27,58,.45)}
+.qd .pn{width:min(440px,100%);height:100%;overflow:auto;background:var(--paper);padding:22px var(--gr) calc(22px + env(safe-area-inset-bottom,0px)) 22px;display:flex;flex-direction:column;gap:12px}
+.qd h2{font:700 22px/1.2 var(--f-wide);color:var(--midnight)}
+.qd .x{align-self:flex-end;border:1px solid var(--line);background:none;border-radius:5px;padding:6px 10px;cursor:pointer}
+.f{display:flex;flex-direction:column;gap:5px}
+.f label{font-weight:600;font-size:13.5px;color:var(--navy)}
+.f input,.f select,.f textarea{border:1px solid #C5CEDA;border-radius:5px;padding:10px 12px;font-size:15px;width:100%;background:#fff}
+.f textarea{min-height:100px;resize:vertical}
+.okmsg{background:#EAF6EF;color:var(--ok);border-radius:5px;padding:10px 12px;font-weight:600;font-size:14px}
+
+/* ========== DESIGN 1 · Catalog (the brief's template) ========== */
+.d1 .crumbbar{background:var(--mist);border-bottom:1px solid var(--line)}
+.d1 .crumbbar .in{padding-block:12px}
+.d1 .body{display:grid;grid-template-columns:190px minmax(0,1.25fr) minmax(0,.75fr);gap:36px;padding-block:36px 44px;align-items:start}
+.d1 .side h2{font:600 12px/1 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--orange-dk);margin-bottom:10px}
+.d1 .side ul{list-style:none;margin:0;padding:0}
+.d1 .side button{display:block;width:100%;text-align:left;border:0;background:none;padding:7px 0 7px 12px;border-left:3px solid transparent;font-weight:600;color:var(--navy);cursor:pointer}
+.d1 .side button[aria-current="true"]{border-left-color:var(--orange);color:var(--orange-dk)}
+.d1 h1{font:800 clamp(32px,3.6vw,46px)/1.05 var(--f-wide);letter-spacing:-.03em;color:var(--midnight);margin-bottom:10px}
+.d1 .lead{color:var(--muted);font-size:16.5px;margin:0}
+.d1 .acts{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+.d1 table{min-width:0}
+.d1 .pic{position:relative;aspect-ratio:1/1;max-width:100%;border:1px dashed #B9C5D4;border-radius:6px;background:repeating-linear-gradient(135deg,#F3F5F9 0 14px,#EDF0F5 14px 28px);display:grid;place-items:center;overflow:hidden}
+.d1 .pic img{max-width:78%;max-height:78%;object-fit:contain}
+.d1 .pic img.full{max-width:none;max-height:none;width:100%;height:100%;object-fit:cover}
+.d1 .rel{padding-block:0 44px}
+.d1 .rel h2{font:600 12px/1 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--orange-dk);margin-bottom:12px}
+.d1 .rel .g{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.d1 .rel button{text-align:left;border:1px solid var(--line);border-top:3px solid var(--navy);background:#fff;border-radius:4px;padding:16px 18px;cursor:pointer}
+.d1 .rel button b{display:block;font:700 17px/1.2 var(--f-wide);color:var(--midnight);margin-bottom:6px}
+.d1 .rel button span{color:var(--orange-dk);font-weight:700;font-size:14px}
+
+/* ========== DESIGN 2 · Datasheet ========== */
+.d2{background:#F6F8FB}
+.d2 .lines{background:var(--paper);border-bottom:1px solid var(--line)}
+.d2 .lines .in{display:flex;gap:6px;overflow-x:auto;padding-block:10px}
+.d2 .lines button{flex:none;border:1px solid var(--line);background:#fff;border-radius:999px;padding:7px 14px;font-weight:600;font-size:13.5px;color:var(--navy);cursor:pointer}
+.d2 .lines button[aria-current="true"]{background:var(--navy);border-color:var(--navy);color:#fff}
+.d2 .top{padding-block:26px 10px}
+.d2 .ttl{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px 24px;margin-top:14px;border-bottom:2px solid var(--midnight);padding-bottom:14px}
+.d2 .ttl h1{font:800 clamp(34px,4.4vw,56px)/1 var(--f-wide);letter-spacing:-.035em;color:var(--midnight)}
+.d2 .ttl .code{font:500 13px/1.4 var(--f-mono);color:var(--muted);text-align:right}
+.d2 .ttl .code b{color:var(--orange-dk);font-weight:500}
+.d2 .grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:28px;padding-block:22px 30px}
+.d2 .plate{position:relative;background:#fff;border:1px solid var(--line);aspect-ratio:4/3;max-width:100%;display:grid;place-items:center;overflow:hidden;background-image:linear-gradient(#E9EEF5 1px,transparent 1px),linear-gradient(90deg,#E9EEF5 1px,transparent 1px);background-size:24px 24px}
+.d2 .plate img{max-width:70%;max-height:72%;object-fit:contain;filter:drop-shadow(0 14px 18px rgba(2,27,58,.18))}
+.d2 .plate img.full{max-width:none;max-height:none;width:100%;height:100%;object-fit:cover;filter:none}
+.d2 .plate .dim{position:absolute;left:8%;right:8%;bottom:9%;border-top:1px solid var(--orange);font:500 10.5px/1 var(--f-mono);color:var(--orange-dk);text-align:center;padding-top:5px}
+.d2 .plate .dim::before,.d2 .plate .dim::after{content:"";position:absolute;top:-5px;width:1px;height:9px;background:var(--orange)}
+.d2 .plate .dim::before{left:0}.d2 .plate .dim::after{right:0}
+.d2 .key{background:#fff;border:1px solid var(--line);padding:20px 22px;display:flex;flex-direction:column;gap:14px}
+.d2 .key p{margin:0;color:var(--muted)}
+.d2 .key dl{margin:0;display:grid;grid-template-columns:max-content minmax(0,1fr);gap:0}
+.d2 .key dt,.d2 .key dd{padding:9px 0;border-top:1px solid var(--fog);margin:0}
+.d2 .key dt{font:500 11.5px/1.4 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding-right:16px}
+.d2 .key dd{font-weight:600;color:var(--navy)}
+.d2 .key .acts{display:flex;flex-wrap:wrap;gap:10px;margin-top:4px}
+.d2 .tabs{display:flex;gap:0;border-bottom:1px solid var(--line);margin-bottom:16px;overflow-x:auto}
+.d2 .tabs button{flex:none;border:0;background:none;padding:12px 16px;font-weight:700;color:var(--muted);cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-1px}
+.d2 .tabs button[aria-selected="true"]{color:var(--midnight);border-bottom-color:var(--orange)}
+.d2 .tabp{padding-bottom:34px}
+.d2 .docs{display:grid;gap:8px}
+.d2 .docs button{display:flex;justify-content:space-between;align-items:center;gap:12px;text-align:left;width:100%;background:#fff;border:1px solid var(--line);border-radius:4px;padding:12px 14px;cursor:pointer}
+.d2 .docs b{color:var(--navy)}
+.d2 .docs span{font:500 11.5px/1 var(--f-mono);color:var(--muted)}
+.d2 .rel{padding-bottom:36px}
+.d2 .rel h2,.d2 .tabh{font:600 12px/1 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+.d2 .rel .g{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.d2 .rel button{display:flex;align-items:center;gap:12px;text-align:left;background:#fff;border:1px solid var(--line);border-radius:4px;padding:10px 12px;cursor:pointer}
+.d2 .rel img{width:54px;height:54px;object-fit:contain;flex:none}
+.d2 .rel b{display:block;color:var(--navy)}
+.d2 .rel span{font-size:13px;color:var(--orange-dk);font-weight:700}
+
+/* ========== DESIGN 3 · Showcase ========== */
+.d3 .hero{position:relative;background:var(--navy);color:#fff;overflow:hidden}
+.d3 .hero::after{content:"";position:absolute;top:0;bottom:0;right:-8%;width:46%;background:var(--midnight);clip-path:polygon(30% 0,100% 0,100% 100%,0 100%)}
+.d3 .hero::before{content:"";position:absolute;top:0;bottom:0;right:calc(37% + 4px);width:16px;background:var(--orange);transform:skewX(-14deg);z-index:1}
+.d3 .hero .in{position:relative;z-index:2;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:24px;align-items:center;padding-block:28px 40px}
+.d3 .hero .crumb,.d3 .hero .crumb a{color:#9FB2CC}.d3 .hero .crumb b{color:#fff}
+.d3 .hero h1{font:italic 800 clamp(54px,8vw,108px)/.88 var(--f-disp);text-transform:uppercase;letter-spacing:-.01em;margin:18px 0 14px}
+.d3 .hero p{margin:0 0 22px;color:#D6DFEA;font-size:17px;max-width:44ch}
+.d3 .hero .acts{display:flex;flex-wrap:wrap;gap:10px}
+.d3 .hero .btn.gh{color:#fff;box-shadow:inset 0 0 0 2px #fff}
+.d3 .hero .art{position:relative;min-height:300px;display:grid;place-items:center}
+.d3 .hero .art img{max-height:330px;width:auto;object-fit:contain;filter:drop-shadow(0 30px 30px rgba(0,0,0,.45))}
+.d3 .hero .art img.full{width:100%;height:300px;object-fit:cover;border-radius:6px;filter:none}
+.d3 .hero .tag{left:auto;right:10px}
+.d3 .strip{position:sticky;top:44px;z-index:30;background:var(--paper);border-bottom:1px solid var(--line);box-shadow:0 6px 18px rgba(2,27,58,.06)}
+.d3 .strip .in{display:flex;gap:4px;overflow-x:auto;padding-block:8px}
+.d3 .strip button{flex:none;display:flex;align-items:center;gap:8px;border:0;background:none;padding:6px 12px 6px 6px;border-radius:6px;cursor:pointer;font-weight:700;color:var(--navy)}
+.d3 .strip img{width:36px;height:36px;object-fit:contain;background:var(--mist);border-radius:5px}
+.d3 .strip button[aria-current="true"]{background:var(--orange);color:#fff}
+.d3 .sec{padding-block:40px 10px}
+.d3 .sec h2{font:italic 800 clamp(30px,3.6vw,46px)/.95 var(--f-disp);text-transform:uppercase;color:var(--midnight);margin-bottom:18px}
+.d3 .types{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.d3 .card{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:6px;overflow:hidden;background:#fff}
+.d3 .card figure{margin:0;aspect-ratio:4/3;max-width:100%;background:var(--mist);display:grid;place-items:center}
+.d3 .card figure img{max-width:76%;max-height:76%;object-fit:contain}
+.d3 .card figure img.full{max-width:none;max-height:none;width:100%;height:100%;object-fit:cover}
+.d3 .card .b{padding:14px 16px 16px;display:flex;flex-direction:column;gap:8px;flex:1}
+.d3 .card h3{font:700 17px/1.2 var(--f-wide);color:var(--midnight)}
+.d3 .card .sz{font:500 12.5px/1.4 var(--f-mono);color:var(--muted)}
+.d3 .chips{display:flex;flex-wrap:wrap;gap:5px}
+.d3 .chips span{background:#FFF1E7;color:var(--orange-dk);font:600 11.5px/1 var(--f-mono);padding:5px 7px;border-radius:3px}
+.d3 .card .btn{margin-top:auto;padding:9px 12px;font-size:13.5px}
+.d3 .facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);margin-top:8px}
+.d3 .facts div{background:var(--mist);padding:16px 18px}
+.d3 .facts dt{font:500 11px/1 var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.d3 .facts dd{margin:0;font:700 16px/1.3 var(--f-wide);color:var(--midnight)}
+.d3 .rel .g{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;padding-bottom:40px}
+.d3 .rel button{position:relative;display:flex;align-items:flex-end;min-height:160px;border:0;border-radius:6px;overflow:hidden;background:var(--navy);color:#fff;cursor:pointer;text-align:left;padding:16px}
+.d3 .rel button img{position:absolute;right:-6%;top:6%;height:80%;width:auto;opacity:.95}
+.d3 .rel button b{position:relative;font:italic 800 26px/1 var(--f-disp);text-transform:uppercase}
+.d3 .ask{background:var(--orange)}
+.d3 .ask p{color:#FFE7D8}
+
+/* ========== DESIGN 4 · Quote builder (clean) ========== */
+.d4 .crumbbar .in{padding-block:16px 0}
+.d4 .wrap{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:48px;padding-block:22px 56px;align-items:start}
+.d4 .head{display:grid;grid-template-columns:minmax(0,1fr) 150px;gap:24px;align-items:center}
+.d4 .eyebrow{font:500 12px/1 var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--orange-dk)}
+.d4 h1{font:800 clamp(32px,3.6vw,46px)/1.05 var(--f-wide);letter-spacing:-.03em;color:var(--midnight);margin:10px 0 8px}
+.d4 .head p{margin:0;color:var(--muted);max-width:52ch}
+.d4 .catlink{display:inline-flex;align-items:center;gap:6px;margin-top:12px;border:0;background:none;padding:0;color:var(--navy);font-weight:700;font-size:14px;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.d4 .catlink svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2}
+.d4 .thumb{position:relative;aspect-ratio:1/1;max-width:100%;background:var(--mist);border-radius:8px;overflow:hidden}
+.d4 .ph{display:block;margin-top:6px;font:500 10.5px/1.3 var(--f-mono);color:var(--muted);text-align:center}
+.d4 .ltabs{display:flex;gap:22px;overflow-x:auto;border-bottom:1px solid var(--line);margin:28px 0 4px}
+.d4 .ltabs button{flex:none;border:0;background:none;padding:10px 0;font-weight:600;font-size:14px;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px}
+.d4 .ltabs button[aria-current="true"]{color:var(--midnight);border-bottom-color:var(--orange)}
+.d4 .list{list-style:none;margin:0;padding:0}
+.d4 .list li{display:grid;grid-template-columns:52px minmax(0,1fr) auto;gap:16px;align-items:center;padding:14px 0;border-bottom:1px solid var(--fog)}
+.d4 .list img{width:52px;height:52px;object-fit:contain;background:var(--mist);border-radius:6px;padding:4px}
+.d4 .list b{display:block;color:var(--midnight);font-size:15.5px}
+.d4 .list small{display:block;color:var(--muted);font-size:13px;margin-top:2px}
+.d4 .add{border:1px solid var(--line);background:#fff;color:var(--navy);border-radius:999px;padding:8px 16px;font-weight:700;font-size:13.5px;cursor:pointer;white-space:nowrap}
+.d4 .add:hover{border-color:var(--navy)}
+.d4 .add.done{background:var(--mist);border-color:var(--mist);color:var(--ok)}
+.d4 .foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 20px;margin-top:14px;font-size:13px;color:var(--muted)}
+.d4 .foot .rel{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center}
+.d4 .foot .rel button{border:0;background:none;padding:0;color:var(--navy);font-weight:600;font-size:13px;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.d4 .cart{position:sticky;top:60px;border:1px solid #A3B1C3;border-radius:10px;padding:22px;display:flex;flex-direction:column;gap:14px;background:#BAC6D5;box-shadow:0 12px 30px -18px rgba(2,27,58,.25)}
+.d4 .cart h2{font:700 19px/1.2 var(--f-wide);color:var(--midnight);margin:0;display:flex;justify-content:space-between;align-items:baseline}
+.d4 .cart h2 span{font:500 12px/1 var(--f-mono);color:var(--muted)}
+.d4 .cart .empty{color:var(--muted);font-size:14px;margin:0;padding:14px;background:#fff;border-radius:6px;text-align:center}
+.d4 .cart ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.d4 .cart li{display:grid;grid-template-columns:minmax(0,1fr) 56px 22px;gap:8px;align-items:center;font-size:13.5px;padding:8px 0;border-bottom:1px solid #A3B1C3}
+.d4 .cart li span{min-width:0;overflow-wrap:anywhere;color:var(--navy);font-weight:600}
+.d4 .cart li span small{display:block;color:var(--muted);font-weight:400}
+.d4 .cart li input{width:100%;border:1px solid var(--line);border-radius:5px;padding:5px 4px;text-align:center}
+.d4 .cart li button{border:0;background:none;color:var(--muted);cursor:pointer;font-size:17px;line-height:1}
+.d4 .cart form{display:grid;gap:10px}
+.d4 .cart .f label{font-size:12.5px}
+.d4 .cart .f input{padding:9px 11px;font-size:14.5px}
+.d4 .cart .file{font-size:13px;color:var(--navy)}
+.d4 .cart li span small,.d4 .cart h2 span,.d4 .cart li button{color:#34414F}
+.d4 .cart .file input{font-size:12.5px;margin-top:4px;max-width:100%}
+
+/* product images: centered both ways and fitted inside their frame, whatever the image's shape */
+.d1 .pic img,.d2 .plate img,.d3 .card figure img,.d4 .thumb img{position:absolute;inset:0;margin:auto;width:auto;height:auto;object-fit:contain}
+.d1 .pic img{max-width:78%;max-height:78%}
+.d2 .plate img{max-width:70%;max-height:70%}
+.d3 .card figure{position:relative}
+.d3 .card figure img{max-width:76%;max-height:76%}
+.d4 .thumb img{max-width:80%;max-height:80%}
+.d1 .pic img.full,.d2 .plate img.full,.d3 .card figure img.full,.d4 .thumb img.full{max-width:none;max-height:none;width:100%;height:100%;object-fit:cover}
+
+/* Products drop-down in the header */
+.hd nav{align-items:center}
+.dd{position:relative}
+.dd>button{border:0;background:none;cursor:pointer;font-weight:600;font-size:14px;color:var(--navy);padding:8px 10px;border-radius:5px}
+.dd>button.on{color:var(--orange-dk);box-shadow:inset 0 -2px 0 var(--orange)}
+.dd>button .car{display:inline-block;transition:transform .15s}
+.dd>button[aria-expanded="true"] .car{transform:rotate(180deg)}
+.hd.dark .dd>button{color:#fff}
+.ddm{position:absolute;top:calc(100% + 10px);left:50%;transform:translateX(-50%);width:380px;max-width:calc(100vw - 32px);background:#fff;border:1px solid var(--line);border-radius:10px;box-shadow:0 18px 40px -12px rgba(2,27,58,.35);padding:8px;z-index:60;display:grid;gap:2px}
+.ddm::before{content:"";position:absolute;top:-6px;left:50%;width:10px;height:10px;background:#fff;border-left:1px solid var(--line);border-top:1px solid var(--line);transform:translateX(-50%) rotate(45deg)}
+.ddh{font:600 11px/1 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding:8px 10px 6px}
+.ddm button{display:flex;align-items:center;gap:12px;width:100%;text-align:left;border:0;background:none;border-radius:7px;padding:8px 10px;cursor:pointer}
+.ddm button:hover,.ddm button:focus-visible{background:var(--mist)}
+.ddm button[aria-current="true"]{background:#FFF1E7}
+.ddm img{width:40px;height:40px;object-fit:contain;background:var(--mist);border-radius:6px;flex:none}
+.ddm b{display:block;color:var(--midnight);font-size:14px}
+.ddm small{display:block;color:var(--muted);font-size:12px;line-height:1.35}
+
+/* text under the product title: readable body copy, not footnote gray */
+.d1 .lead{color:#22303F;font-size:17px;line-height:1.45;margin:0 0 10px;font-weight:500;text-wrap:balance}
+.d1 .desc{color:#3A4A5E;font-size:15.5px;line-height:1.6;margin:0 0 22px;max-width:62ch}
+.d2 .key p{color:#22303F;font-size:16.5px;line-height:1.55}
+.d4 .head p{color:#22303F;font-size:16.5px;line-height:1.5;text-wrap:balance}
+.d3 .hero p{color:#EEF3F9;font-size:18px;text-wrap:balance}
+
+/* 03 Showcase strip: the homepages' 2D line icons */
+.d3 .strip .ic{width:38px;height:38px;flex:none;fill:none;stroke:currentColor;stroke-width:3.4;stroke-linecap:round;stroke-linejoin:round;background:var(--mist);border-radius:6px;padding:4px;color:var(--navy)}
+.d3 .strip button[aria-current="true"] .ic{background:rgba(255,255,255,.16);color:#fff}
+.d3 .strip button:hover .ic{color:var(--orange-dk)}
+.d3 .strip button[aria-current="true"]:hover .ic{color:#fff}
+
+/* notes show only on hover (or keyboard focus / tap) */
+.tag{opacity:0;transition:opacity .15s;pointer-events:none}
+.pic:hover .tag,.plate:hover .tag,.art:hover .tag,.thumb:hover .tag{opacity:1}
+.sample{font-style:normal}
+.note{position:relative;display:inline-flex;align-items:center;cursor:help;outline-offset:2px}
+.note i{display:grid;place-items:center;width:18px;height:18px;border-radius:50%;border:1.5px solid #9AA8B8;color:#6B7A8C;font:italic 700 11px/1 Georgia,serif}
+.note:hover i,.note:focus i{border-color:var(--orange);color:var(--orange-dk)}
+.note .tip{position:absolute;left:0;bottom:calc(100% + 8px);width:max-content;max-width:min(300px,80vw);background:var(--midnight);color:#fff;font:400 12.5px/1.4 var(--f-ui);padding:8px 10px;border-radius:6px;box-shadow:0 8px 20px rgba(2,27,58,.25);opacity:0;visibility:hidden;transition:opacity .15s;z-index:20}
+.note:hover .tip,.note:focus .tip{opacity:1;visibility:visible}
+.d4 .foot{align-items:center}.d4 .foot .sample{margin:0}
+
+/* 03: the drop-down uses the same 2D line icons as the strip */
+.ddm .ic{width:40px;height:40px;flex:none;fill:none;stroke:var(--navy);stroke-width:3.4;stroke-linecap:round;stroke-linejoin:round;background:var(--mist);border-radius:6px;padding:5px}
+.ddm button[aria-current="true"] .ic{stroke:var(--orange-dk);background:#fff}
+.ddm button:hover .ic{stroke:var(--orange-dk)}
+
+/* Related lines: quiet, secondary */
+.rel3{padding-block:30px 40px}
+.rel3 h2{font:600 12px/1 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+.rel3 .g{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.rel3 button{display:flex;align-items:center;gap:12px;text-align:left;border:1px solid var(--line);background:#fff;border-radius:8px;padding:10px 14px;cursor:pointer;color:var(--navy);font-weight:600;font-size:14.5px}
+.rel3 button:hover{border-color:#B9C5D4;background:var(--mist)}
+.rel3 .ic{width:30px;height:30px;flex:none;fill:none;stroke:#7A8899;stroke-width:3.6;stroke-linecap:round;stroke-linejoin:round}
+.rel3 span{flex:1}
+.rel3 i{font-style:normal;color:#9AA8B8}
+.rel3 button:hover .ic,.rel3 button:hover i{stroke:var(--orange-dk);color:var(--orange-dk)}
+/* 01: lighter related cards too */
+.d1 .rel h2{color:var(--muted)}
+.d1 .rel button{border-top:1px solid var(--line);padding:12px 16px}
+.d1 .rel button b{font:600 15px/1.2 var(--f-ui);color:var(--navy);margin-bottom:4px}
+.d1 .rel button span{font-weight:600;font-size:13px;color:var(--muted)}
+.d1 .rel button:hover{background:var(--mist)}
+@media (max-width:620px){.rel3 .g{grid-template-columns:minmax(0,1fr)}}
+
+/* Related lines: middle ground (visible, but not louder than the product) */
+.rel3 h2,.d1 .rel h2{font:700 20px/1.2 var(--f-wide);letter-spacing:-.01em;text-transform:none;color:var(--midnight);margin-bottom:14px}
+.rel3 button{background:var(--mist);border:1px solid #C9D2DD;padding:14px 16px;font-size:15.5px;font-weight:700;color:var(--midnight)}
+.rel3 button:hover{background:#fff;border-color:var(--navy)}
+.rel3 .ic{width:36px;height:36px;stroke:var(--navy);background:#fff;border-radius:6px;padding:4px}
+.rel3 i{color:var(--orange-dk);font-size:17px}
+.d1 .rel button{background:var(--mist);border:1px solid #C9D2DD;border-top:3px solid var(--navy);padding:14px 18px}
+.d1 .rel button b{font:700 17px/1.2 var(--f-wide);color:var(--midnight)}
+.d1 .rel button span{color:var(--orange-dk);font-weight:700;font-size:14px}
+.d1 .rel button:hover{background:#fff;border-color:var(--navy)}
+
+/* 03 Related lines: same look as 02 Datasheet */
+.d3 .relc{background:#F6F8FB;padding-block:28px 36px}
+.d3 .relc h2{font:600 12px/1 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+.d3 .relc .g{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.d3 .relc button{display:flex;align-items:center;gap:12px;text-align:left;background:#fff;border:1px solid var(--line);border-radius:4px;padding:10px 12px;cursor:pointer}
+.d3 .relc button:hover{border-color:#B9C5D4}
+.d3 .relc img{width:54px;height:54px;object-fit:contain;flex:none}
+.d3 .relc b{display:block;color:var(--navy)}
+.d3 .relc span span{font-size:13px;color:var(--orange-dk);font-weight:700}
+@media (max-width:620px){.d3 .relc .g{grid-template-columns:minmax(0,1fr)}}
+
+/* ---------- responsive ---------- */
+@media (max-width:980px){
+  .hd nav{display:none}.hd .sw{margin-left:auto}
+  .d1 .body{grid-template-columns:minmax(0,1fr)}
+  .d1 .side ul{display:flex;gap:4px;overflow-x:auto;padding-bottom:4px}
+  .d1 .side button{white-space:nowrap;border-left:0;border-bottom:3px solid transparent;padding:6px 10px}
+  .d1 .side button[aria-current="true"]{border-bottom-color:var(--orange)}
+  .d1 .pic{aspect-ratio:4/3}
+  .d2 .grid,.d3 .hero .in,.d4 .wrap{grid-template-columns:minmax(0,1fr)}
+  .d3 .types,.d3 .facts{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .d3 .hero::after{width:40%;right:-14%}.d3 .hero::before{right:calc(22% + 4px)}
+  .d4 .cart{position:static}
+  .ft .in{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:620px){
+  .hd .q .l{display:none}.hd .q .s{display:inline}.hd .q{padding:10px 14px}
+  .d1 .rel .g,.d2 .rel .g,.d3 .rel .g{grid-template-columns:minmax(0,1fr)}
+  .d3 .types{grid-template-columns:minmax(0,1fr)}
+  .d4 .head{grid-template-columns:minmax(0,1fr) 96px;gap:14px}
+  .d4 .list li{grid-template-columns:40px minmax(0,1fr) auto;gap:12px}
+  .d4 .list img{width:40px;height:40px}
+  .d4 .list .add{padding:7px 12px;font-size:13px}
+  .ft .in{grid-template-columns:minmax(0,1fr)}
+  .wa b{display:none}
+  .rv .note{display:none}
+  .rv{position:static}
+  .d3 .strip{top:0}
+  .d4 .cart{top:0}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 20l1.4-4A8 8 0 1 1 8.5 19z"/><path d="M9 10.5c.5 2 2.5 4 4.5 4.5l1.2-1.2 1.8.8-.4 1.6c-3.5.3-7.6-3.8-7.3-7.3L10.4 8.5l.8 1.8z"/></symbol>
+  <symbol id="i-dl" viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></symbol>
+  <symbol id="i-octg" viewBox="0 0 100 100"><ellipse cx="26" cy="50" rx="10" ry="24"/><ellipse cx="26" cy="50" rx="6" ry="16"/><path d="M26 26h48M26 74h48"/><path d="M74 26c6 0 10 11 10 24s-4 24-10 24"/></symbol><symbol id="i-fittings" viewBox="0 0 100 100"><circle cx="50" cy="50" r="38"/><circle cx="50" cy="50" r="16"/><circle cx="50" cy="20" r="4"/><circle cx="50" cy="80" r="4"/><circle cx="20" cy="50" r="4"/><circle cx="80" cy="50" r="4"/><circle cx="28.8" cy="28.8" r="4"/><circle cx="71.2" cy="71.2" r="4"/><circle cx="71.2" cy="28.8" r="4"/><circle cx="28.8" cy="71.2" r="4"/></symbol><symbol id="i-gaskets" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40"/><circle cx="50" cy="50" r="31"/><circle cx="50" cy="50" r="26" stroke-width=".7"/><circle cx="50" cy="50" r="21"/></symbol><symbol id="i-studs" viewBox="0 0 100 100"><path d="M14 44h72v12H14z"/><path d="M22 44v12M28 44v12M72 44v12M78 44v12" stroke-width=".9"/><path d="M38 36h10l3 6v16l-3 6H38l-3-6V42z"/><path d="M56 36h10l3 6v16l-3 6H56l-3-6V42z"/></symbol><symbol id="i-valves" viewBox="0 0 100 100"><path d="M12 56h14M74 56h14M12 46v20M88 46v20"/><path d="M26 48h48v16H26z"/><circle cx="50" cy="56" r="14"/><path d="M50 42V20M36 20h28"/></symbol><symbol id="i-seals" viewBox="0 0 100 100"><rect x="18" y="30" width="64" height="40" rx="3"/><path d="M18 42h64M18 58h64" stroke-width=".9"/><path d="M30 30v40M70 30v40"/><circle cx="50" cy="50" r="5"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+</svg>
+
+<div class="rv"><div class="in">
+  <b data-t="rvTitle">CSI · product page options</b>
+  <nav id="rvtabs" aria-label="Designs"></nav>
+  <span class="note" id="rvnote"></span>
+  <div class="lang" role="group" aria-label="Language"><button type="button" data-lang="en" aria-pressed="true">EN</button><button type="button" data-lang="es" aria-pressed="false">ES</button></div>
+</div></div>
+
+<div class="site" id="site"></div>
+<button class="wa" type="button" id="wa"><svg viewBox="0 0 24 24"><use href="#i-chat"/></svg><b>WhatsApp</b></button>
+<div class="qd" id="qd" hidden></div>
+<div class="toast" id="toast" role="status" hidden></div>
+
+<script>
+(function(){
+const LINES=[
+ {id:'octg',img:'img/octg-rack.webp',full:1,
+  en:{n:'OCTG',l:'Casing, tubing and line pipe for drilling and production.',d:'Casing and tubing to API 5CT and line pipe to API 5L, with threaded and coupled connections. Mill certificates come with every lot.'},
+  es:{n:'OCTG',l:'Casing, tubing y tubería de conducción para perforación y producción.',d:'Casing y tubing según API 5CT y tubería de conducción según API 5L, con conexiones roscadas y acopladas. Cada lote incluye certificados de fábrica.'},
+  facts:[['Grades','Grados','J55 · K55 · N80 · L80 · P110'],['Ends','Extremos','STC · LTC · BTC · premium'],['Lengths','Longitudes','R1 · R2 · R3'],['Documents','Documentos','Mill certificate 3.1']],
+  rows:[['Casing','Casing','4½ – 20','J55 – P110','API 5CT','casing-photo',1],['Tubing','Tubing','2⅜ – 4½','J55 – P110','API 5CT','float-octg'],['Line pipe','Tubería de conducción','½ – 48','Gr. B – X70','API 5L','octg-rack',1],['Couplings and pup joints','Coples y niples','2⅜ – 20','As pipe|Según tubo','API 5CT','float-octg']]},
+ {id:'fittings',img:'img/float-fittings.webp',
+  en:{n:'Pipe fittings',l:'Butt-weld and forged fittings and flanges for process piping.',d:'Elbows, tees, reducers and caps in carbon, alloy and stainless steel, with flanges to the same material and rating.'},
+  es:{n:'Conexiones',l:'Conexiones soldables y forjadas, y bridas para tubería de proceso.',d:'Codos, tees, reducciones y tapones en acero al carbono, aleado e inoxidable, con bridas del mismo material y clase.'},
+  facts:[['Materials','Materiales','A234 WPB · A105 · A182 F316L'],['Wall','Espesor','SCH 10 to XXS|SCH 10 a XXS'],['Faces','Caras','RF · FF · RTJ'],['Documents','Documentos','Mill certificate 3.1']],
+  rows:[['Butt-weld fittings','Conexiones soldables','½ – 48','SCH 10 – XXS','ASME B16.9','elbow'],['Forged fittings','Conexiones forjadas','½ – 4','Class 3000 – 9000','ASME B16.11','float-tee'],['Flanges','Bridas','½ – 24','Class 150 – 2500','ASME B16.5','weldneck'],['Large-diameter flanges','Bridas de gran diámetro','26 – 60','Class 75 – 900','ASME B16.47','flange']]},
+ {id:'gaskets',img:'img/rtj-gaskets.webp',
+  en:{n:'Gaskets',l:'Flange gaskets for high-pressure, high-temperature service.',d:'Spiral wound, camprofile and ring joint gaskets in the metals and fillers your service needs, made to the flange standard on your drawing.'},
+  es:{n:'Empaques',l:'Empaques para bridas en servicio de alta presión y alta temperatura.',d:'Empaques espirometálicos, camprofile y de anillo (RTJ) en los metales y rellenos que su servicio requiere, según la norma de brida de su plano.'},
+  facts:[['Windings','Espiral','304 · 316L · Inconel'],['Fillers','Relleno','Graphite · PTFE · mica|Grafito · PTFE · mica'],['Service','Servicio','to 1,000 °C|hasta 1.000 °C'],['Rings','Anillos','R · RX · BX']],
+  rows:[['Spiral wound','Espirometálicos','½ – 60','Class 150 – 2500','ASME B16.20','float-gaskets'],['Camprofile','Camprofile','½ – 48','Class 150 – 2500','ASME B16.20','lens-gaskets'],['Ring joint (RTJ)','Junta de anillo (RTJ)','R11 – R105','to 15,000 psi|hasta 15.000 psi','API 6A · ASME B16.20','rtj-gaskets'],['Sheet gaskets','Empaques de lámina','½ – 24','Class 150 – 300','ASME B16.21','float-gaskets']]},
+ {id:'studs',img:'img/float-studs.webp',
+  en:{n:'Stud bolts',l:'Studs and heavy hex nuts for flanged joints.',d:'Fully threaded stud bolts with two heavy hex nuts, cut to length for your flange class and coated for the site.'},
+  es:{n:'Espárragos',l:'Espárragos y tuercas hexagonales pesadas para uniones bridadas.',d:'Espárragos totalmente roscados con dos tuercas hexagonales pesadas, cortados a la medida de su clase de brida y con el recubrimiento que pide el sitio.'},
+  facts:[['Grades','Grados','B7 · B7M · B16 · L7'],['Nuts','Tuercas','A194 2H · 2HM · 4'],['Coatings','Recubrimiento','PTFE · HDG · zinc-nickel|PTFE · HDG · zinc-níquel'],['Documents','Documentos','Mill certificate 3.1']],
+  rows:[['Stud bolts','Espárragos','½ – 4 dia.|½ – 4 diám.','B7 / B7M / B16','ASTM A193','studbolt'],['Heavy hex nuts','Tuercas hexagonales pesadas','½ – 4','2H / 2HM / 4','ASTM A194','studnuts'],['Low-temperature studs','Espárragos para baja temperatura','½ – 2½ dia.|½ – 2½ diám.','L7 / L7M','ASTM A320','float-studs']]},
+ {id:'valves',img:'img/ball-valve-hd.webp',
+  en:{n:'Valves',l:'Gate, ball, check and globe valves for pipelines and plants.',d:'Cast and forged valves, tested to API 598 before shipping, with manual, gear or actuated operation.'},
+  es:{n:'Válvulas',l:'Válvulas de compuerta, bola, retención y globo para ductos y plantas.',d:'Válvulas fundidas y forjadas, probadas según API 598 antes del envío, con operación manual, por engranaje o actuada.'},
+  facts:[['Bodies','Cuerpos','WCB · LCC · CF8M · A105'],['Operation','Operación','Lever · gear · actuator|Palanca · engranaje · actuador'],['Testing','Prueba','API 598'],['Ends','Extremos','RF · RTJ · BW · SW']],
+  rows:[['Gate','Compuerta','2 – 48','Class 150 – 2500','API 600 · API 6D','gate-valve'],['Ball','Bola','½ – 36','Class 150 – 2500','API 6D · ISO 17292','ball-valve'],['Check','Retención','2 – 48','Class 150 – 2500','API 594 · API 6D','check-valve'],['Globe','Globo','½ – 16','Class 150 – 1500','BS 1873 · API 602','float-valve']]},
+ {id:'seals',img:'img/seal.webp',
+  en:{n:'Mechanical seals',l:'Cartridge and component seals for pumps and mixers.',d:'Single and double cartridge seals for process pumps, with seal faces and elastomers chosen for your fluid and temperature.'},
+  es:{n:'Sellos mecánicos',l:'Sellos de cartucho y de componentes para bombas y mezcladores.',d:'Sellos de cartucho simples y dobles para bombas de proceso, con caras y elastómeros elegidos según su fluido y temperatura.'},
+  facts:[['Faces','Caras','SiC · TC · carbon|SiC · TC · carbón'],['Elastomers','Elastómeros','FKM · EPDM · FFKM'],['Plans','Planes','API 11 · 23 · 53 · 54'],['Shafts','Ejes','20 – 200 mm']],
+  rows:[['Single cartridge','Cartucho simple','20 – 120 mm','to 40 bar|hasta 40 bar','API 682','seal'],['Double cartridge','Cartucho doble','25 – 200 mm','to 60 bar|hasta 60 bar','API 682','float-seal'],['Component seals','Sellos de componentes','10 – 100 mm','to 25 bar|hasta 25 bar','EN 12756','seal'],['Agitator seals','Sellos para agitadores','40 – 200 mm','to 16 bar|hasta 16 bar','DIN 28138','float-seal']]}
+];
+const REL={octg:['fittings','studs','valves'],fittings:['gaskets','studs','valves'],gaskets:['studs','fittings','seals'],studs:['gaskets','fittings','valves'],valves:['gaskets','studs','fittings'],seals:['valves','gaskets','fittings']};
+const DESIGNS=[
+ {id:'p1',en:['Catalog','The brief\'s template: sidebar of lines, spec table and photo side by side.'],es:['Catálogo','La plantilla del brief: líneas a un lado, tabla técnica y foto lado a lado.']},
+ {id:'p2',en:['Datasheet','A technical sheet: product on graph paper, key data, tabs for range, materials and documents.'],es:['Ficha técnica','Una hoja técnica: producto sobre papel milimetrado, datos clave y pestañas de rango, materiales y documentos.']},
+ {id:'p3',en:['Showcase','A bold navy opening with the CSI slant, then each product type as a photo card.'],es:['Vitrina','Una apertura azul marino con la diagonal de CSI y cada tipo de producto como tarjeta con foto.']},
+ {id:'p4',en:['Quote builder','A clean list of types: add what you need and send one quote request from the same page.'],es:['Cotizador','Una lista limpia de tipos: agregue lo que necesita y envíe una sola solicitud desde la misma página.']}
+];
+const T={
+ rvTitle:['CSI · product page options','CSI · opciones de página de producto'],
+ home:['Home','Inicio'],about:['About us','Nosotros'],products:['Products','Productos'],quality:['Quality','Calidad'],contact:['Contact','Contacto'],
+ quote:['Request a quote','Solicitar cotización'],quoteS:['Quote','Cotizar'],lines:['Product lines','Líneas de producto'],
+ dl:['Download catalog (PDF)','Descargar catálogo (PDF)'],type:['Type','Tipo'],size:['Size range','Rango de medidas'],rating:['Rating','Clase'],std:['Standards','Normas'],
+ sample:['Sample values for this mockup. CSI will confirm them with its catalog.','Valores de muestra para esta maqueta. CSI los confirmará con su catálogo.'],
+ photoTag:['Sample photo · replace with CSI\'s own','Foto de muestra · reemplazar por una de CSI'],
+ rel:['Related lines','Líneas relacionadas'],viewLine:['View line →','Ver línea →'],
+ askH:['Can\'t find the size you need?','¿No encuentra la medida que necesita?'],askP:['Send us your bill of materials or drawing and we will review it.','Envíenos su lista de materiales o plano y lo revisaremos.'],
+ lineOf:['Product line {n} of 06','Línea de producto {n} de 06'],keyData:['Key data','Datos clave'],
+ tabRange:['Range and standards','Rango y normas'],tabMat:['Materials','Materiales'],tabDocs:['Documents','Documentos'],
+ docCat:['{x} catalog','Catálogo de {x}'],docData:['{x} datasheet','Ficha técnica de {x}'],docCert:['Sample mill certificate','Certificado de fábrica de muestra'],pdfTbc:['PDF · from CSI','PDF · de CSI'],
+ types:['Types','Tipos'],quoteType:['Quote this type','Cotizar este tipo'],
+ chooseLine:['Product line','Línea de producto'],addQ:['Add to quote','Agregar a la cotización'],addS:['Add','Agregar'],added:['Added ✓','Agregado ✓'],
+ yourQ:['Your quote','Su cotización'],emptyQ:['Add the types you need from the list.','Agregue de la lista los tipos que necesita.'],
+ qty:['Qty','Cant.'],remove:['Remove','Quitar'],
+ name:['Name','Nombre'],company:['Company','Empresa'],email:['Email','Correo'],req:['Sizes, grades and notes','Medidas, grados y notas'],
+ attach:['Attach bill of materials or drawing (optional)','Adjunte lista de materiales o plano (opcional)'],send:['Send request','Enviar solicitud'],
+ sent:['Sample form: nothing is sent from this mockup.','Formulario de muestra: esta maqueta no envía nada.'],
+ faqH:['Buyer questions','Preguntas de compradores'],
+ faq1q:['Can you supply sizes that are not listed?','¿Pueden suministrar medidas que no aparecen?'],faq1a:['Yes. Send your drawing or bill of materials and we check it with the manufacturer.','Sí. Envíe su plano o lista de materiales y lo revisamos con el fabricante.'],
+ faq2q:['What documents come with the order?','¿Qué documentos acompañan el pedido?'],faq2a:['Mill certificates and documents in Spanish. The detail per line is to be confirmed by CSI.','Certificados de fábrica y documentos en español. El detalle por línea lo confirma CSI.'],
+ faq3q:['Do you ship to my country?','¿Envían a mi país?'],faq3a:['CSI ships across Latin America. CSI will confirm the list of countries and ports.','CSI envía a toda Latinoamérica. CSI confirmará la lista de países y puertos.'],
+ qdH:['Request a quote','Solicitar cotización'],close:['Close','Cerrar'],line:['Product line','Línea de producto'],
+ ind:['Industries','Industrias'],i1:['Oil and gas','Petróleo y gas'],i2:['Refining','Refinación'],i3:['Petrochemical','Petroquímica'],i4:['Power','Energía eléctrica'],
+ ftP:['Supplier of OCTG, pipe fittings, gaskets, stud bolts, valves and mechanical seals for Latin America.','Proveedor de OCTG, conexiones, empaques, espárragos, válvulas y sellos mecánicos para Latinoamérica.'],
+ company2:['Company','Empresa'],mic:['Made-in-China.com store','Tienda en Made-in-China.com'],
+ waToast:['On the live site this opens a WhatsApp chat with CSI sales (number to be confirmed).','En el sitio real abre un chat de WhatsApp con ventas de CSI (número por confirmar).'],
+ catToast:['On the live site this downloads the {x} catalog (PDF) from CSI.','En el sitio real descarga el catálogo de {x} (PDF) de CSI.'],
+ docToast:['On the live site this opens the PDF provided by CSI.','En el sitio real abre el PDF que entregue CSI.'],
+ addedToast:['{x} added to your quote request.','{x} agregado a su solicitud.'],fill:['Fill in name, company and email.','Complete nombre, empresa y correo.'],
+ qnote:['Add types, set quantities and send. A sales engineer replies with one quote.','Agregue tipos, indique cantidades y envíe. Un ingeniero de ventas responde con una sola cotización.'],
+ qcount:['Quote ({n})','Cotización ({n})']
+};
+let lang='en', cur='gaskets', view='p1', tab='range', cart=[], openItem=0;
+try{const s=localStorage.getItem('csi-pp-lang');if(s==='es'||s==='en')lang=s}catch(e){}
+/* inside the client presentation: start in the presentation's language and keep both in sync */
+try{const q=(location.search.match(/[?&]lang=(en|es)/)||[])[1];if(q)lang=q;else if(window.parent!==window&&window.parent.CSI_CURRENT_LANG)lang=window.parent.CSI_CURRENT_LANG}catch(e){}
+function tellParent(){try{if(window.parent!==window&&window.parent.CSI_ON_LANG)window.parent.CSI_ON_LANG(lang)}catch(e){}}
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const t=k=>(T[k]||[k,k])[lang==='en'?0:1];
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const tx=v=>{if(typeof v!=='string')return v;const p=v.split('|');return p.length>1?(lang==='en'?p[0]:p[1]):(lang==='es'?v.replace(/^Class /,'Clase ').replace(/^to /,'hasta '):v)};
+const L=id=>LINES.find(l=>l.id===id), C=()=>L(cur), N=l=>l[lang].n;
+const idx=()=>LINES.indexOf(C())+1;
+const im=(src,full,cls)=>'<img src="'+(src.indexOf('/')>-1?src:'img/'+src+'.webp')+'" alt=""'+((full||cls)?' class="'+(full?'full ':'')+(cls||'')+'"':'')+'>';
+const rowsOf=l=>l.rows.map(r=>({n:lang==='en'?r[0]:r[1],size:tx(r[2]),rating:tx(r[3]),std:r[4],img:r[5],full:r[6]}));
+let tt;function toast(m){const e=$('#toast');e.textContent=m;e.hidden=false;clearTimeout(tt);tt=setTimeout(()=>e.hidden=true,3400)}
+
+/* shared pieces */
+function note(){return '<p class="sample"><span class="note" tabindex="0" role="note" aria-label="'+esc(t('sample'))+'"><i aria-hidden="true">i</i><span class="tip">'+esc(t('sample'))+'</span></span></p>'}
+
+function header(dark){
+  return '<header class="hd'+(dark?' dark':'')+'"><div class="in"><a class="logo" href="#'+view+'"><img src="img/'+(dark?'logo-mark-white':'logo-mark-color')+'.png" alt="CSI" width="300" height="130"></a>'
+   +'<nav aria-label="Main"><a href="#'+view+'">'+t('home')+'</a><a href="#'+view+'">'+t('about')+'</a><div class="dd"><button class="on" type="button" data-dd aria-haspopup="true" aria-expanded="false" aria-controls="ddm">'+t('products')+' <span class="car">▾</span></button><div class="ddm" id="ddm" role="menu" hidden><span class="ddh">'+t('lines')+'</span>'+LINES.map(x=>'<button type="button" role="menuitem" data-line="'+x.id+'" aria-current="'+(x.id===cur)+'">'+(view==='p3'?'<svg class="ic" viewBox="0 0 100 100" aria-hidden="true"><use href="#i-'+x.id+'"/></svg>':im(x.full?x.rows[1][5]:x.img))+'<span><b>'+esc(N(x))+'</b><small>'+esc(x[lang].l)+'</small></span></button>').join('')+'</div></div><a href="#'+view+'">'+t('quality')+'</a><a href="#'+view+'">'+t('contact')+'</a></nav>'
+   +'<span class="sw"><button type="button" data-lang="es" aria-pressed="'+(lang==='es')+'">ES</button> | <button type="button" data-lang="en" aria-pressed="'+(lang==='en')+'">EN</button></span>'
+   +'<button class="btn or q" type="button" data-q><span class="l">'+t('quote')+'</span><span class="s">'+t('quoteS')+'</span></button></div></header>';
+}
+function crumb(){return '<div class="crumb"><a href="#'+view+'">'+t('home')+'</a><span>›</span><a href="#'+view+'">'+t('products')+'</a><span>›</span><b>'+esc(N(C()))+'</b></div>'}
+function table(l){return '<div class="tbl" tabindex="0" role="region" aria-label="'+t('size')+'"><table><thead><tr><th>'+t('type')+'</th><th>'+t('size')+'</th><th>'+t('rating')+'</th><th>'+t('std')+'</th></tr></thead><tbody>'
+  +rowsOf(l).map(r=>'<tr><td>'+esc(r.n)+'</td><td>'+esc(r.size)+'</td><td>'+esc(r.rating)+'</td><td>'+esc(r.std)+'</td></tr>').join('')+'</tbody></table></div>'+note()+''}
+function acts(){return '<button class="btn or" type="button" data-q>'+t('quote')+'</button><button class="btn nv" type="button" data-cat><svg><use href="#i-dl"/></svg>'+t('dl')+'</button>'}
+function ask(){return '<section class="ask"><div class="in"><div><h3>'+t('askH')+'</h3><p>'+t('askP')+'</p></div><button class="btn '+(view==='p3'?'wh':'or')+'" type="button" data-q>'+t('quote')+'</button></div></section>'}
+function footer(){
+  return '<footer class="ft"><div class="in"><div><img src="img/logo-full-white.png" alt="CSI Industries Energy Group" width="520" height="289"><p style="margin:0;max-width:34ch">'+t('ftP')+'</p></div>'
+   +'<div><h4>'+t('products')+'</h4><ul>'+LINES.map(l=>'<li>'+esc(N(l))+'</li>').join('')+'</ul></div>'
+   +'<div><h4>'+t('ind')+'</h4><ul><li>'+t('i1')+'</li><li>'+t('i2')+'</li><li>'+t('i3')+'</li><li>'+t('i4')+'</li></ul></div>'
+   +'<div><h4>'+t('contact')+'</h4><ul><li>info@csiindustrieseg.com</li><li>WhatsApp · '+(lang==='en'?'to be confirmed':'por confirmar')+'</li><li>China · '+(lang==='en'?'United States':'Estados Unidos')+'</li><li>'+t('mic')+'</li></ul></div>'
+   +'<div class="base"><span>© CSI Industries Energy Group Ltd</span><span>csiindustrieseg.com/'+lang+'/'+(lang==='en'?'products':'productos')+'/'+C().id+'</span></div></div></footer>';
+}
+
+/* ===== design 1 · Catalog ===== */
+function d1(){
+  const l=C();
+  return '<div class="d1">'+header()+'<div class="crumbbar"><div class="in">'+crumb()+'</div></div>'
+   +'<div class="in body"><aside class="side"><h2>'+t('lines')+'</h2><ul>'+LINES.map(x=>'<li><button type="button" data-line="'+x.id+'" aria-current="'+(x.id===cur)+'">'+esc(N(x))+'</button></li>').join('')+'</ul></aside>'
+   +'<div><h1>'+esc(N(l))+'</h1><p class="lead">'+esc(l[lang].l)+'</p><p class="desc">'+esc(l[lang].d)+'</p>'+table(l)+'<div class="acts">'+acts()+'</div></div>'
+   +'<div class="pic">'+im(l.img,l.full)+'<span class="tag">'+t('photoTag')+'</span></div></div>'
+   +'<section class="in rel"><h2>'+t('rel')+'</h2><div class="g">'+REL[cur].map(id=>'<button type="button" data-line="'+id+'"><b>'+esc(N(L(id)))+'</b><span>'+t('viewLine')+'</span></button>').join('')+'</div></section>'
+   +ask()+footer()+'</div>';
+}
+/* ===== design 2 · Datasheet ===== */
+function d2(){
+  const l=C(), n=N(l);
+  let panel='';
+  if(tab==='range')panel=table(l);
+  if(tab==='mat')panel='<div class="tbl"><table><tbody>'+l.facts.map(f=>'<tr><td>'+esc(lang==='en'?f[0]:f[1])+'</td><td>'+esc(tx(f[2]))+'</td></tr>').join('')+'</tbody></table></div>'+note()+'';
+  if(tab==='docs')panel='<div class="docs">'+[t('docCat').replace('{x}',n),t('docData').replace('{x}',n),t('docCert')].map((d,i)=>'<button type="button" data-'+(i===0?'cat':'doc')+'><b>'+esc(d)+'</b><span>'+t('pdfTbc')+'</span></button>').join('')+'</div>';
+  return '<div class="d2">'+header()
+   +'<div class="lines"><div class="in" role="tablist" aria-label="'+t('lines')+'">'+LINES.map(x=>'<button type="button" data-line="'+x.id+'" aria-current="'+(x.id===cur)+'">'+esc(N(x))+'</button>').join('')+'</div></div>'
+   +'<div class="in top">'+crumb()+'<div class="ttl"><h1>'+esc(n)+'</h1><div class="code">CSI · '+t('lineOf').replace('{n}','0'+idx())+'<br><b>'+esc(rowsOf(l).map(r=>r.std).filter((v,i,a)=>a.indexOf(v)===i).slice(0,2).join(' · '))+'</b></div></div></div>'
+   +'<div class="in grid"><div class="plate">'+im(l.img,l.full)+(l.full?'':'<span class="dim">'+esc(rowsOf(l)[0].size)+'</span>')+'<span class="tag">'+t('photoTag')+'</span></div>'
+   +'<div class="key"><p>'+esc(l[lang].d)+'</p><div><div class="tabh">'+t('keyData')+'</div><dl>'+l.facts.map(f=>'<dt>'+esc(lang==='en'?f[0]:f[1])+'</dt><dd>'+esc(tx(f[2]))+'</dd>').join('')+'</dl></div><div class="acts">'+acts()+'</div></div></div>'
+   +'<div class="in"><div class="tabs" role="tablist">'+[['range','tabRange'],['mat','tabMat'],['docs','tabDocs']].map(x=>'<button type="button" role="tab" data-tab="'+x[0]+'" aria-selected="'+(tab===x[0])+'">'+t(x[1])+'</button>').join('')+'</div><div class="tabp" role="tabpanel">'+panel+'</div></div>'
+   +'<section class="in rel"><h2>'+t('rel')+'</h2><div class="g">'+REL[cur].map(id=>{const x=L(id);return '<button type="button" data-line="'+id+'">'+im(x.full?x.rows[1][5]:x.img)+'<span style="min-width:0"><b>'+esc(N(x))+'</b><span>'+t('viewLine')+'</span></span></button>'}).join('')+'</div></section>'
+   +ask()+footer()+'</div>';
+}
+/* ===== design 3 · Showcase ===== */
+function d3(){
+  const l=C();
+  return '<div class="d3">'+header(true)
+   +'<section class="hero"><div class="in"><div>'+crumb()+'<h1>'+esc(N(l))+'</h1><p>'+esc(l[lang].l)+'</p><div class="acts"><button class="btn or" type="button" data-q>'+t('quote')+'</button><button class="btn gh" type="button" data-cat><svg><use href="#i-dl"/></svg>'+t('dl')+'</button></div></div>'
+   +'<div class="art">'+im(l.img,l.full)+'<span class="tag">'+t('photoTag')+'</span></div></div></section>'
+   +'<nav class="strip" aria-label="'+t('lines')+'"><div class="in">'+LINES.map(x=>'<button type="button" data-line="'+x.id+'" aria-current="'+(x.id===cur)+'"><svg class="ic" viewBox="0 0 100 100" aria-hidden="true"><use href="#i-'+x.id+'"/></svg>'+esc(N(x))+'</button>').join('')+'</div></nav>'
+   +'<section class="in sec"><h2>'+t('types')+'</h2><div class="types">'+rowsOf(l).map((r,i)=>'<article class="card"><figure>'+im(r.img,r.full)+'</figure><div class="b"><h3>'+esc(r.n)+'</h3><div class="sz">'+esc(r.size)+' · '+esc(r.rating)+'</div><div class="chips">'+r.std.split(' · ').map(s=>'<span>'+esc(s)+'</span>').join('')+'</div><button class="btn nv" type="button" data-q data-type="'+i+'">'+t('quoteType')+'</button></div></article>').join('')+'</div>'
+   +'<dl class="facts">'+l.facts.map(f=>'<div><dt>'+esc(lang==='en'?f[0]:f[1])+'</dt><dd>'+esc(tx(f[2]))+'</dd></div>').join('')+'</dl>'+note()+'</section>'
+   +'<section class="relc"><div class="in"><h2>'+t('rel')+'</h2><div class="g">'+REL[cur].map(id=>{const x=L(id);return '<button type="button" data-line="'+id+'">'+im(x.full?x.rows[1][5]:x.img)+'<span style="min-width:0"><b>'+esc(N(x))+'</b><span>'+t('viewLine')+'</span></span></button>'}).join('')+'</div></div></section>'
+   +ask()+footer()+'</div>';
+}
+/* ===== design 4 · Quote builder (clean) ===== */
+function d4(){
+  const l=C(), inCart=i=>cart.some(c=>c.line===cur&&c.i===i);
+  return '<div class="d4">'+header()+'<div class="crumbbar"><div class="in">'+crumb()+'</div></div>'
+   +'<div class="in wrap"><div>'
+   +'<div class="head"><div><span class="eyebrow">'+t('lineOf').replace('{n}','0'+idx())+'</span><h1>'+esc(N(l))+'</h1><p>'+esc(l[lang].l)+'</p>'
+   +'<button class="catlink" type="button" data-cat><svg><use href="#i-dl"/></svg>'+t('dl')+'</button></div>'
+   +'<div><div class="thumb">'+im(l.img,l.full)+'<span class="tag">'+t('photoTag')+'</span></div></div></div>'
+   +'<nav class="ltabs" aria-label="'+t('lines')+'">'+LINES.map(x=>'<button type="button" data-line="'+x.id+'" aria-current="'+(x.id===cur)+'">'+esc(N(x))+'</button>').join('')+'</nav>'
+   +'<ul class="list">'+rowsOf(l).map((r,i)=>'<li>'+im(r.img,0)+'<div><b>'+esc(r.n)+'</b><small>'+esc(r.size)+' · '+esc(r.rating)+' · '+esc(r.std)+'</small></div>'
+     +'<button type="button" class="add'+(inCart(i)?' done':'')+'" data-add="'+i+'">'+(inCart(i)?t('added'):'+ '+t('addS'))+'</button></li>').join('')+'</ul>'
+   +'<div class="foot">'+note()+'<span class="rel">'+t('rel')+': '+REL[cur].map(id=>'<button type="button" data-line="'+id+'">'+esc(N(L(id)))+'</button>').join('')+'</span></div>'
+   +'</div><aside class="cart" id="cart">'+cartHTML()+'</aside></div>'+ask()+footer()+'</div>';
+}
+function cartHTML(){
+  return '<h2>'+t('yourQ')+(cart.length?'<span>'+cart.length+'</span>':'')+'</h2>'
+   +(cart.length?'<ul>'+cart.map((c,k)=>{const r=rowsOf(L(c.line))[c.i];return '<li><span>'+esc(r.n)+'<small>'+esc(N(L(c.line)))+'</small></span><input type="number" min="1" value="'+c.q+'" aria-label="'+t('qty')+'" data-qty="'+k+'"><button type="button" data-rm="'+k+'" aria-label="'+t('remove')+'">×</button></li>'}).join('')+'</ul>':'<p class="empty">'+t('emptyQ')+'</p>')
+   +'<form id="d4form" novalidate><div class="f"><label for="d4n">'+t('name')+'</label><input id="d4n" autocomplete="name"></div><div class="f"><label for="d4c">'+t('company')+'</label><input id="d4c" autocomplete="organization"></div><div class="f"><label for="d4e">'+t('email')+'</label><input id="d4e" type="email" autocomplete="email"></div>'
+   +'<label class="file">'+t('attach')+'<input id="d4f" type="file"></label><button class="btn or" type="submit">'+t('send')+'</button><div id="d4ok"></div></form>';
+}
+/* quote drawer (designs 1-3 and the header button everywhere) */
+function openQuote(typeIdx){
+  const l=C(), r=typeIdx!=null?rowsOf(l)[typeIdx]:null;
+  if(view==='p4'&&typeIdx==null){$('#cart').scrollIntoView({behavior:'smooth',block:'start'});return}
+  const d=$('#qd');d.innerHTML='<div class="pn" role="dialog" aria-modal="true" aria-label="'+t('qdH')+'"><button class="x" type="button" data-x>'+t('close')+'</button><h2>'+t('qdH')+'</h2>'
+   +'<form id="qform" novalidate style="display:grid;gap:12px"><div class="f"><label for="qline">'+t('line')+'</label><select id="qline">'+LINES.map(x=>'<option value="'+x.id+'"'+(x.id===cur?' selected':'')+'>'+esc(N(x))+'</option>').join('')+'</select></div>'
+   +'<div class="f"><label for="qreq">'+t('req')+'</label><textarea id="qreq">'+(r?esc(r.n+' · '+r.size+' · '+r.std):'')+'</textarea></div>'
+   +'<div class="f"><label for="qn">'+t('name')+'</label><input id="qn" autocomplete="name"></div><div class="f"><label for="qc">'+t('company')+'</label><input id="qc" autocomplete="organization"></div><div class="f"><label for="qe">'+t('email')+'</label><input id="qe" type="email" autocomplete="email"></div>'
+   +'<div class="f"><label for="qf">'+t('attach')+'</label><input id="qf" type="file"></div><button class="btn or" type="submit">'+t('send')+'</button><div id="qok"></div></form></div>';
+  d.hidden=false;setTimeout(()=>{const r=$('#qreq');if(r)r.focus()},30);
+}
+function closeQuote(){$('#qd').hidden=true;$('#qd').innerHTML=''}
+
+/* render */
+function render(){
+  document.documentElement.lang=lang;
+  $$('[data-t]').forEach(e=>e.textContent=t(e.dataset.t));
+  $$('.rv .lang button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.lang===lang));
+  $('#rvtabs').innerHTML=DESIGNS.map((d,i)=>'<a href="#'+d.id+'" aria-current="'+(d.id===view?'page':'false')+'"><span>0'+(i+1)+'</span>'+esc(d[lang][0])+'</a>').join('');
+  $('#rvnote').textContent=DESIGNS.find(d=>d.id===view)[lang][1];
+  $('#site').innerHTML={p1:d1,p2:d2,p3:d3,p4:d4}[view]();
+  $('#wa').querySelector('b').textContent='WhatsApp';
+}
+function go(){const h=location.hash.slice(1);view=DESIGNS.some(d=>d.id===h)?h:'p1';render();window.scrollTo(0,0)}
+window.addEventListener('hashchange',go);
+
+document.addEventListener('click',e=>{
+  const g=k=>e.target.closest(k);
+  let b;
+  if(b=g('[data-lang]')){lang=b.dataset.lang;try{localStorage.setItem('csi-pp-lang',lang)}catch(_){}render();tellParent();return}
+  if(b=g('[data-line]')){cur=b.dataset.line;openItem=0;render();const s=$('#site');if(s.getBoundingClientRect().top<0)s.scrollIntoView({block:'start'});return}
+  if(b=g('[data-tab]')){tab=b.dataset.tab;render();return}
+  if(b=g('[data-q]')){openQuote(b.dataset.type!=null?+b.dataset.type:null);return}
+  if(g('[data-x]')||e.target.id==='qd'){closeQuote();return}
+  if(g('[data-cat]')){toast(t('catToast').replace('{x}',N(C())));return}
+  if(g('[data-doc]')){toast(t('docToast'));return}
+  if(g('#wa')){toast(t('waToast'));return}
+  if(b=g('[data-open]')){const i=+b.dataset.open;openItem=openItem===i?-1:i;render();return}
+  if(b=g('[data-add]')){const i=+b.dataset.add;if(!cart.some(c=>c.line===cur&&c.i===i)){cart.push({line:cur,i,q:1});toast(t('addedToast').replace('{x}',rowsOf(C())[i].n))}render();return}
+  if(b=g('[data-rm]')){cart.splice(+b.dataset.rm,1);render();return}
+  const a=g('.hd nav a,.crumb a,.logo');if(a){e.preventDefault()}
+});
+document.addEventListener('change',e=>{
+  if(e.target.id==='d4line'){cur=e.target.value;openItem=0;render()}
+  if(e.target.dataset&&e.target.dataset.qty!=null){cart[+e.target.dataset.qty].q=Math.max(1,+e.target.value||1)}
+});
+document.addEventListener('submit',e=>{
+  e.preventDefault();const f=e.target, ok=f.querySelector('#qok,#d4ok');
+  const req=[...f.querySelectorAll('input:not([type=file])')].filter(i=>!i.value.trim());
+  if(req.length){req[0].focus();ok.innerHTML='<div class="okmsg" style="background:#FDECEA;color:#B03022">'+t('fill')+'</div>';return}
+  ok.innerHTML='<div class="okmsg">'+t('sent')+'</div>';
+});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('#qd').hidden)closeQuote()});
+/* Products drop-down: click or hover opens it; picking a line, Escape or a click elsewhere closes it */
+let ddAt=0;function setDD(open,hover){const m=$('#ddm'),b=$('[data-dd]');if(!m||!b)return;if(open&&m.hidden&&hover)ddAt=Date.now();m.hidden=!open;b.setAttribute('aria-expanded',open)}
+document.addEventListener('click',e=>{const b=e.target.closest('[data-dd]');if(b){e.stopPropagation();const m=$('#ddm');setDD(m.hidden||Date.now()-ddAt<600);return}if(!e.target.closest('#ddm'))setDD(false)},true);
+document.addEventListener('mouseover',e=>{const d=e.target.closest('.dd');if(d&&matchMedia('(hover:hover)').matches)setDD(true,true)});
+document.addEventListener('mouseout',e=>{const d=e.target.closest('.dd');if(d&&!d.contains(e.relatedTarget)&&matchMedia('(hover:hover)').matches)setDD(false)});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')setDD(false)});
+
+window.CSI_LANG=function(l){if(l!=='en'&&l!=='es'||l===lang)return;lang=l;render()};
+go();
+})();
+</script>
+
+<script>
+/* CSI mockups: shared EN/ES layer. Walks the page into translation units:
+   an element holding only text + plain inline tags is one unit (its innerHTML),
+   otherwise each direct text node is a unit. Attributes alt/placeholder/aria-label/title too.
+   Elements that already carry data-es/data-en keep their own translations. */
+(function(){
+var SKIP={SCRIPT:1,STYLE:1,NOSCRIPT:1,TEMPLATE:1,svg:1,SVG:1,VIDEO:1,CODE:1};
+var INL={EM:1,B:1,STRONG:1,I:1,BR:1,SMALL:1,SUP:1,U:1};
+var ATTRS=['alt','placeholder','aria-label','title'];
+function norm(s){return s.replace(/\s+/g,' ').trim()}
+function plainInline(el){
+  for(var c=el.firstElementChild;c;c=c.nextElementSibling){
+    if(!INL[c.tagName]||c.attributes.length)return false;
+    if(c.firstElementChild&&!plainInline(c))return false;
+  }
+  return true;
+}
+function hasLetters(s){return /[A-Za-zÁÉÍÓÚáéíóúñÑ]{2,}/.test(s)}
+/* visit(kind, node, key): kind 'html' (element), 'text' (text node), 'attr:<name>' (element) */
+function walk(root,visit,exclude){
+  (function rec(el){
+    if(el.nodeType!==1||SKIP[el.tagName]||el.hasAttribute('data-noi18n'))return;
+    if(exclude&&el.matches&&el.matches(exclude))return;
+    for(var a=0;a<ATTRS.length;a++){var v=el.getAttribute(ATTRS[a]);if(v&&hasLetters(v)&&!el.hasAttribute('data-'+ATTRS[a]+'-es'))visit('attr:'+ATTRS[a],el,norm(v))}
+    if(el.hasAttribute('data-es')||el.hasAttribute('data-es-html')){visit('own',el,null);return}
+    if(el.firstElementChild&&plainInline(el)&&!el.querySelector('[data-es],[data-es-html]')){var h=norm(el.innerHTML);if(hasLetters(el.textContent))visit('html',el,h);return}
+    for(var n=el.firstChild;n;n=n.nextSibling){
+      if(n.nodeType===3){var t=norm(n.nodeValue);if(t&&hasLetters(t))visit('text',n,t)}
+      else if(n.nodeType===1)rec(n);
+    }
+  })(root);
+}
+window.CSI_I18N_WALK=walk;
+window.CSI_I18N_NORM=norm;
+})();
+
+/* runtime: registers every unit in English once, then swaps EN <-> ES; also turns every "EN | ES" into a working switch */
+(function(){
+var D={"CSI home": "Inicio CSI", "Products": "Productos", "Quality": "Calidad", "About us": "Nosotros", "Catalogs": "Catálogos", "Contact": "Contacto", "Request a quote": "Solicitar cotización", "Industrial supply · oil, gas and energy": "Suministro industrial · petróleo, gas y energía", "What reaches your plant is what you ordered.": "Lo que llega a su planta es lo que usted pidió.", "OCTG, fittings, gaskets, stud bolts, valves and mechanical seals from verified factories in China, checked before they ship to Latin America.": "OCTG, conexiones, empaques, espárragos, válvulas y sellos mecánicos de fábricas verificadas en China, revisados antes de su envío a Latinoamérica.", "Download catalogs": "Descargar catálogos", "One point of contact": "Un solo punto de contacto", "Six product lines, one sales contact and one clear quote for your whole project.": "Seis líneas de producto, un solo contacto de ventas y una cotización clara para todo su proyecto.", "CSI Industries Energy Group connects the Latin American energy industry with manufacturers in China. We review drawings, dimensions and materials with the factory before every shipment.": "CSI Industries Energy Group conecta a la industria energética de Latinoamérica con fabricantes en China. Revisamos planos, dimensiones y materiales con la fábrica antes de cada envío.", "Documents and support come in Spanish, with direct coordination with the factories, from offices in China and the United States.": "Documentación y soporte en español, con coordinación directa con las fábricas, desde oficinas en China y Estados Unidos.", "Send your bill of materials": "Envíe su lista de materiales", "Product lines": "Líneas de producto", "Previous line": "Línea anterior", "Next line": "Línea siguiente", "Pipe fittings": "Conexiones", "Pipe Fittings": "Conexiones", "Gaskets": "Empaques", "Stud bolts": "Espárragos", "Stud Bolts": "Espárragos", "Valves": "Válvulas", "Mechanical seals": "Sellos mecánicos", "Mech. seals": "Sellos mec.", "Casing and tubing under API standards.": "Casing y tubing bajo normas API.", "Types": "Tipos", "Casing, tubing and couplings": "Casing, tubing y coples", "Size range": "Rango de medidas", "to be completed": "por completar", "Standards": "Normas", "Grades": "Grados", "J55, K55, N80, L80, P110 (examples)": "J55, K55, N80, L80, P110 (ejemplos)", "Product resources": "Recursos del producto", "OCTG catalog": "Catálogo OCTG", "PDF ·": "PDF ·", "size TBC": "tamaño por confirmar", "OCTG datasheet": "Ficha técnica OCTG", "TBC": "Por confirmar", "tbc": "por confirmar", "Request a quote for OCTG": "Solicitar cotización de OCTG", "Checked at every step": "Revisado en cada etapa", "Scroll back": "Desplazar atrás", "Scroll forward": "Desplazar adelante", "Before production": "Antes de producción", "Drawings reviewed": "Planos revisados", "Checked against your specification with the manufacturer.": "Verificados con el fabricante contra su especificación.", "During production": "Durante la producción", "Materials confirmed": "Materiales confirmados", "Grades and mill certificates checked against the order.": "Grados y certificados de fábrica verificados contra el pedido.", "Before shipping": "Antes del envío", "Dimensions measured": "Dimensiones medidas", "Confirmed before the goods are packed.": "Confirmadas antes de empacar la mercancía.", "Delivery": "Entrega", "Shipped with Spanish documents": "Enviado con documentos en español", "Across Latin America, to your plant.": "En toda Latinoamérica, hasta su planta.", "Industries we supply": "Industrias que atendemos", "Oil and gas": "Petróleo y gas", "Upstream and midstream": "Upstream y midstream", "Refining": "Refinación", "Plants and maintenance": "Plantas y mantenimiento", "Petrochemical": "Petroquímica", "Process and services": "Procesos y servicios", "Power": "Energía eléctrica", "Generation and distribution": "Generación y distribución", "Let's<br>quote.": "Cotice-<br>mos.", "Send your bill of materials or drawing and we reply with one clear quote for every line.": "Envíe su lista de materiales o plano y le respondemos con una cotización clara para cada línea.", "Find us<br>online.": "Encuén-<br>trenos.", "See the CSI store, listed products and supplier verification on Made-in-China.com.": "Vea la tienda de CSI, sus productos y la verificación de proveedor en Made-in-China.com.", "Link when published": "Enlace al publicarse", "Visit the store": "Visitar la tienda", "info@csiindustrieseg.com · Sales WhatsApp": "info@csiindustrieseg.com · WhatsApp de ventas", "· China · United States · Also on Made-in-China.com": "· China · Estados Unidos · También en Made-in-China.com", "Catalog downloads": "Descarga de catálogos", "Close catalogs": "Cerrar catálogos", "One PDF per product line. Download the ones you need, or ask for all six with your quote.": "Un PDF por línea de producto. Descargue los que necesite o pida los seis con su cotización.", "Pipe fittings catalog": "Catálogo de conexiones", "Gaskets catalog": "Catálogo de empaques", "Stud bolts catalog": "Catálogo de espárragos", "Valves catalog": "Catálogo de válvulas", "Mechanical seals catalog": "Catálogo de sellos mecánicos", "Piping.": "Tubería.", "Joints.": "Uniones.", "Sealing.": "Sellado.", "Industrial supply for oil, gas and energy. Six product lines from verified factories in China, supervised before they ship to your plant in Latin America.": "Suministro industrial para petróleo, gas y energía. Seis líneas de producto de fábricas verificadas en China, supervisadas antes de su envío a su planta en Latinoamérica.", "Six lines": "Seis líneas", "PDF · Quote →": "PDF · Cotizar →", "Flanges, elbows, tees and reducers in carbon steel and alloys.": "Bridas, codos, tees y reducciones en acero al carbono y aleaciones.", "Spiral wound, ring joint and other gaskets for high-pressure, high-temperature service.": "Empaques espirometálicos, de anillo (RTJ) y otros para alta presión y alta temperatura.", "Studs and nuts for flanges, in the grades your project requires.": "Espárragos y tuercas para bridas, en los grados que su proyecto requiere.", "Gate, globe, check and ball valves for oil, gas and process.": "Válvulas de compuerta, globo, retención y bola para petróleo, gas y procesos.", "Cartridge seals and sealing solutions for pumps.": "Sellos de cartucho y soluciones de sellado para bombas.", "One sales contact": "Un solo contacto de ventas", "One clear quote": "Una cotización clara", "product lines, one catalog each": "líneas de producto, un catálogo cada una", "offices: China and United States": "oficinas: China y Estados Unidos", "documents and support in Spanish": "documentación y soporte en español", "years of experience": "años de experiencia", "confirm": "confirmar", "Checked before it ships": "Revisado antes del envío", "Drawings": "Planos", "Reviewed against your specification with the manufacturer.": "Revisados con el fabricante contra su especificación.", "Materials": "Materiales", "Dimensions": "Dimensiones", "Measured and confirmed before the goods are packed.": "Medidas y confirmadas antes de empacar la mercancía.", "Your plant": "Su planta", "Shipped across Latin America with documents in Spanish.": "Enviado a toda Latinoamérica con documentos en español.", "Have a project under way?": "¿Tiene un proyecto en marcha?", "Send us your bill of materials and we will reply with a quote. Also find CSI on Made-in-China.com": "Envíenos su lista de materiales y le responderemos con una cotización. También encuentre a CSI en Made-in-China.com", "link soon": "enlace pronto", "Oil and gas · Refining · Petrochemical · Power": "Petróleo y gas · Refinación · Petroquímica · Energía eléctrica", "Idioma / Language": "Idioma / Language", "Sections": "Secciones", "First and last name": "Nombre y apellido", "email@company.com": "correo@empresa.com", "Material, sizes, quantities, standards, lead time…": "Material, medidas, cantidades, normas, plazo…", "Material, sizes, quantities, standards, lead time": "Material, medidas, cantidades, normas, plazo", "Otro": "Otro", "Industrial supply for oil, gas and energy": "Suministro industrial para petróleo, gas y energía", "Datasheets": "Fichas técnicas", "WhatsApp <b>[TBC]<\/b>": "WhatsApp <b>[por confirmar]<\/b>", "Verified in China. Delivered across Latin America.": "Verificado en China. Entregado en toda Latinoamérica.", "OCTG, fittings, gaskets, stud bolts, valves and mechanical seals, with technical supervision at the factory before every shipment.": "OCTG, conexiones, empaques, espárragos, válvulas y sellos mecánicos, con supervisión técnica en fábrica antes de cada envío.", "Pause video": "Pausar video", "Play video": "Reproducir video", "Who we are": "Quiénes somos", "Reviewed. Measured. Delivered.": "Revisado. Medido. Entregado.", "reviewed": "revisado", "measured": "medido", "delivered": "entregado", "CSI Industries Energy Group connects the Latin American energy industry with manufacturers in China. We verify drawings, dimensions and quality before every shipment, so that what reaches your plant is what you ordered.": "CSI Industries Energy Group conecta a la industria energética de Latinoamérica con fabricantes en China. Verificamos planos, dimensiones y calidad antes de cada envío, para que lo que llegue a su planta sea lo que usted pidió.", "See our product lines": "Ver nuestras líneas de producto", "What we do": "Qué hacemos", "Piping, joints and sealing from one supplier": "Tubería, uniones y sellado de un solo proveedor", "Six product lines through one sales contact and one clear quote, with documentation and support in Spanish.": "Seis líneas de producto con un solo contacto de ventas y una cotización clara, con documentación y soporte en español.", "See all products": "Ver todos los productos", "Our product lines": "Nuestras líneas de producto", "Download all catalogs": "Descargar todos los catálogos", "View line": "Ver línea", "From mill to plant": "De la fábrica a la planta", "One contact from the factory floor to your site": "Un solo contacto desde la fábrica hasta su sitio", "Offices in China and the United States coordinate the manufacturer, the inspection and the freight, so your team deals with one person, in Spanish.": "Oficinas en China y Estados Unidos coordinan al fabricante, la inspección y el flete, para que su equipo trate con una sola persona, en español.", "Plan your order": "Planifique su pedido", "Reviewed with the manufacturer against your specification.": "Revisados con el fabricante contra su especificación.", "Measured and confirmed before packing.": "Medidas y confirmadas antes de empacar.", "Shipped across Latin America with Spanish documents.": "Enviado a toda Latinoamérica con documentos en español.", "Latest from CSI": "Novedades de CSI", "Spiral wound and ring joint gaskets": "Empaques espirometálicos y de anillo", "Catalog": "Catálogo", "Spiral wound gaskets catalog, now in PDF": "Catálogo de empaques espirometálicos, ya en PDF", "Download": "Descargar", "Cranes loading containers at port": "Grúas cargando contenedores en el puerto", "Store": "Tienda", "CSI on Made-in-China.com": "CSI en Made-in-China.com", "Packed boxes at the factory": "Cajas empacadas en la fábrica", "Service": "Servicio", "Spanish documentation with every order": "Documentación en español con cada pedido", "How a quote works": "Cómo funciona una cotización", "Send us your bill of materials and we will reply with a quote.": "Envíenos su lista de materiales y le responderemos con una cotización.", "Company": "Empresa", "China · United States": "China · Estados Unidos", "© CSI Industries Energy Group": "© CSI Industries Energy Group", "Suppliers": "Proveedores", "News": "Noticias", "Making every order <em>right.<\/em>": "Cada pedido, <em>bien hecho.<\/em>", "CSI Industries Energy Group supplies OCTG, fittings, gaskets, stud bolts, valves and mechanical seals from verified factories in China to the energy industry in Latin America.": "CSI Industries Energy Group suministra OCTG, conexiones, empaques, espárragos, válvulas y sellos mecánicos de fábricas verificadas en China a la industria energética de Latinoamérica.", "A partner with a presence in China and the United States.": "Un socio con presencia en China y Estados Unidos.", "Our company": "Nuestra empresa", "We connect the Latin American energy industry with manufacturers in China, and check drawings, dimensions and quality before every shipment.": "Conectamos a la industria energética de Latinoamérica con fabricantes en China, y revisamos planos, dimensiones y calidad antes de cada envío.", "Our way of working": "Nuestra forma de trabajar", "One sales contact, one clear quote for the whole project, and documents and support in Spanish.": "Un solo contacto de ventas, una cotización clara para todo el proyecto, y documentación y soporte en español.", "Get to know us": "Conózcanos", "Piping. Joints. Sealing.": "Tubería. Uniones. Sellado.", "Six product lines for oil, gas and energy, each with its own PDF catalog and quote button.": "Seis líneas de producto para petróleo, gas y energía, cada una con su catálogo en PDF y su botón de cotización.", "Explore the lines": "Explorar las líneas", "Spiral wound gaskets catalog now available in PDF": "Catálogo de empaques espirometálicos ya disponible en PDF", "Download →": "Descargar →", "CSI opens its store on Made-in-China.com": "CSI abre su tienda en Made-in-China.com", "Visit →": "Visitar →", "Spanish documentation with every shipment": "Documentación en español con cada envío", "Read more →": "Leer más →", "\"What reaches your plant is what you ordered.\"": "«Lo que llega a su planta es lo que usted pidió.»", "Name and title of CSI's director": "Nombre y cargo del director de CSI", "to confirm": "por confirmar", "· China · United States · Made-in-China.com": "· China · Estados Unidos · Made-in-China.com", "Supply you can stake a project on.": "Suministro en el que puede confiar su proyecto.", "Six product lines from verified factories in China, with technical supervision before every shipment to Latin America.": "Seis líneas de producto de fábricas verificadas en China, con supervisión técnica antes de cada envío a Latinoamérica.", "Explore products": "Explorar productos", "Scroll": "Desplace", "How it works": "Cómo funciona", "How an order reaches your plant": "Cómo llega un pedido a su planta", "We check your drawing and specification with the manufacturer before production starts.": "Revisamos su plano y especificación con el fabricante antes de iniciar la producción.", "Grades and mill certificates are checked against your order.": "Los grados y certificados de fábrica se verifican contra su pedido.", "Parts are measured and confirmed before the goods are packed.": "Las piezas se miden y confirman antes de empacar la mercancía.", "Shipped to your plant": "Enviado a su planta", "Across Latin America, with documents in Spanish.": "En toda Latinoamérica, con documentos en español.", "Standards we supply to": "Normas que cumplimos", "<b>API 5CT<\/b> Casing and tubing": "<b>API 5CT<\/b> Casing y tubing", "<b>ASME B16.5<\/b> Flanges": "<b>ASME B16.5<\/b> Bridas", "<b>ASME B16.20<\/b> Metal gaskets": "<b>ASME B16.20<\/b> Empaques metálicos", "<b>ASTM A193<\/b> Stud bolts": "<b>ASTM A193<\/b> Espárragos", "<b>API 6D<\/b> Pipeline valves": "<b>API 6D<\/b> Válvulas para ductos", "<b>API 682<\/b> Mechanical seals": "<b>API 682<\/b> Sellos mecánicos", "Capabilities": "Capacidades", "Previous products": "Productos anteriores", "Next products": "Productos siguientes", "Start a project": "Inicie un proyecto", "Send your bill of materials.": "Envíe su lista de materiales.", "We reply with one clear quote for every line. Also find CSI on Made-in-China.com": "Le respondemos con una cotización clara para cada línea. También encuentre a CSI en Made-in-China.com", "Every joint, sealed right.": "Cada unión, bien sellada.", "Piping, joints and sealing from verified factories in China, supervised before every shipment and delivered across Latin America with documents in Spanish.": "Tubería, uniones y sellado de fábricas verificadas en China, supervisados antes de cada envío y entregados en toda Latinoamérica con documentos en español.", "Flange": "Brida", "Ball valve": "Válvula de bola", "01 · At the factory": "01 · En la fábrica", "Machined to your drawing": "Maquinado según su plano", "We review drawings with the manufacturer before production starts, so the part matches your specification.": "Revisamos los planos con el fabricante antes de iniciar la producción, para que la pieza cumpla su especificación.", "02 · Threads and fasteners": "02 · Roscas y sujetadores", "Stud bolts cut to grade": "Espárragos según el grado", "Threads machined on CNC lathes, in the bolting grades your flanges call for.": "Roscas maquinadas en tornos CNC, en los grados de pernería que piden sus bridas.", "03 · Assembly": "03 · Ensamble", "Valves built and checked": "Válvulas armadas y revisadas", "Gate, globe, check and ball valves assembled and checked against the order.": "Válvulas de compuerta, globo, retención y bola ensambladas y revisadas contra el pedido.", "04 · Before shipping": "04 · Antes del envío", "Packed and labeled": "Empacado y etiquetado", "Dimensions confirmed, then the goods are packed and marked for your project.": "Dimensiones confirmadas; luego la mercancía se empaca y marca para su proyecto.", "05 · Export": "05 · Exportación", "Loaded at the port": "Cargado en el puerto", "One shipment for all six product lines, with documents in Spanish.": "Un solo envío para las seis líneas de producto, con documentos en español.", "06 · Delivery": "06 · Entrega", "At your plant": "En su planta", "Across Latin America, from the port to your site.": "En toda Latinoamérica, del puerto a su sitio.", "See our process": "Ver nuestro proceso", "PDF catalog · Quote": "Catálogo PDF · Cotizar", "Supervision and service": "Supervisión y servicio", "We check drawings, dimensions and materials with the manufacturer before every shipment, so what reaches your plant is what you ordered.": "Revisamos planos, dimensiones y materiales con el fabricante antes de cada envío, para que lo que llegue a su planta sea lo que usted pidió.", "Grades and mill certificates checked against the order. Dimensions confirmed before packing.": "Grados y certificados de fábrica verificados contra el pedido. Dimensiones confirmadas antes de empacar.", "One sales contact, one clear quote and documents in Spanish, from offices in China and the United States.": "Un solo contacto de ventas, una cotización clara y documentos en español, desde oficinas en China y Estados Unidos.", "Name": "Nombre", "Email": "Correo", "Product line": "Línea de producto", "Your requirement": "Su requerimiento", "Attach bill of materials or drawing (optional)": "Adjunte lista de materiales o plano (opcional)", "Send request": "Enviar solicitud", "Drawing review": "Revisión de planos", "Material certificates": "Certificados de material", "Dimensional checks": "Control dimensional", "Spanish documents": "Documentos en español", "Catalogs (PDF)": "Catálogos (PDF)", "Piping, joints and sealing": "Tubería, uniones y sellado", "For oil, gas and energy, from verified factories in China to Latin America.": "Para petróleo, gas y energía, de fábricas verificadas en China a Latinoamérica.", "Piping, joints and sealing.<br>One supplier.": "Tubería, uniones y sellado.<br>Un solo proveedor.", "Six product lines through one sales contact and one clear quote, with documents in Spanish.": "Seis líneas de producto con un solo contacto de ventas y una cotización clara, con documentos en español.", "Checked against your drawing": "Verificado contra su plano", "<b>01<\/b>Drawings reviewed with the manufacturer before production": "<b>01<\/b>Planos revisados con el fabricante antes de producir", "<b>02<\/b>Grades and mill certificates checked against the order": "<b>02<\/b>Grados y certificados de fábrica verificados contra el pedido", "<b>03<\/b>Dimensions measured before the goods are packed": "<b>03<\/b>Dimensiones medidas antes de empacar la mercancía", "<b>04<\/b>Shipped across Latin America with documents in Spanish": "<b>04<\/b>Enviado a toda Latinoamérica con documentos en español", "Send your drawing": "Envíe su plano", "Search by standard": "Buscar por norma", "The codes your engineers already use": "Los códigos que sus ingenieros ya usan", "Type any of these in the search bar to jump to the matching line.": "Escriba cualquiera de estos en el buscador para ir a la línea correspondiente.", "Standard": "Norma", "Covers": "Cubre", "Line": "Línea", "Casing and tubing for oil and gas wells": "Casing y tubing para pozos de petróleo y gas", "Pipe flanges and flanged fittings, Class 150 to 2500": "Bridas y accesorios bridados, Clase 150 a 2500", "Ring joint, spiral wound and jacketed metal gaskets": "Empaques metálicos de anillo, espirometálicos y encamisados", "Alloy and stainless bolting for high temperature or pressure": "Pernería aleada e inoxidable para alta temperatura o presión", "Pipeline valves": "Válvulas para ductos", "Mechanical seals for pumps": "Sellos mecánicos para bombas", "From the mill in China to your plant.": "De la fábrica en China a su planta.", "Piping, joints and sealing for oil, gas and energy, supervised at the factory and delivered across Latin America.": "Tubería, uniones y sellado para petróleo, gas y energía, supervisados en fábrica y entregados en toda Latinoamérica.", "Our quality process": "Nuestro proceso de calidad", "Quality steps": "Etapas de calidad", "Dimensional inspection": "Inspección dimensional", "Packing and marking": "Empaque y marcado", "Shipping documents": "Documentos de envío", "01. Drawing review": "01. Revisión de planos", "We review your drawings and specification with the manufacturer before production starts.": "Revisamos sus planos y especificación con el fabricante antes de iniciar la producción.", "Learn more <i>↓<\/i>": "Más información <i>↓<\/i>", "02. Material certificates": "02. Certificados de material", "03. Dimensional inspection": "03. Inspección dimensional", "04. Packing and marking": "04. Empaque y marcado", "Goods are packed and marked for your project and site.": "La mercancía se empaca y marca para su proyecto y sitio.", "05. Shipping documents": "05. Documentos de envío", "Six lines,<br>one quote": "Seis líneas,<br>una cotización", "Each line has its own PDF catalog and quote button. Keep scrolling to move through them.": "Cada línea tiene su catálogo en PDF y su botón de cotización. Siga desplazándose para recorrerlas.", "Catalog PDF": "Catálogo PDF", "Quote": "Cotizar", "China to Latin America": "De China a Latinoamérica", "Offices in China and the United States coordinate the factories and the freight, so you deal with one contact in your language.": "Oficinas en China y Estados Unidos coordinan las fábricas y el flete, para que usted trate con un solo contacto en su idioma.", "Plan a shipment": "Planifique un envío", "Inspected": "Inspeccionado", "before": "antes", "it ships.": "del envío.", "Piping, joints and sealing for oil, gas and energy, from verified manufacturers in China to your plant in Latin America.": "Tubería, uniones y sellado para petróleo, gas y energía, de fabricantes verificados en China a su planta en Latinoamérica.", "Download catalogs →": "Descargar catálogos →", "Flanges welded at the factory": "Bridas soldadas en la fábrica", "Flanges": "Bridas", "Faces machined true on the lathe": "Caras maquinadas en el torno", "Threads machined on CNC lathes": "Roscas maquinadas en tornos CNC", "Assembled and checked by hand": "Ensambladas y revisadas a mano", "Packing": "Empaque", "Packed and labeled at the factory": "Empacado y etiquetado en la fábrica", "Export": "Exportación", "Containers loaded at the port": "Contenedores cargados en el puerto", "Freight": "Flete", "Shipped to Latin America": "Enviado a Latinoamérica", "From the port to your site": "Del puerto a su sitio", "Pause slideshow": "Pausar presentación", "Play slideshow": "Reproducir presentación", "What we supply": "Lo que suministramos", "Six lines, one sales contact and one clear quote for your whole project.": "Seis líneas, un solo contacto de ventas y una cotización clara para todo su proyecto.", "Each line has its own PDF catalog and quote button. Standards are examples to confirm with your catalogs.": "Cada línea tiene su catálogo en PDF y su botón de cotización. Las normas son ejemplos por confirmar con sus catálogos.", "Spiral wound and other types for high-pressure, high-temperature service.": "Espirometálicos y otros tipos para alta presión y alta temperatura.", "Added ✓": "Agregado ✓", "Sample form: nothing is sent.": "Formulario de muestra: no se envía nada.", "Six high-quality product lines": "Seis líneas de producto de alta calidad", "Industries": "Industrias", "Illustrative lanes. Confirm the countries CSI ships to.": "Rutas ilustrativas. CSI confirmará los países a los que envía.", "Mockups for review. Forms do not send anything; catalog links, WhatsApp number and the Made-in-China link are placeholders until CSI provides them.": "Maquetas para revisión. Los formularios no envían nada; los catálogos, el número de WhatsApp y el enlace de Made-in-China son provisionales hasta que CSI los entregue.", "Real updates replace these once CSI sends them": "Se reemplazan con noticias reales cuando CSI las envíe", "Example standards; CSI confirms which ones its suppliers certify.": "Normas de ejemplo; CSI confirma cuáles certifican sus proveedores.", "Spec values are from the brief's product-page template. Size ranges stay \"to be completed\" until CSI sends its catalogs.": "Los valores técnicos vienen de la plantilla de producto del brief. Los rangos de medidas quedan \"por completar\" hasta que CSI envíe sus catálogos.", "Industrial supply for oil, gas and energy · China · United States": "Suministro industrial para petróleo, gas y energía · China · Estados Unidos", "Sales WhatsApp <b>[TBC]<\/b> · <b>info@csiindustrieseg.com<\/b>": "WhatsApp de ventas <b>[por confirmar]<\/b> · <b>info@csiindustrieseg.com<\/b>", "Country": "País", "Other": "Otro", "Quantity": "Cantidad"}, P=[["^Show slide (\\d+)$", "Mostrar diapositiva $1"]].map(function(p){return [new RegExp(p[0]),p[1]]});
+var walk=window.CSI_I18N_WALK, norm=window.CSI_I18N_NORM;
+var lang='en', busy=false, mo=null, units=[], seen=new WeakSet();
+var SHORT={'Request a quote':'Cotizar','Solicitar cotización':'Cotizar'};
+function shortOK(n){var e=n.nodeType===3?n.parentElement:n;return window.innerWidth<=560&&e&&e.closest('header,nav,.nav,.qbar,.hd')}
+var EXCL='[data-csi-sw],.mani,[data-noi18n]';
+function es(key){
+  if(Object.prototype.hasOwnProperty.call(D,key))return D[key];
+  for(var i=0;i<P.length;i++)if(P[i][0].test(key))return key.replace(P[i][0],P[i][1]);
+  return null;
+}
+function reg(root){
+  walk(root,function(kind,n,key){
+    var id=kind+'|';
+    if(kind==='own'){if(seen.has(n))return;seen.add(n);units.push({k:'own',n:n});return}
+    if(kind.indexOf('attr:')===0){var a=kind.slice(5);n.__csiA=n.__csiA||{};if(n.__csiA[a])return;n.__csiA[a]=1;units.push({k:'attr',a:a,n:n,en:n.getAttribute(a),es:es(key)});return}
+    if(seen.has(n))return;seen.add(n);
+    if(kind==='html')units.push({k:'html',n:n,en:n.innerHTML,es:es(key)});
+    else units.push({k:'text',n:n,en:n.nodeValue,es:es(key)});
+  },EXCL);
+  if(root.querySelectorAll)[].forEach.call(root.matches&&root.matches('.mani')?[root]:root.querySelectorAll('.mani'),function(m){
+    if(seen.has(m))return;seen.add(m);var en=norm(m.textContent);units.push({k:'mani',n:m,en:en,es:es(en)});
+  });
+}
+function textWith(orig,val){var m=orig.match(/^(\s*)[\s\S]*?(\s*)$/);return m[1]+val+m[2]}
+function apply(u){
+  var L=lang;
+  if(u.k==='own'){if(L==='es'&&SHORT[u.n.getAttribute('data-en')]&&shortOK(u.n)){if(u.n.textContent!=='Cotizar')u.n.textContent='Cotizar';return}var h=u.n.getAttribute('data-'+L+'-html');if(h!=null){if(u.n.innerHTML!==h)u.n.innerHTML=h}else{var t=u.n.getAttribute('data-'+L);if(t!=null&&u.n.textContent!==t)u.n.textContent=t}return}
+  var v=L==='es'&&u.es!=null?u.es:null;
+  if(u.k==='attr'){var nv=v!=null?v:u.en;if(u.n.getAttribute(u.a)!==nv)u.n.setAttribute(u.a,nv);return}
+  if(u.k==='html'){var nh=v!=null?v:u.en;if(u.n.innerHTML!==nh)u.n.innerHTML=nh;return}
+  if(u.k==='text'){var nt=v!=null?textWith(u.en,v):u.en;if(L==='es'&&SHORT[norm(u.en)]&&shortOK(u.n))nt=textWith(u.en,SHORT[norm(u.en)]);if(u.n.nodeValue!==nt)u.n.nodeValue=nt;return}
+  if(u.k==='mani'){var s=v!=null?v:u.en;if(norm(u.n.textContent)!==s)u.n.innerHTML=s.split(' ').map(function(w){return '<span class="w">'+w+'</span>'}).join(' ');return}
+}
+function applyAll(){busy=true;units=units.filter(function(u){return u.n.isConnected||u.n.parentNode});units.forEach(apply);if(mo)mo.takeRecords();busy=false;
+  document.querySelectorAll('[data-csi-lang]').forEach(function(b){var on=b.getAttribute('data-csi-lang')===lang;b.setAttribute('aria-pressed',on);b.classList.toggle('csi-on',on)});
+  document.querySelectorAll('.sw button[data-lang],[role="group"] button[data-lang]').forEach(function(b){b.setAttribute('aria-pressed',b.dataset.lang===lang)});
+  document.querySelectorAll('[data-url]').forEach(function(v){v.dataset.url=v.dataset.url.replace(/\/(en|es)(\/|$)/,'/'+lang+'$2')});
+  document.querySelectorAll('.url,#vurl').forEach(function(u){u.textContent=u.textContent.replace(/\/(en|es)(\/|$)/,'/'+lang+'$2')});
+}
+function setLang(l,from){
+  l=l==='en'?'en':'es';if(l===lang&&from!=='init'){return}lang=l;document.documentElement.lang=l;applyAll();
+  try{localStorage.setItem('csi-lang',l)}catch(e){}
+  if(from!=='parent'){try{if(window.parent!==window&&window.parent.CSI_ON_LANG)window.parent.CSI_ON_LANG(l)}catch(e){}}
+}
+/* switches */
+function makeSwitches(){
+  var re=/^EN\s*[|·/]?\s*ES$/;
+  [].slice.call(document.body.querySelectorAll('span,div,p,li,a')).forEach(function(el){
+    if(el.closest('[data-csi-sw]')||el.querySelector('button[data-lang]'))return;
+    if(!re.test(norm(el.textContent)))return;
+    for(var c=el.firstElementChild;c;c=c.nextElementSibling)if(re.test(norm(c.textContent)))return;
+    el.setAttribute('data-csi-sw','');
+    if(el.tagName==='A'){el.removeAttribute('href')}
+    el.innerHTML='<button type="button" data-csi-lang="en">EN</button><span aria-hidden="true"> | </span><button type="button" data-csi-lang="es">ES</button>';
+  });
+  var st=document.createElement('style');
+  st.textContent='[data-csi-sw]{white-space:nowrap}[data-csi-sw] button{all:unset;cursor:pointer;opacity:.6}[data-csi-sw] button.csi-on{opacity:1;font-weight:800}[data-csi-sw] button:focus-visible{outline:2px solid #EC620F;outline-offset:2px}';
+  document.head.appendChild(st);
+}
+document.addEventListener('click',function(e){
+  var b=e.target.closest('[data-csi-lang],button[data-lang]');
+  if(b){var l=b.getAttribute('data-csi-lang')||b.getAttribute('data-lang');if(l==='en'||l==='es'){setLang(l)}}
+},true);
+makeSwitches();
+reg(document.body);
+mo=new MutationObserver(function(ms){
+  if(busy)return;var dirty=false;
+  ms.forEach(function(m){
+    if(m.type==='characterData'){var u=null;for(var i=0;i<units.length;i++)if(units[i].n===m.target){u=units[i];break}
+      var t=norm(m.target.nodeValue||'');
+      if(u){if(t!==norm(u.en)&&t!==(u.es||'')){u.en=m.target.nodeValue;u.es=es(t);dirty=true}}
+      return}
+    m.addedNodes.forEach(function(n){
+      if(n.nodeType===1){if(n.closest&&n.closest(EXCL)&&!n.matches('.mani'))return;reg(n);dirty=true}
+      else if(n.nodeType===3&&n.parentNode&&!seen.has(n)){var t=norm(n.nodeValue);if(t&&/[A-Za-z]{2}/.test(t)&&!n.parentNode.closest(EXCL)){seen.add(n);units.push({k:'text',n:n,en:n.nodeValue,es:es(t)});dirty=true}}
+    });
+  });
+  if(dirty&&lang==='es'){busy=true;units.forEach(apply);mo.takeRecords();busy=false}
+});mo.observe(document.body,{childList:true,subtree:true,characterData:true});
+var start='es';
+try{var q=(location.search.match(/[?&]lang=(en|es)/)||[])[1];if(q)start=q;else{var p=window.parent!==window&&window.parent.CSI_CURRENT_LANG;if(p)start=p;else{var s=localStorage.getItem('csi-lang');if(s)start=s}}}catch(e){}
+lang='en';setLang(start,'init');
+window.CSI_LANG=function(l){setLang(l,'parent')};
+var rz;window.addEventListener('resize',function(){clearTimeout(rz);rz=setTimeout(applyAll,150)});
+window.CSI_I18N_MISSING=function(){var o={};units.forEach(function(u){if(u.k!=='own'&&u.es==null&&u.en){var k=norm(u.k==='html'?u.en:u.en);if(/[a-z]{3}/.test(k))o[k]=1}});return Object.keys(o)};
+})();
+
+</script>
+</body></html>

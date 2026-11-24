@@ -195,6 +195,16 @@ body:not([data-screen="inicio"]) #savepdf{display:none}
 @media (max-width:700px){.savebar #copy,.savebar #dopdf{display:none}}
 @media (max-width:900px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:560px){.grid{grid-template-columns:minmax(0,1fr)}}
+.grp{padding-top:28px}
+.grp+.grp{border-top:1px solid var(--line);margin-top:12px}
+.grph{display:grid;gap:6px;max-width:70ch}
+.grph .mono{color:var(--orange-dk)}
+.grph h2{font:800 clamp(24px,2.8vw,34px)/1.1 var(--f-wide);letter-spacing:-.02em;color:var(--midnight)}
+.grph p{margin:0;color:#3A4A5E}
+.grid.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media (max-width:900px){.grid.g4{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.grid.g4{grid-template-columns:minmax(0,1fr)}}
+
 /* summary */
 .sum{padding-block:40px 64px}
 .sum h1{font:800 clamp(28px,4vw,44px)/1.05 var(--f-wide);letter-spacing:-.03em;color:var(--midnight);margin-bottom:8px}
@@ -273,7 +283,7 @@ td .cm b{color:var(--navy)}
     </div>
     <div class="how"><span><b>1</b><span data-t="h1s">Abra una propuesta</span></span><span><b>2</b><span data-t="h2s">Recórrala en escritorio o celular</span></span><span><b>3</b><span data-t="h3s"></span></span></div>
     <button class="savepdf savepdf-m" type="button" id="savepdf2"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg><span data-t="savePdf">Revisar y enviar comentarios</span></button>
-    <div class="grid" id="cards"></div>
+    <div id="cards"></div>
   </div>
 </section>
 
@@ -351,8 +361,13 @@ td .cm b{color:var(--navy)}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script>
 (function(){
-const DIRS=[{"id": "o15", "num": "1", "show": true, "src": "p-15.html", "en": {"name": "Factory in Motion", "d": "The same film with fewer clips and a lighter collage, for a quieter first impression."}, "es": {"name": "Fábrica en movimiento", "d": "La misma película con menos clips y un collage más ligero, para una primera impresión más tranquila."}, "internal": "Factory Film, calm", "orig": "1.5"}, {"id": "o2", "num": "2", "show": true, "src": "p-opt.html#option-2", "en": {"name": "Technical Catalog", "d": "A solid brand block over video, catalog downloads up front, and a product explorer with spec tables."}, "es": {"name": "Catálogo técnico", "d": "Un bloque de marca sobre video, catálogos a la vista y un explorador de productos con tablas técnicas."}, "internal": "Spec Sheet", "orig": "2"}, {"id": "o3", "num": "3", "show": true, "src": "p-opt.html#option-3", "en": {"name": "Slant Monolith", "d": "A bold navy opening cut by the orange slant, with a dense flat-lay of parts."}, "es": {"name": "Monolito diagonal", "d": "Una apertura azul marino cortada por la diagonal naranja, con un mosaico denso de piezas."}, "internal": "Slant Monolith", "orig": "3"}, {"id": "o4", "num": "4", "show": true, "src": "p-opt.html#option-4", "en": {"name": "Clean Editorial", "d": "A magazine-style layout built for Spanish and English from the start."}, "es": {"name": "Editorial limpio", "d": "Un diseño de estilo revista, pensado en español e inglés desde el inicio."}, "internal": "Bilingual Editorial", "orig": "4"}, {"id": "o6", "num": "5", "show": true, "src": "p-opt.html#option-6", "en": {"name": "Brand Arc", "d": "A large brand arc, calm gradients and generous white space."}, "es": {"name": "Arco de marca", "d": "Un gran arco de marca, degradados suaves y amplio espacio en blanco."}, "internal": "Arc", "orig": "6"}, {"id": "o7", "num": "6", "show": true, "src": "p-opt.html#option-7", "en": {"name": "Cinematic", "d": "A mission-led opening, a standards strip and a clean step-by-step of how an order reaches the plant."}, "es": {"name": "Cinemático", "d": "Una apertura centrada en la misión, una franja de normas y un paso a paso claro de cómo llega un pedido a la planta."}, "internal": "Mission", "orig": "7"}];
+const DIRS=[{"id": "o15", "num": "1", "show": true, "src": "p-15.html", "en": {"name": "Factory in Motion", "d": "The same film with fewer clips and a lighter collage, for a quieter first impression."}, "es": {"name": "Fábrica en movimiento", "d": "La misma película con menos clips y un collage más ligero, para una primera impresión más tranquila."}, "internal": "Factory Film, calm", "group": "home", "orig": "1.5"}, {"id": "o2", "num": "2", "show": true, "src": "p-opt.html#option-2", "en": {"name": "Technical Catalog", "d": "A solid brand block over video, catalog downloads up front, and a product explorer with spec tables."}, "es": {"name": "Catálogo técnico", "d": "Un bloque de marca sobre video, catálogos a la vista y un explorador de productos con tablas técnicas."}, "internal": "Spec Sheet", "group": "home", "orig": "2"}, {"id": "o3", "num": "3", "show": true, "src": "p-opt.html#option-3", "en": {"name": "Slant Monolith", "d": "A bold navy opening cut by the orange slant, with a dense flat-lay of parts."}, "es": {"name": "Monolito diagonal", "d": "Una apertura azul marino cortada por la diagonal naranja, con un mosaico denso de piezas."}, "internal": "Slant Monolith", "group": "home", "orig": "3"}, {"id": "o4", "num": "4", "show": true, "src": "p-opt.html#option-4", "en": {"name": "Clean Editorial", "d": "A magazine-style layout built for Spanish and English from the start."}, "es": {"name": "Editorial limpio", "d": "Un diseño de estilo revista, pensado en español e inglés desde el inicio."}, "internal": "Bilingual Editorial", "group": "home", "orig": "4"}, {"id": "o6", "num": "5", "show": true, "src": "p-opt.html#option-6", "en": {"name": "Brand Arc", "d": "A large brand arc, calm gradients and generous white space."}, "es": {"name": "Arco de marca", "d": "Un gran arco de marca, degradados suaves y amplio espacio en blanco."}, "internal": "Arc", "group": "home", "orig": "6"}, {"id": "o7", "num": "6", "show": true, "src": "p-opt.html#option-7", "en": {"name": "Cinematic", "d": "A mission-led opening, a standards strip and a clean step-by-step of how an order reaches the plant."}, "es": {"name": "Cinemático", "d": "Una apertura centrada en la misión, una franja de normas y un paso a paso claro de cómo llega un pedido a la planta."}, "internal": "Mission", "group": "home", "orig": "7"}, {"id": "pp1", "num": "A", "show": true, "group": "product", "src": "p-prod.html#p1", "en": {"name": "Catalog", "d": ""}, "es": {"name": "Catálogo", "d": ""}}, {"id": "pp2", "num": "B", "show": true, "group": "product", "src": "p-prod.html#p2", "en": {"name": "Datasheet", "d": ""}, "es": {"name": "Ficha técnica", "d": ""}}, {"id": "pp3", "num": "C", "show": true, "group": "product", "src": "p-prod.html#p3", "en": {"name": "Showcase", "d": ""}, "es": {"name": "Vitrina", "d": ""}}, {"id": "pp4", "num": "D", "show": true, "group": "product", "src": "p-prod.html#p4", "en": {"name": "Quote builder", "d": ""}, "es": {"name": "Cotizador", "d": ""}}];
 const T={
+ optP:['Producto','Product'],
+ g1n:['Parte 1 · 6 propuestas','Part 1 · 6 proposals'],g1:['Página de inicio','Homepage'],
+ g1p:['La primera página que ven sus clientes. Elija el estilo que mejor representa a CSI.','The first page your customers see. Choose the style that best represents CSI.'],
+ g2n:['Parte 2 · 4 propuestas','Part 2 · 4 proposals'],g2:['Páginas de producto','Product pages'],
+ g2p:['También puede elegir el estilo de las páginas de cada línea de producto. Cada propuesta funciona con las seis líneas: cámbielas dentro de la página.','You can also choose the style of the page for each product line. Each proposal works with all six lines: switch between them inside the page.'],
  copyFb:['Copiar comentarios','Copy feedback'],
  extraH:['Comentarios adicionales','Additional comments'],
  extraP:['¿Algo más que quiera decirnos? Ideas generales, cosas que faltan o preferencias que aplican a todas las propuestas.','Anything else you would like to tell us? General ideas, things that are missing, or preferences that apply to all the proposals.'],
@@ -430,7 +445,11 @@ const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'
 let tt;function toast(m){const e=$('#toast');e.textContent=m;e.hidden=false;clearTimeout(tt);tt=setTimeout(()=>e.hidden=true,3200)}
 
 /* feedback state: mine = {r:{id:'yes'|'maybe'|'no'}, c:{id:text}, fav:id} ; all = {uid: same} */
-let mine={r:{},c:{},fav:'',x:''}, all={}, uid=null, db=null, userCap=null, names={}, shared=false;
+const groupOf=id=>{const d=DIRS.find(x=>x.id===id);return d&&d.group==='product'?'product':'home'};
+const isFav=id=>mine.fav===id||mine.favP===id;
+function toggleFav(id){const k=groupOf(id)==='product'?'favP':'fav';mine[k]=mine[k]===id?'':id}
+const optL=d=>(d.group==='product'?t('optP'):t('opt'))+' '+d.num;
+let mine={r:{},c:{},fav:'',favP:'',x:''}, all={}, uid=null, db=null, userCap=null, names={}, shared=false;
 try{const s=JSON.parse(localStorage.getItem('csi-fb')||'null');if(s&&s.r)mine=s}catch(e){}
 function saveLocal(){try{localStorage.setItem('csi-fb',JSON.stringify(mine))}catch(e){}}
 let wt=null, writing=false, again=false;
@@ -443,7 +462,7 @@ function save(){
 async function flush(){
   if(writing){again=true;return}
   writing=true;
-  try{await db.doc('feedback/'+uid).set({r:mine.r,c:mine.c,fav:mine.fav||'',x:mine.x||'',t:Date.now()});$('#saved').textContent=t('savedS')}
+  try{await db.doc('feedback/'+uid).set({r:mine.r,c:mine.c,fav:mine.fav||'',favP:mine.favP||'',x:mine.x||'',t:Date.now()});$('#saved').textContent=t('savedS')}
   catch(e){$('#saved').textContent=t('errSave')}
   writing=false;if(again){again=false;flush()}
 }
@@ -467,11 +486,14 @@ $$('.lang button').forEach(b=>b.addEventListener('click',()=>setLang(b.dataset.l
 
 /* cover */
 function chips(id){
-  let h='';if(mine.fav===id)h+='<span class="chip fav">★ '+esc(t('favOn'))+'</span>';
+  let h='';if(isFav(id))h+='<span class="chip fav">★ '+esc(t('favOn'))+'</span>';
   const r=mine.r[id];if(r)h+='<span class="chip '+r+'">'+esc(t(r))+'</span>';return h;
 }
 function renderCards(){
-  $('#cards').innerHTML=DIRS.map(d=>'<a class="card" href="#'+d.id+'"><div class="th" style="background-image:url(thumbs/'+d.id+'.jpg)"><span class="num">'+esc(d.num)+'</span><span class="mine">'+chips(d.id)+'</span></div><div class="tx"><h2>'+esc(d[lang].name)+'</h2><span class="go">'+esc(t('open'))+'</span></div></a>').join('');
+  const card=d=>'<a class="card" href="#'+d.id+'"><div class="th" style="background-image:url(thumbs/'+d.id+'.jpg)"><span class="num">'+esc(d.num)+'</span><span class="mine">'+chips(d.id)+'</span></div><div class="tx"><h2>'+esc(d[lang].name)+'</h2><span class="go">'+esc(t('open'))+'</span></div></a>';
+  const home=DIRS.filter(d=>d.group!=='product'), prod=DIRS.filter(d=>d.group==='product');
+  $('#cards').innerHTML='<section class="grp"><div class="grph"><span class="mono">'+esc(t('g1n'))+'</span><h2>'+esc(t('g1'))+'</h2><p>'+esc(t('g1p'))+'</p></div><div class="grid">'+home.map(card).join('')+'</div></section>'
+   +(prod.length?'<section class="grp"><div class="grph"><span class="mono">'+esc(t('g2n'))+'</span><h2>'+esc(t('g2'))+'</h2><p>'+esc(t('g2p'))+'</p></div><div class="grid g4">'+prod.map(card).join('')+'</div></section>':'');
 }
 
 /* viewer */
@@ -479,7 +501,7 @@ let cur=null, dev='desk';
 function frameSrc(d){return d.src.indexOf('#')>-1?d.src.replace('#','?lang='+lang+'#'):d.src+'?lang='+lang}
 function renderViewer(load){
   if(!cur)return;const d=DIRS.find(x=>x.id===cur);if(!d)return;const i=DIRS.indexOf(d);
-  $('#v-num').textContent=t('opt')+' '+d.num;$('#v-name').textContent=d[lang].name;
+  $('#v-num').textContent=optL(d);$('#v-name').textContent=d[lang].name;
   $('#pos').textContent=(i+1)+' / '+DIRS.length;$('#prev').disabled=i===0;$('#next').disabled=i===DIRS.length-1;
   if(load){
     const ifr=$('#ifr'), base=d.src.split('#')[0], curBase=(ifr.dataset.base||'');
@@ -488,7 +510,7 @@ function renderViewer(load){
     ifr.title=d[lang].name;
   }
   $$('#fb .react button').forEach(b=>b.setAttribute('aria-pressed',mine.r[cur]===b.dataset.r));
-  $('#fav').setAttribute('aria-pressed',mine.fav===cur);$('#favt').textContent=mine.fav===cur?t('favOn'):t('favOff');
+  $('#fav').setAttribute('aria-pressed',isFav(cur));$('#favt').textContent=isFav(cur)?t('favOn'):t('favOff');
   if(document.activeElement!==$('#note'))$('#note').value=mine.c[cur]||'';
   if(load)$('#subdone').textContent='';
   renderOthers();
@@ -508,7 +530,7 @@ $('#prev').addEventListener('click',()=>{const i=DIRS.findIndex(d=>d.id===cur);i
 $('#next').addEventListener('click',()=>{const i=DIRS.findIndex(d=>d.id===cur);if(i<DIRS.length-1)location.hash=DIRS[i+1].id});
 $$('[data-dev]').forEach(b=>b.addEventListener('click',()=>{dev=b.dataset.dev;$$('[data-dev]').forEach(x=>x.setAttribute('aria-pressed',x===b));$('#frame').classList.toggle('phone',dev==='phone')}));
 $$('#fb .react button').forEach(b=>b.addEventListener('click',()=>{const r=b.dataset.r;if(mine.r[cur]===r)delete mine.r[cur];else mine.r[cur]=r;renderViewer(false);save()}));
-$('#fav').addEventListener('click',()=>{mine.fav=mine.fav===cur?'':cur;renderViewer(false);save()});
+$('#fav').addEventListener('click',()=>{toggleFav(cur);renderViewer(false);save()});
 $('#note').addEventListener('input',e=>{const v=e.target.value;if(v.trim())mine.c[cur]=v;else delete mine.c[cur];save()});
 $('#fbt').addEventListener('click',()=>{const o=$('#fb').classList.toggle('open');$('#fbt').setAttribute('aria-expanded',o)});
 $('#fbclose').addEventListener('click',()=>{$('#fb').classList.remove('open');$('#fbt').setAttribute('aria-expanded','false')});
@@ -536,13 +558,13 @@ function feedbackPdf(){
   doc.text(t('pdfDate')+': '+new Date().toLocaleDateString(lang==='es'?'es':'en',{year:'numeric',month:'long',day:'numeric'}),M,122);
   let y=150;
   DIRS.forEach(d=>{
-    const r=mine.r[d.id],c=(mine.c[d.id]||'').trim(),fav=mine.fav===d.id;
+    const r=mine.r[d.id],c=(mine.c[d.id]||'').trim(),fav=isFav(d.id);
     const lines=c?doc.splitTextToSize(c,W-2*M-14):[];
     const need=46+lines.length*14;
     if(y+need>H-50){doc.addPage();y=60}
     doc.setDrawColor(220,226,234);doc.line(M,y,W-M,y);y+=20;
     doc.setTextColor(2,27,58);doc.setFont('helvetica','bold');doc.setFontSize(13);
-    doc.text(t('opt')+' '+d.num+' · '+d[lang].name+(fav?'   ('+t('pdfFav')+')':''),M,y);y+=17;
+    doc.text(optL(d)+' · '+d[lang].name+(fav?'   ('+t('pdfFav')+')':''),M,y);y+=17;
     doc.setFont('helvetica','normal');doc.setFontSize(11);
     if(!r&&!c&&!fav){doc.setTextColor(140,150,165);doc.text(t('pdfNone'),M,y);y+=12;return}
     doc.setTextColor(58,74,94);
@@ -558,15 +580,15 @@ function feedbackPdf(){
 }
 function feedbackText(){
   const out=[t('pdfTitle'),''];
-  DIRS.forEach(d=>{const r=mine.r[d.id],n=mine.c[d.id];if(!r&&!n&&mine.fav!==d.id)return;
-    out.push(t('opt')+' '+d.num+' · '+d[lang].name+(mine.fav===d.id?' ('+t('pdfFav')+')':'')+(r?' · '+t(r):''));if(n)out.push(n);out.push('')});
+  DIRS.forEach(d=>{const r=mine.r[d.id],n=mine.c[d.id];if(!r&&!n&&!isFav(d.id))return;
+    out.push(optL(d)+' · '+d[lang].name+(isFav(d.id)?' ('+t('pdfFav')+')':'')+(r?' · '+t(r):''));if(n)out.push(n);out.push('')});
   if((mine.x||'').trim()){out.push(t('extraH')+':');out.push(mine.x.trim())}
   return out.join('\n');
 }
 $('#savepdf').addEventListener('click',()=>{if(location.hash==='#resumen')window.scrollTo(0,0);else location.hash='resumen'});
 $('#savepdf2').addEventListener('click',()=>{location.hash='resumen'});
 $('#dopdf').addEventListener('click',async()=>{
-  const any=Object.keys(mine.r).length||Object.keys(mine.c).length||mine.fav||(mine.x||'').trim();
+  const any=Object.keys(mine.r).length||Object.keys(mine.c).length||mine.fav||mine.favP||(mine.x||'').trim();
   if(!any){toast(t('pdfEmpty'));return}
   /* standalone site : a normal browser download */
   if(!window.__host){const b=feedbackPdf();if(b){const u=URL.createObjectURL(b),l=document.createElement('a');l.href=u;l.download=(lang==='es'?'CSI-comentarios-':'CSI-feedback-')+new Date().toISOString().slice(0,10)+'.pdf';document.body.appendChild(l);l.click();l.remove();setTimeout(()=>URL.revokeObjectURL(u),4000);toast(t('pdfSaved'));return}}
@@ -580,7 +602,7 @@ $('#dopdf').addEventListener('click',async()=>{
 
 /* Submit: confirms this proposal's feedback is kept for the final review on the main page */
 $('#submitfb').addEventListener('click',()=>{
-  const has=mine.r[cur]||(mine.c[cur]||'').trim()||mine.fav===cur;
+  const has=mine.r[cur]||(mine.c[cur]||'').trim()||isFav(cur);
   if(!has){toast(t('subEmpty'));return}
   save();if(shared&&wt){clearTimeout(wt);wt=null;flush()}
   $('#subdone').textContent='✓ '+t('subDone');
@@ -596,7 +618,7 @@ function sendLinks(){
   $('#sendmail').href='mailto:'+SEND_EMAIL+'?subject='+encodeURIComponent(t('mailSubj'))+'&body='+encodeURIComponent(body);
   $('#sendwa').href='https://wa.me/'+SEND_WA+'?text='+encodeURIComponent(body);
 }
-function hasFeedback(){return Object.keys(mine.r).length||Object.keys(mine.c).length||mine.fav||(mine.x||'').trim()}
+function hasFeedback(){return Object.keys(mine.r).length||Object.keys(mine.c).length||mine.fav||mine.favP||(mine.x||'').trim()}
 ['#sendmail','#sendwa'].forEach(id=>$(id).addEventListener('click',e=>{
   if(!hasFeedback()){e.preventDefault();toast(t('sendEmpty'));return}
   sendLinks();
@@ -615,15 +637,15 @@ async function renderSummary(){
   const box=$('#review');if(!box)return;
   if(box.contains(document.activeElement)&&document.activeElement.tagName==='TEXTAREA'){updCount();return}
   box.innerHTML=DIRS.map(d=>'<article class="rv" data-id="'+d.id+'"><a class="rv-th" href="#'+d.id+'" style="background-image:url(thumbs/'+d.id+'.jpg)" aria-label="'+esc(d[lang].name)+'"><span class="num">'+esc(d.num)+'</span></a><div class="rv-b">'
-    +'<div class="rv-h"><h2>'+esc(t('opt')+' '+d.num+' · '+d[lang].name)+'</h2><a href="#'+d.id+'">'+esc(t('revOpen'))+'</a></div>'
+    +'<div class="rv-h"><h2>'+esc(optL(d)+' · '+d[lang].name)+'</h2><a href="#'+d.id+'">'+esc(t('revOpen'))+'</a></div>'
     +'<div class="rv-row"><div class="react" role="group">'+['yes','maybe','no'].map(r=>'<button type="button" data-rr="'+r+'" data-r="'+r+'" aria-pressed="'+(mine.r[d.id]===r)+'">'+esc(t(r))+'</button>').join('')+'</div>'
-    +'<button class="favb" type="button" data-rf aria-pressed="'+(mine.fav===d.id)+'"><svg viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/></svg><span>'+esc(mine.fav===d.id?t('favOn'):t('favOff'))+'</span></button></div>'
+    +'<button class="favb" type="button" data-rf aria-pressed="'+isFav(d.id)+'"><svg viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/></svg><span>'+esc(isFav(d.id)?t('favOn'):t('favOff'))+'</span></button></div>'
     +'<label for="rc-'+d.id+'">'+esc(t('note'))+'</label><textarea id="rc-'+d.id+'" data-rc placeholder="'+esc(t('ph'))+'">'+esc(mine.c[d.id]||'')+'</textarea><p class="autonote">'+esc(t('autoNote'))+'</p>'
     +'</div></article>').join('');
   updCount();
 }
 function updCount(){
-  const n=DIRS.filter(d=>mine.r[d.id]||mine.c[d.id]||mine.fav===d.id).length;
+  const n=DIRS.filter(d=>mine.r[d.id]||mine.c[d.id]||isFav(d.id)).length;
   $('#revCount').textContent=t('revCount').replace('{n}',n).replace('{m}',DIRS.length);
 }
 $('#review').addEventListener('click',e=>{
@@ -631,8 +653,8 @@ $('#review').addEventListener('click',e=>{
   const rb=e.target.closest('[data-rr]');
   if(rb){const r=rb.dataset.rr;if(mine.r[id]===r)delete mine.r[id];else mine.r[id]=r;
     card.querySelectorAll('[data-rr]').forEach(b=>b.setAttribute('aria-pressed',mine.r[id]===b.dataset.rr));save();updCount();return}
-  if(e.target.closest('[data-rf]')){mine.fav=mine.fav===id?'':id;
-    $$('.rv').forEach(c=>{const on=mine.fav===c.dataset.id,b=c.querySelector('[data-rf]');b.setAttribute('aria-pressed',on);b.querySelector('span').textContent=on?t('favOn'):t('favOff')});save();updCount()}
+  if(e.target.closest('[data-rf]')){toggleFav(id);
+    $$('.rv').forEach(c=>{const on=isFav(c.dataset.id),b=c.querySelector('[data-rf]');b.setAttribute('aria-pressed',on);b.querySelector('span').textContent=on?t('favOn'):t('favOff')});save();updCount()}
 });
 $('#review').addEventListener('input',e=>{
   const ta=e.target.closest('[data-rc]');if(!ta)return;const id=ta.closest('.rv').dataset.id;
@@ -667,8 +689,8 @@ renderLang();show();
     let timer=setTimeout(()=>{},10000);
     db.collection('feedback').onSnapshot(snap=>{
       clearTimeout(timer);all={};snap.docs.forEach(x=>{all[x.id]=x.data()||{}});
-      if(all[uid]&&all[uid].r){const s=all[uid];if(!writing&&!wt)mine={r:s.r||{},c:s.c||{},fav:s.fav||'',x:s.x||''}}
-      else if(Object.keys(mine.r).length||Object.keys(mine.c).length||mine.fav)flush();
+      if(all[uid]&&all[uid].r){const s=all[uid];if(!writing&&!wt)mine={r:s.r||{},c:s.c||{},fav:s.fav||'',favP:s.favP||'',x:s.x||''}}
+      else if(Object.keys(mine.r).length||Object.keys(mine.c).length||mine.fav||mine.favP)flush();
       renderCards();renderViewer(false);renderSummary();
     },()=>{clearTimeout(timer)});
     renderViewer(false);
