@@ -349,6 +349,49 @@ td:first-child{font-weight:700;color:var(--navy)}
 .d3 .relc span span{font-size:13px;color:var(--orange-dk);font-weight:700}
 @media (max-width:620px){.d3 .relc .g{grid-template-columns:minmax(0,1fr)}}
 
+/* ===== design A (Catalog) after the reference image ===== */
+.d1 .hd nav>a:nth-child(1),.d1 .hd nav>a:nth-child(2){display:none}
+.d1 .hd .sw{border-left:1px solid var(--line);padding-left:18px}
+.d1 .crumbbar{background:#EEF1F6;border-bottom:0}
+.d1 .crumbbar .in{padding-block:10px}
+.d1 .hero1{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:44px;align-items:start;padding-block:30px 44px}
+.d1 .eyebrow{display:flex;align-items:center;gap:12px;font:700 13px/1 var(--f-ui);letter-spacing:.12em;text-transform:uppercase;color:var(--orange-dk)}
+.d1 .eyebrow::after{content:"";width:72px;height:2px;background:var(--orange)}
+.d1 h1{font:800 clamp(44px,5vw,64px)/1 var(--f-wide);letter-spacing:-.035em;color:var(--navy);margin:10px 0 10px}
+.d1 .lead{font:400 clamp(17px,1.6vw,20px)/1.45 var(--f-ui);color:#22303F;margin:0 0 20px;text-wrap:balance}
+.d1 .tbl1{border:1px solid var(--line);border-radius:6px;overflow-x:auto;box-shadow:0 1px 2px rgba(2,27,58,.05)}
+.d1 .tbl1 table{min-width:0;font-size:14px}
+.d1 .tbl1 th{background:var(--navy);font:700 12px/1.2 var(--f-ui);letter-spacing:.04em;padding:11px 16px}
+.d1 .tbl1 td{padding:9px 16px;border-top:1px solid #E5EAF1;color:#22303F}
+.d1 .tbl1 td:first-child{font-weight:700;color:var(--navy)}
+.d1 .tbl1 tr:nth-child(odd) td{background:#F5F7FA}.d1 .tbl1 tr:nth-child(even) td{background:#fff}
+.d1 .acts1{display:flex;flex-wrap:wrap;gap:14px;margin-top:18px}
+.d1 .acts1 .btn{padding:14px 26px;font-size:16px;border-radius:4px}
+.d1 .btn.ol{background:#fff;color:var(--navy);box-shadow:inset 0 0 0 2px var(--navy)}
+.d1 .btn.ol:hover{background:var(--mist)}
+.d1 .media1{display:grid;gap:10px}
+.d1 .ph1{position:relative;aspect-ratio:3/2;max-width:100%;border-radius:8px;overflow:hidden;background:radial-gradient(circle at 50% 45%,#FFFFFF 0,#E9EEF5 70%)}
+.d1 .ph1 img{position:absolute;inset:0;margin:auto;max-width:72%;max-height:80%;width:auto;height:auto;object-fit:contain;filter:drop-shadow(0 18px 22px rgba(2,27,58,.22))}
+.d1 .ph1.full img{max-width:none;max-height:none;width:100%;height:100%;object-fit:cover;filter:none}
+.d1 .band1{position:relative;display:flex;align-items:center;gap:14px;background:var(--midnight);color:#fff;border-radius:4px;padding:12px 18px 12px 46px;overflow:hidden;min-height:48px;flex-wrap:wrap}
+.d1 .band1::before{content:"";position:absolute;left:0;top:0;bottom:0;width:26px;background:var(--orange);clip-path:polygon(0 0,100% 0,45% 100%,0 100%)}
+.d1 .band1 .sh{width:24px;height:24px;flex:none;fill:none;stroke:#fff;stroke-width:1.7;stroke-linejoin:round}
+.d1 .band1 b{font:800 15px/1 var(--f-wide);letter-spacing:.04em;text-transform:uppercase}
+.d1 .band1 span{color:#D6DFEA;font-size:14.5px;padding-left:16px;border-left:1px solid #3B5A82}
+.d1 .rel1{background:#EEF1F6;padding-block:34px 44px}
+.d1 .rel1 h2{display:flex;align-items:center;gap:14px;font:800 clamp(22px,2.4vw,28px)/1.1 var(--f-wide);letter-spacing:-.02em;color:var(--navy);margin-bottom:20px}
+.d1 .rel1 h2::after{content:"";width:100px;height:2px;background:var(--orange)}
+.d1 .rel1 .g{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+.d1 .rel1 button{display:grid;grid-template-columns:44% minmax(0,1fr) auto;align-items:center;gap:16px;background:#fff;border:1px solid var(--line);border-radius:4px;padding:0 18px 0 0;cursor:pointer;text-align:left;overflow:hidden;min-height:92px}
+.d1 .rel1 button:hover{border-color:var(--navy);box-shadow:0 8px 20px -12px rgba(2,27,58,.35)}
+.d1 .th1{position:relative;align-self:stretch;min-height:92px;background:radial-gradient(circle at 50% 45%,#FFFFFF 0,#E3E9F1 75%)}
+.d1 .th1 img{position:absolute;inset:0;margin:auto;max-width:80%;max-height:80%;object-fit:contain}
+.d1 .th1.full img{max-width:none;max-height:none;width:100%;height:100%;object-fit:cover}
+.d1 .rel1 .nm{font:700 18px/1.2 var(--f-wide);color:var(--navy)}
+.d1 .rel1 i{font-style:normal;color:var(--orange);font-size:22px;font-weight:700}
+@media (max-width:980px){.d1 .hero1{grid-template-columns:minmax(0,1fr)}.d1 .rel1 .g{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:620px){.d1 .tbl1 table{min-width:520px}.d1 .band1 span{border-left:0;padding-left:0;flex-basis:100%}}
+
 /* ---------- responsive ---------- */
 @media (max-width:980px){
   .hd nav{display:none}.hd .sw{margin-left:auto}
@@ -436,12 +479,14 @@ const LINES=[
 ];
 const REL={octg:['fittings','studs','valves'],fittings:['gaskets','studs','valves'],gaskets:['studs','fittings','seals'],studs:['gaskets','fittings','valves'],valves:['gaskets','studs','fittings'],seals:['valves','gaskets','fittings']};
 const DESIGNS=[
- {id:'p1',en:['Catalog','The brief\'s template: sidebar of lines, spec table and photo side by side.'],es:['Catálogo','La plantilla del brief: líneas a un lado, tabla técnica y foto lado a lado.']},
+ {id:'p1',en:['Catalog','Title, spec table and buttons beside a large photo with a standards banner, then related lines as photo cards.'],es:['Catálogo','Título, tabla técnica y botones junto a una foto grande con franja de normas; luego líneas relacionadas con foto.']},
  {id:'p2',en:['Datasheet','A technical sheet: product on graph paper, key data, tabs for range, materials and documents.'],es:['Ficha técnica','Una hoja técnica: producto sobre papel milimetrado, datos clave y pestañas de rango, materiales y documentos.']},
  {id:'p3',en:['Showcase','A bold navy opening with the CSI slant, then each product type as a photo card.'],es:['Vitrina','Una apertura azul marino con la diagonal de CSI y cada tipo de producto como tarjeta con foto.']},
  {id:'p4',en:['Quote builder','A clean list of types: add what you need and send one quote request from the same page.'],es:['Cotizador','Una lista limpia de tipos: agregue lo que necesita y envíe una sola solicitud desde la misma página.']}
 ];
 const T={
+ pline:['Product line','Línea de producto'],dlS:['Download catalog','Descargar catálogo'],
+ stdH:['Standards','Normas'],stdP:['Manufactured to {x}.','Fabricado según {x}.'],relP:['Related product lines','Líneas de producto relacionadas'],
  rvTitle:['CSI · product page options','CSI · opciones de página de producto'],
  home:['Home','Inicio'],about:['About us','Nosotros'],products:['Products','Productos'],quality:['Quality','Calidad'],contact:['Contact','Contacto'],
  quote:['Request a quote','Solicitar cotización'],quoteS:['Quote','Cotizar'],lines:['Product lines','Líneas de producto'],
@@ -512,14 +557,21 @@ function footer(){
    +'<div class="base"><span>© CSI Industries Energy Group Ltd</span><span>csiindustrieseg.com/'+lang+'/'+(lang==='en'?'products':'productos')+'/'+C().id+'</span></div></div></footer>';
 }
 
-/* ===== design 1 · Catalog ===== */
+/* ===== design 1 · Catalog (after the user's reference) ===== */
+function stdList(l){const u=[];rowsOf(l).forEach(r=>r.std.split(' · ').forEach(x=>{if(u.indexOf(x)<0)u.push(x)}));return u.slice(0,3)}
+function joinList(a){return a.length<2?a.join(''):a.slice(0,-1).join(', ')+(lang==='es'?' y ':' and ')+a[a.length-1]}
 function d1(){
-  const l=C();
+  const l=C(), photo=l.full?l.img:l.img;
   return '<div class="d1">'+header()+'<div class="crumbbar"><div class="in">'+crumb()+'</div></div>'
-   +'<div class="in body"><aside class="side"><h2>'+t('lines')+'</h2><ul>'+LINES.map(x=>'<li><button type="button" data-line="'+x.id+'" aria-current="'+(x.id===cur)+'">'+esc(N(x))+'</button></li>').join('')+'</ul></aside>'
-   +'<div><h1>'+esc(N(l))+'</h1><p class="lead">'+esc(l[lang].l)+'</p><p class="desc">'+esc(l[lang].d)+'</p>'+table(l)+'<div class="acts">'+acts()+'</div></div>'
-   +'<div class="pic">'+im(l.img,l.full)+'<span class="tag">'+t('photoTag')+'</span></div></div>'
-   +'<section class="in rel"><h2>'+t('rel')+'</h2><div class="g">'+REL[cur].map(id=>'<button type="button" data-line="'+id+'"><b>'+esc(N(L(id)))+'</b><span>'+t('viewLine')+'</span></button>').join('')+'</div></section>'
+   +'<div class="in hero1"><div class="txt">'
+   +'<span class="eyebrow">'+t('pline')+'</span><h1>'+esc(N(l))+'</h1><p class="lead">'+esc(l[lang].l)+'</p>'
+   +'<div class="tbl1" role="region" aria-label="'+t('size')+'" tabindex="0"><table><thead><tr><th>'+t('type')+'</th><th>'+t('size')+'</th><th>'+t('rating')+'</th><th>'+t('std')+'</th></tr></thead><tbody>'
+   +rowsOf(l).map(r=>'<tr><td>'+esc(r.n)+'</td><td>'+esc(r.size)+'</td><td>'+esc(r.rating)+'</td><td>'+esc(r.std)+'</td></tr>').join('')+'</tbody></table></div>'
+   +note()
+   +'<div class="acts1"><button class="btn or" type="button" data-q>'+t('quote')+' <svg><use href="#i-arrow"/></svg></button><button class="btn ol" type="button" data-cat><svg><use href="#i-dl"/></svg>'+t('dlS')+'</button></div></div>'
+   +'<div class="media1"><div class="ph1'+(l.full?' full':'')+'">'+im(photo,l.full)+'<span class="tag">'+t('photoTag')+'</span></div>'
+   +'<div class="band1"><svg class="sh" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v6c0 4.4-3 7.6-7 9-4-1.4-7-4.6-7-9V6z"/><path d="M8.5 12l2.5 2.5L16 9.5"/></svg><b>'+t('stdH')+'</b><span>'+esc(t('stdP').replace('{x}',joinList(stdList(l))))+'</span></div></div></div>'
+   +'<section class="rel1"><div class="in"><h2>'+t('relP')+'</h2><div class="g">'+REL[cur].map(id=>{const x=L(id);return '<button type="button" data-line="'+id+'"><span class="th1'+(x.full?' full':'')+'">'+im(x.img,x.full)+'</span><span class="nm">'+esc(N(x))+'</span><i>→</i></button>'}).join('')+'</div></div></section>'
    +ask()+footer()+'</div>';
 }
 /* ===== design 2 · Datasheet ===== */
